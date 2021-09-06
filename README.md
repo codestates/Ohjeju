@@ -26,7 +26,7 @@ README
 
 
 
-# Code Runner팀의 멤버를 소개합니다.
+# No.13 팀의 멤버를 소개합니다.
 
 | Member | Position  |
 | :----: | :-------: |
