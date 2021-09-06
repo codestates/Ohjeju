@@ -1,22 +1,26 @@
 # im30project13
 
-(로고)
+(로고이미지)
 
-README
+프로젝트 소개
 
-**"타이틀 소개"**
+**"타이틀 어필"**
 
-README
+타이틀 소개
 
 # 사용한 스택
 
 ## FRONT-END
 
-
+![JSLogo](https://img.shields.io/badge/FRONT-JAVASCRIPT-yellow?style=for-the-badge&logo=javascript)
+![ReactLogo](https://img.shields.io/badge/FRONT-REACT-9cf?style=for-the-badge&logo=react)
+![React-RouterLogo](https://img.shields.io/badge/FRONT-REACT--ROUTER-critical?style=for-the-badge&logo=react-router)
 
 ## BACK-END
 
-
+![NodeJSLogo](https://img.shields.io/badge/BACK-NodeJS-green?style=for-the-badge&logo=node.js)
+![ExpressLogo](https://img.shields.io/badge/BACK-EXPRESS-black?style=for-the-badge&logo=express)
+![MysqlLogo](https://img.shields.io/badge/BACK-MYSQL-blue?style=for-the-badge&logo=mysql)
 
 # Archetecture
 
