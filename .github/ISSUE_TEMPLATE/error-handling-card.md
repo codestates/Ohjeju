@@ -1,6 +1,6 @@
 ---
 name: Error handling Card
-about: 에러 핸들링 카드
+about: Error handling Card
 title: Error handling Card
 labels: ''
 assignees: ''
