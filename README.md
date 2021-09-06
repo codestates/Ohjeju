@@ -20,7 +20,6 @@
 
 ![NodeJSLogo](https://img.shields.io/badge/BACK-NodeJS-green?style=for-the-badge&logo=node.js)
 ![ExpressLogo](https://img.shields.io/badge/BACK-EXPRESS-black?style=for-the-badge&logo=express)
-![MysqlLogo](https://img.shields.io/badge/BACK-MYSQL-blue?style=for-the-badge&logo=mysql)
 
 # Archetecture
 
