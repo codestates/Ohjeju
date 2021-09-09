@@ -2,6 +2,7 @@ const {attraction_review,attractions,group,plan,planner,reviews,users,user_group
 
 module.exports = {
     get : (req,res) => {
+        //
         //query?userId=''
         console.log('user/info/get')
     },
