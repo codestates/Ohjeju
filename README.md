@@ -29,12 +29,9 @@
 ![JWTLogo](https://img.shields.io/badge/BACK-JSON--WEB--TOKEN-inactive?style=for-the-badge&logo=json-web-tokens)
 
 # Archetecture
-
-
-
 ## Flow Chart
 
-
+![플로우차트](https://user-images.githubusercontent.com/83864824/132622126-536e369e-edd5-423a-9c34-231592c3b12e.png)
 
 # No.13 팀의 멤버를 소개합니다.
 
