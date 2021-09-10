@@ -8,38 +8,28 @@ import {
 } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Main from "./Component/Main";
-import Mypage from "./Component/Mypage";
-import PlannerSelect from "./Component/PlannerSelect";
-import Planner from "./Component/Planner";
-import Attraction from "./Component/Attraction";
+import Main from "./Pages/Main";
+import Mypage from "./Pages/Mypage";
+import PlannerSelect from "./Pages/PlannerSelect";
+import Planner from "./Pages/Planner";
+import Attraction from "./Pages/Attraction";
 import Loading from "./Component/Loading";
 import Header from "./Component/Header";
 
-<<<<<<< HEAD
-import Main from './Pages/Main'
-import Mypage from './Pages/Mypage'
-import PlannerSelect from './Pages/PlannerSelect'
-import Planner from './Pages/Planner'
-import Attraction from './Pages/Attraction'
-=======
 require("dotenv").config();
->>>>>>> upstream/dev
 
 function App() {
+
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
-<<<<<<< HEAD
 const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
-=======
   useEffect(() => {
     scrollStop();
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
   }, []);
->>>>>>> upstream/dev
 
   useEffect(() => {
     scrollStop();
@@ -57,8 +47,7 @@ const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
     setisOn(!isOn);
   };
 
-<<<<<<< HEAD
-  const useHistory =useHistory();
+  // const useHistory =useHistory();
   
   const [isLogin, setisLogin] = useState(false);
   const [userInfo, setuserInfo] = useState({
@@ -76,12 +65,10 @@ const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
     .then((res)=>{
       setuserInfo(null);
       setisLogin(false);
-      history.push('/')
+      // history.push('/')
     })
   }
 
-=======
->>>>>>> upstream/dev
   return (
     <BrowserRouter>
       {isLoading ? <Loading /> : null}
@@ -92,16 +79,13 @@ const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
           <Main />
         </Route>
         <Route path="/mypage">
-<<<<<<< HEAD
           <Mypage
            userInfo={userInfo}
            setisLogin={setisLogin}
            handleLogout={handleLogout}
-           getuserInfo={getuserInfo}
+          //  getuserInfo={getuserInfo}
            setuserInfo={setuserInfo}/>
-=======
           <Mypage />
->>>>>>> upstream/dev
         </Route>
         <Route path="/plannerSelect">
           <PlannerSelect />

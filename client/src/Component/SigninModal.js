@@ -22,7 +22,7 @@ export default function SigninModal() {
         .then((res) => {
           axios.get(`${SERVER_URL}/auth`).then((res)=>{
             const newSetUser = {
-              userId:res.data.id, //id멀로 셋하지,,
+              userId:res.data.id,
               nickname:res.data.nickname,
               password:res.data.password,
               email:res.data.email,
