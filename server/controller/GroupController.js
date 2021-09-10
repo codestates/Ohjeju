@@ -5,6 +5,7 @@ const axios = require('axios')
 //그룹 관련 method
 module.exports = {
   createGroup: async (req, res) => {
+    //나중에 user를 초대하는지 or 아예 유저를 정해서 그룹을 만드는지에 따라 user_group쪽도 같이 만져줘야할수도 있음
     //* endpoint: https://www.Ohjeju.com/group
     try{
       if(!req.body.groupName.length) {//0이던 undefind던 추후에 -> content없을때
@@ -50,7 +51,7 @@ module.exports = {
     }
   },
 
-  modifyGroup: async (req, res) => { //postman으로 수정data 받아오는거 전부 확인
+  modifyGroup: async (req, res) => { //postman으로 수정data 받아오는거 전부 확인 + 복잡할수있어서 try catch안묶음
     //* endpoint: https://www.Ohjeju.com/group?groupId=''
     if(req.body.email){ //body에 email content가 있어야로직돌림
       const findUser = await users.findOne({ //findUser.id
@@ -82,7 +83,10 @@ module.exports = {
               userId:findUser.id,
               groupId:findGroup.id //req.query.groupId도 상관없는데 통일성을위해
             })
-            .then(item => {//수정된 group info 보내줌
+            .then(item => {
+              /*수정된 group info 보내줌 -> 별도요청안하고 sequelize함수 써서 받아올수있는데
+              그럼 위에랑 같은코드가 또나옴 코드짜놓은걸로 요청 보내면 받는것도 api문서대로 받으니까 받은그대로
+              다시 res해줘서 보내주는게 편한거같음*/
               axios.get(`http://localhost:80/group?groupId=${findGroup.id}`)
               .then(result => res.status(200).json(result.data))
             })
@@ -126,7 +130,7 @@ module.exports = {
         where:{id:req.query.groupId}
       })
       if(findGroup === null) res.status(404).send("can't find the group")
-      else{
+      else{ //user_group table이 참조테이블이니 먼저 지워주고 그다음 원본키 있는 group을 지워줘야됨
         user_group.destroy({
           where:{groupId:findGroup.id} //req.query.groupId 도 상관없음 근데 위에 써왓던코드와 통일하기위해
         })
