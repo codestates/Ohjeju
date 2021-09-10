@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import {
   BrowserRouter,
   Redirect,
@@ -6,41 +6,68 @@ import {
   Switch,
   useHistory,
 } from "react-router-dom";
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Main from "./Component/Main";
+import Mypage from "./Component/Mypage";
+import PlannerSelect from "./Component/PlannerSelect";
+import Planner from "./Component/Planner";
+import Attraction from "./Component/Attraction";
+import Loading from "./Component/Loading";
+import Header from "./Component/Header";
 
-import Main from './Component/Main'
-import Mypage from './Component/Mypage'
-import PlannerSelect from './Component/PlannerSelect'
-import Planner from './Component/Planner'
-import Attraction from './Component/Attraction'
-
-require('dotenv').config();
-
+require("dotenv").config();
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isOn, setisOn] = useState(false);
 
-  
+  useEffect(() => {
+    scrollStop();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }, []);
+
+  useEffect(() => {
+    scrollStop();
+  }, [isLoading]);
+
+  const scrollStop = () => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    }
+    if (!isLoading) {
+      document.body.style.overflow = "unset";
+    }
+  };
+  const toggleHandler = () => {
+    setisOn(!isOn);
+  };
+
   return (
-    <div>
+    <BrowserRouter>
+      {isLoading ? <Loading /> : null}
+      <Header isOn={isOn} toggleHandler={toggleHandler} />
+      {/* {isLoading ? <Header /> : null} */}
       <Switch>
         <Route exact path="/">
-          <Main/>
+          <Main />
         </Route>
         <Route path="/mypage">
-          <Mypage/>
+          <Mypage />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect/>
+          <PlannerSelect />
         </Route>
         <Route path="/planner">
-          <Planner/>
+          <Planner />
         </Route>
         <Route path="/attraction">
-          <Attraction/>
+          <Attraction />
         </Route>
       </Switch>
-    </div>
+    </BrowserRouter>
   );
 }
 
