@@ -1,3 +1,4 @@
+const {attractions,group,plan,planner,reviews,users,user_group} = require('../models')
 //필요한 모델 require 해와야 함
 
 //플래너 관련 method
