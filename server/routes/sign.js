@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { signIn, signUp, signOut, OAuthKakao, OAuthGoogle } = require('../controller/SignController');
+const { signIn, signUp, signOut } = require('../controller/SignController');
+const { OAuthKakao, OAuthGoogle } = require('../controller/OAuthController');
 
 //유저 로그인 관련 요청 라우팅
 router.post('/signin', signIn);

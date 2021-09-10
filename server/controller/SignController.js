@@ -19,18 +19,5 @@ module.exports = {
     //* endpoint: https://www.Ohjeju.com/signout
 
     return res.status(200).send('signOut Test');
-  },
-
-  //OAtuh 요청도 로그인 관련으로 판단해서 같이 분류했습니다.
-  OAuthKakao: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/OAuth/kakao
-
-    return res.status(200).send('OAuthKakao Test');
-  },
-
-  OAuthGoogle: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/OAuth/google
-
-    return res.status(200).send('OAuthGoogle Test');
   }
 }
