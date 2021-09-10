@@ -46,7 +46,7 @@ module.exports = {
       일단은 틀은
       plan:{
         day1:[], 이런식으로나옴 근데 출발시간별 오름차순 이런건 고민좀해봐야할듯
-        dat2:[]
+        dat2:[] -> 안에 day는 중복되는느낌인데 그냥 일단 넣음
         ..일차 늘어나면 객체key도 늘어남
       }
       구상하느라 시간좀썻긴한데 더 불편하면 바까도됨 ㅎ;ㅋ;
@@ -85,6 +85,7 @@ module.exports = {
   },
 
   modifyPlanner: async (req, res) => {
+    //planner이름만 바뀌고 위에 getplanner
     //* endpoint: https://www.Ohjeju.com/planner?plannerId=''
     try{
       const findPlanner = await planner.findOne({
