@@ -11,6 +11,7 @@ function Main() {
         <div id="main_text">
           <div id="main_title">Oh! Jeju</div>
           <div id="main_story">
+            배포자동화테스트
             제주도로 여행가고 싶다. 하지만 혼자서 짜는 여행플래너는 외롭다.
             이제는 여행플래너짜기도 여행의 일부인 시대. 함께 여행을 계획하면서
             실시간채팅과 더불어 화면공유까지! 오! 제주가 지인들과의 즐거운 제주
