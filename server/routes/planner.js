@@ -1,17 +1,9 @@
 const router = require('express').Router();
+const { createPlanner, getPlanner, modifyPlanner, deletePlanner } = require('../controller/PlannerController');
 
-const {plannerController} = require('../controller');
-
-//POST /planner
-router.post('/',plannerController.post)
-
-//get /planner?plannerId=''
-router.get('/',plannerController.get) 
-
-//delete /planner?plannerId=''
-router.delete('/',plannerController.delete)
-
-//patch /planner?plannerId=''
-router.patch('/',plannerController.patch)
+router.post('/', createPlanner);
+router.get('/', getPlanner);
+router.patch('/', modifyPlanner);
+router.delete('/', deletePlanner);
 
 module.exports = router;
