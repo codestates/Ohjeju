@@ -16,7 +16,7 @@ module.exports = {
           name:req.body.groupName,
           leader:'test' //추후 req.cookies.jwt 안에 있는거 verify하고 그안에잇는 유저될거 자세한건 민지님토큰함수보고
         })
-        .then(item => res.status(200).send('ok'))
+        .then(item => res.status(201).send('ok'))
       }
     }
     catch(err){

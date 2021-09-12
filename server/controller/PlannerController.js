@@ -14,7 +14,7 @@ module.exports = {
           planner.create({
             name:req.body.name,
             groupId:req.body.groupId
-          }).then(item => res.status(200).send('ok'))
+          }).then(item => res.status(201).send('ok'))
         }
         else{ //플래너 생성 하고 그룹생성할때 -> 이거 어떻게할건지 얘기해봐야됨 순서를 강제할건지
           //정해지면 추후작성

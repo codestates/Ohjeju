@@ -13,7 +13,7 @@ module.exports = {
         departureTime,destination,memo,day,
         plannerId:req.query.plannerId //추후 body로 받을거면 코드수정 일단은 이렇게해놓음
       })
-      .then(item => res.status(200).send('ok'))
+      .then(item => res.status(201).send('ok'))
     }
     catch(err){res.status(500).send('server error')}
   },
