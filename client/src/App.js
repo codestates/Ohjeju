@@ -24,16 +24,16 @@ function App() {
   const [isOn, setisOn] = useState(false);
 
 const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
-  useEffect(() => {
-    scrollStop();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, []);
+//  useEffect(() => {
+//    scrollStop();
+//    setTimeout(() => {
+//     setIsLoading(false);
+//    }, 3000);
+//  }, []);
 
-  useEffect(() => {
-    scrollStop();
-  }, [isLoading]);
+//  useEffect(() => {
+//    scrollStop();
+//  }, [isLoading]);
 
   const scrollStop = () => {
     if (isLoading) {
@@ -71,9 +71,8 @@ const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
 
   return (
     <BrowserRouter>
-      {isLoading ? <Loading /> : null}
+      {/* {isLoading ? <Loading /> : null} */}
       <Header isOn={isOn} toggleHandler={toggleHandler} />
-      {/* {isLoading ? <Header /> : null} */}
       <Switch>
         <Route exact path="/">
           <Main />

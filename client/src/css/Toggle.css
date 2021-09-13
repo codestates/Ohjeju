@@ -10,11 +10,12 @@
   background-color: #8b8b8b;
 }
 .toggle--checked {
-  background-color: #d1ceda;
+  background-color: #7b7878;
   transition: all 1s ease-in-out;
 }
 .toggle--unChecked {
-  background-color: #7b7878;
+  background-color: #d1ceda;
+
   transition: all 0.5s ease-in-out;
 }
 
