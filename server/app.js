@@ -11,13 +11,13 @@ const plannerRouter = require('./routes/planner');
 const groupRouter = require('./routes/group');
 const reviewRouter = require('./routes/review');
 
+//express -> body-parser
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 //cors설정 개발단계->전부*
 app.use(cors());
 //req.cookie
 app.use(cookieParser());
-//express -> body-parser
-app.use(express.json());
-app.use(express.urlencoded({extended:false}));
 
 //Router 분기
 app.use('/', signRouter);
