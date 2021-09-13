@@ -7,7 +7,6 @@ import jeju_img1 from "../Imgs/jeju1.jpg";
 import jejutree1 from "../Imgs/jejutree1.jpg";
 import jejutree from "../Imgs/jejutree.jpg";
 
-
 function Main() {
   return (
     <main>

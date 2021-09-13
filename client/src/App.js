@@ -71,9 +71,8 @@ const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
 
   return (
     <BrowserRouter>
-      {isLoading ? <Loading /> : null}
+      {/* {isLoading ? <Loading /> : null} */}
       <Header isOn={isOn} toggleHandler={toggleHandler} />
-      {/* {isLoading ? <Header /> : null} */}
       <Switch>
         <Route exact path="/">
           <Main />
