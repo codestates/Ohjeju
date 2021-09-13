@@ -1,6 +1,8 @@
 const Users = require('../models').users;
 const jwt = require('jsonwebtoken');
 
+const { verifyToken, decodeToken } = require('./VerifyToken');
+
 //유저 로그인 상태 관련 method
 module.exports = {
   signIn: async (req, res) => {
@@ -65,12 +67,10 @@ module.exports = {
 
     //토큰 확인해서 해당 토큰이 유효할 경우에만 로그아웃
     try {
-      const reqAccessToken = req.cookies.accessToken;
-      const reqRefreshToken = req.cookies.refreshToken;
+      const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
 
-      console.log(`Access: ${reqAccessToken}, Refresh: ${reqRefreshToken}`);
-      const userData = jwt.verify(reqAccessToken, process.env.ACCESS_SECRET);
-      if(userData) return res.status(200)
+      const curUser = decodeToken(reqAccessToken);
+      if(curUser) return res.status(200)
         .clearCookie('accessToken')
         .clearCookie('refreshToken')
         .send('sign out successfully')
