@@ -22,16 +22,16 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
-  useEffect(() => {
-    scrollStop();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   scrollStop();
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3000);
+  // }, []);
 
-  useEffect(() => {
-    scrollStop();
-  }, [isLoading]);
+  // useEffect(() => {
+  //   scrollStop();
+  // }, [isLoading]);
 
   const scrollStop = () => {
     if (isLoading) {
@@ -47,9 +47,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isLoading ? <Loading /> : null}
+      {/* {isLoading ? <Loading /> : null} */}
       <Header isOn={isOn} toggleHandler={toggleHandler} />
-      {/* {isLoading ? <Header /> : null} */}
       <Switch>
         <Route exact path="/">
           <Main />
