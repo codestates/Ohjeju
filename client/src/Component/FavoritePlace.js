@@ -4,8 +4,11 @@ import seongsan from "../Imgs/seongsan.jpg";
 import hanra from "../Imgs/hanra.jpg";
 import manjang from "../Imgs/manjang.jpg";
 import jiyeon from "../Imgs/jiyeon.jpeg";
+import axios from "axios";
 
 function FavoritePlace() {
+  const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
+
   return (
     <div className="favorite">
       <div className="favorite_title">title</div>
@@ -15,27 +18,6 @@ function FavoritePlace() {
             <div className="overlay"></div>
           </div>
           <img src={seongsan} alt="" className="overlay-img" />
-        </div>
-        <div className="product-item">
-          <img src={manjang} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={hanra} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
         </div>
       </div>
     </div>
