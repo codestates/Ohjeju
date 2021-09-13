@@ -1,0 +1,55 @@
+.background {
+  background-color: #a2a2a2;
+  width: 100%;
+  height: 20%;
+  /* display: flex; */
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 15%;
+  padding: 30px;
+  font-size: 20px;
+}
+
+.logo p,
+h2,
+span {
+  padding: 10px;
+}
+
+.logo1 {
+  /* width: 50%; */
+  /* display: flex; */
+  padding: 30px;
+  font-size: 20px;
+}
+
+.gitEmail {
+  display: flex;
+}
+
+@media screen and (max-width: 1400px) {
+  .gitEmail {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    font-size: 15px;
+  }
+  .logo1 {
+    font-size: 15px;
+  }
+
+  .gitIcon {
+    font-size: 12px;
+  }
+}

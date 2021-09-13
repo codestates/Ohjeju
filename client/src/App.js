@@ -15,25 +15,25 @@ import Planner from "./Pages/Planner";
 import Attraction from "./Pages/Attraction";
 import Loading from "./Component/Loading";
 import Header from "./Component/Header";
+import Footer from "./Component/Footer";
 
 require("dotenv").config();
 
 function App() {
-
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
-const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
-//  useEffect(() => {
-//    scrollStop();
-//    setTimeout(() => {
-//     setIsLoading(false);
-//    }, 3000);
-//  }, []);
+  const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
+  // useEffect(() => {
+  //   scrollStop();
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3000);
+  // }, []);
 
-//  useEffect(() => {
-//    scrollStop();
-//  }, [isLoading]);
+  // useEffect(() => {
+  //   scrollStop();
+  // }, [isLoading]);
 
   const scrollStop = () => {
     if (isLoading) {
@@ -48,26 +48,25 @@ const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
   };
 
   // const useHistory =useHistory();
-  
+
   const [isLogin, setisLogin] = useState(false);
   const [userInfo, setuserInfo] = useState({
-    id: '',
-    email: '',
-    userName: '',
-    password: '',
-    plannerId: '',
+    id: "",
+    email: "",
+    userName: "",
+    password: "",
+    plannerId: "",
     admin: false,
-    image: ''
-  })
+    image: "",
+  });
 
   const handleLogout = () => {
-    axios.post(`${SERVER_URL}/user/signout`)
-    .then((res)=>{
+    axios.post(`${SERVER_URL}/user/signout`).then((res) => {
       setuserInfo(null);
       setisLogin(false);
       // history.push('/')
-    })
-  }
+    });
+  };
 
   return (
     <BrowserRouter>
@@ -79,11 +78,12 @@ const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
         </Route>
         <Route path="/mypage">
           <Mypage
-           userInfo={userInfo}
-           setisLogin={setisLogin}
-           handleLogout={handleLogout}
-          //  getuserInfo={getuserInfo}
-           setuserInfo={setuserInfo}/>
+            userInfo={userInfo}
+            setisLogin={setisLogin}
+            handleLogout={handleLogout}
+            //  getuserInfo={getuserInfo}
+            setuserInfo={setuserInfo}
+          />
           <Mypage />
         </Route>
         <Route path="/plannerSelect">
