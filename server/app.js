@@ -11,6 +11,7 @@ const planRouter = require('./routes/plan');
 const plannerRouter = require('./routes/planner');
 const groupRouter = require('./routes/group');
 const reviewRouter = require('./routes/review');
+const attractionsRouter = require('./routes/attractions');
 
 //express -> body-parser
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use('/plan',planRouter);
 app.use('/planner',plannerRouter)
 app.use('/group',groupRouter)
 app.use('/review',reviewRouter)
+app.use('/attractions',attractionsRouter)
 
 
 

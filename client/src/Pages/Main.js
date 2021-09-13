@@ -6,6 +6,7 @@ import jeju_img2 from "../Imgs/jeju2.jpg";
 import jeju_img1 from "../Imgs/jeju1.jpg";
 import jejutree1 from "../Imgs/jejutree1.jpg";
 import jejutree from "../Imgs/jejutree.jpg";
+import Footer from "../Component/Footer";
 
 function Main() {
   return (
@@ -27,6 +28,7 @@ function Main() {
         <img id="main_Banner_img" src={jejutree1} alt="" />
       </div>
       <FavoritePlace />
+      <Footer />
     </main>
   );
 }
