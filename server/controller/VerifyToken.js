@@ -32,8 +32,6 @@ module.exports = {
       return [newAccessToken, newRefreshToken];
     }
 
-    console.log(accessData);
-
     //accessToken이 유효한 경우
     //-> accessToken이 발급되는 시점엔 refreshToken도 함께 발급되기 때문에 항상 유효
     return [reqAccessToken, reqRefreshToken];
