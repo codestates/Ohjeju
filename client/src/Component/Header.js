@@ -2,6 +2,8 @@ import React from "react";
 import "../css/Header.css";
 import { Link } from "react-router-dom";
 import Toggle from "./Toggle";
+import SigninModal from "./SigninModal";
+import SignupModal from "./SignupModal";
 
 function Header({ isOn, toggleHandler }) {
   return (
@@ -17,14 +19,9 @@ function Header({ isOn, toggleHandler }) {
             </div>
           </span>
         </div>
-
         <div id="header_back">
-          <Link to="/login">
-            <span id="header_SignIn">로그인</span>
-          </Link>
-          <Link to="/signUp">
-            <span id="header_SignUp">회원가입</span>
-          </Link>
+          <SigninModal/>
+          <SignupModal/>
         </div>
       </div>
     </header>
