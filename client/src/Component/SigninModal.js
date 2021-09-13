@@ -4,7 +4,7 @@ import '../css/SigninModal.css'
 import SignupModal from './SignupModal';
 import { Redirect } from 'react-router';
 
-const SERVER_URL =process.env.SERVER_URL || 'https://localhost:80';
+const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 export default function SigninModal() {
 
@@ -12,8 +12,8 @@ export default function SigninModal() {
         email:'',
         password:''
       })
+    const [isLogin, setisLogin] = useState(false)
     const [userInfo, setuserInfo] = useState('');
-    const [isLogin, setisLogin] = useState(false);
     const [showSigninModal , setshowSigninModal] = useState(false);
     const [showSignupModal , setshowSignupModal] = useState(false);
     const [errorMessage, seterrorMessage] = useState('에러메세지 테스트');
@@ -25,7 +25,7 @@ export default function SigninModal() {
     
     const moveToSignup = () => {
       setshowSigninModal(false)
-      setshowSignupModal(true)
+      setshowSignupModal(true) //
     }
 
     const handleInputvalue = (key) => (e) => {
@@ -42,22 +42,35 @@ export default function SigninModal() {
         }
         axios.post(`${SERVER_URL}/signin`, payload)
         .then((res)=>{
-          axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
-          .then((res)=>{
-            setuserInfo({
-              id:res.data.id,
-              email:res.data.email,
-              userName:res.data.userName,
-              password:res.data.password,
-              plannerId:res.data.plannerId,
-              admin:res.data.admin,
-              image:res.data.image
-            })
-            setisLogin(true)
-          })
+          getuserInfo(res)
+          setshowSigninModal(false)
+        })
+        .catch((err)=>{
+          if(err.message==="not authorized"){
+            alert('이메일과 비밀번호를 확인하세요')
+          }
+          if(err.message==="server error"){
+            alert('서버 에러')
+          }
         })
       }
     };
+
+    const getuserInfo = (res) =>{
+      axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
+            .then((res)=>{
+              setuserInfo({
+                id:res.data.id,
+                email:res.data.email,
+                userName:res.data.userName,
+                password:res.data.password,
+                plannerId:res.data.plannerId,
+                admin:res.data.admin,
+                image:res.data.image
+              })
+              setisLogin(true)
+            })
+    }
 
     return (
       <signin>
@@ -74,8 +87,8 @@ export default function SigninModal() {
                 <input className='password_input' placeholder='패스워드입력' onChange={handleInputvalue('password')}></input>
                 <div className='error_message'>{errorMessage}</div>
                 <div className='web_button_container'>
-                  <button className='weblogin_button' onClick={handleLogin}>로그인</button>
-                  <button className='websignup_button' onClick={moveToSignup}>회원가입</button>
+                  <button className='weblogin_button' onClick={handleLogin}>로그인버튼</button>
+                  <button className='websignup_button' onClick={moveToSignup}>회원가입버튼</button>
                 </div>
                 <div className='reCAPTCHA'>reCAPTCHA</div>
               </div>
@@ -87,8 +100,6 @@ export default function SigninModal() {
           </div>
         </div>
       ):null}
-
-      
       </signin>
     )
 }
