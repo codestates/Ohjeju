@@ -1,17 +1,9 @@
 const router = require('express').Router();
+const { createGroup, getGroup, modifyGroup, deleteGroup } = require('../controller/GroupController');
 
-const {groupController} = require('../controller');
-
-//POST /group
-router.post('/',groupController.post)
-
-//get /group?groupId=''
-router.get('/',groupController.get)
-
-//delete /group?groupId=''
-router.delete('/',groupController.delete)
-
-//patch /group?groupId=''
-router.patch('/',groupController.patch)
+router.post('/', createGroup);
+router.get('/', getGroup);
+router.patch('/', modifyGroup);
+router.delete('/', deleteGroup);
 
 module.exports = router;
