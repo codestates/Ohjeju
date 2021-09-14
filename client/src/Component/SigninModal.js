@@ -40,7 +40,7 @@ export default function SigninModal() {
           email: signinInfo.email,
           password: signinInfo.password,
         }
-        axios.post(`${SERVER_URL}/signin`, payload)
+        axios.post(`${SERVER_URL}/signin`, payload, { withCredentials: true })
         .then((res)=>{
           getuserInfo(res)
           setshowSigninModal(false)
