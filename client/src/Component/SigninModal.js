@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import '../css/SigninModal.css'
@@ -6,6 +7,7 @@ import SignupModal from './SignupModal';
 const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 export default function SigninModal(setshowSigninModal, showSigninModal, closePopup, handleInputInvalue, errorMessage, handleLogin, moveToSignup, showSignupModal, handleInputUpvalue) {
+
 
     return (
       <signin>
@@ -24,16 +26,18 @@ export default function SigninModal(setshowSigninModal, showSigninModal, closePo
                 <div className='web_button_container'>
                   <button className='weblogin_button' onClick={handleLogin}>로그인버튼</button>
                   <button className='websignup_button' onClick={moveToSignup}>회원가입버튼</button>
+
                 </div>
-                <div className='reCAPTCHA'>reCAPTCHA</div>
+                <div className="reCAPTCHA">reCAPTCHA</div>
               </div>
-              <div className='sociallogin_container'>
-                <button className='kakao_login_button'>카카오</button>
-                <button className='google_login_button'>구글</button>
+              <div className="sociallogin_container">
+                <button className="kakao_login_button">카카오</button>
+                <button className="google_login_button">구글</button>
               </div>
             </div>
           </div>
         </div>
+
       ):null}
       {showSignupModal? (
             <div className='popup'>
@@ -52,3 +56,4 @@ export default function SigninModal(setshowSigninModal, showSigninModal, closePo
       </signin>
     )
 }
+
