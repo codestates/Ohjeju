@@ -57,7 +57,7 @@ function App() {
   const [userInfo, setuserInfo] =useState(null);
 
   const getuserInfo = (res) =>{ //로그인은 되는데 유저정보가 안받아와진다 서버쪽첫번째 'can't access' 
-    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
+    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
           .then((res)=>{
             setuserInfo({
               id:res.data.id,
