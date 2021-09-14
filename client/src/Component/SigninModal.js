@@ -1,76 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import '../css/SigninModal.css'
 import SignupModal from './SignupModal';
-import { Redirect } from 'react-router';
 
 const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
-export default function SigninModal() {
-
-    const [signinInfo, setSigninInfo] = useState({
-        email:'',
-        password:''
-      })
-    const [isLogin, setisLogin] = useState(false)
-    const [userInfo, setuserInfo] = useState('');
-    const [showSigninModal , setshowSigninModal] = useState(false);
-    const [showSignupModal , setshowSignupModal] = useState(false);
-    const [errorMessage, seterrorMessage] = useState('에러메세지 테스트');
-
-    const closePopup = () => {
-      seterrorMessage('에러메세지 테스트')
-      setshowSigninModal(false)
-    }
-    
-    const moveToSignup = () => {
-      setshowSigninModal(false)
-      setshowSignupModal(true) //
-    }
-
-    const handleInputvalue = (key) => (e) => {
-      setSigninInfo({ ...signinInfo, [key]: e.target.value });
-    };
-
-    const handleLogin = () => {
-      if(!signinInfo.email || !signinInfo.password){
-        seterrorMessage('이메일과 비밀번호를 모두 입력해주세요') //이메일 유효성검사도 해야할것같다
-      }else{
-        const payload= {
-          email: signinInfo.email,
-          password: signinInfo.password,
-        }
-        axios.post(`${SERVER_URL}/signin`, payload, { withCredentials: true })
-        .then((res)=>{
-          getuserInfo(res)
-          setshowSigninModal(false)
-        })
-        .catch((err)=>{
-          if(err.message==="not authorized"){
-            alert('이메일과 비밀번호를 확인하세요')
-          }
-          if(err.message==="server error"){
-            alert('서버 에러')
-          }
-        })
-      }
-    };
-
-    const getuserInfo = (res) =>{
-      axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
-            .then((res)=>{
-              setuserInfo({
-                id:res.data.id,
-                email:res.data.email,
-                userName:res.data.userName,
-                password:res.data.password,
-                plannerId:res.data.plannerId,
-                admin:res.data.admin,
-                image:res.data.image
-              })
-              setisLogin(true)
-            })
-    }
+export default function SigninModal(setshowSigninModal, showSigninModal, closePopup, handleInputInvalue, errorMessage, handleLogin, moveToSignup, showSignupModal, handleInputUpvalue) {
 
     return (
       <signin>
@@ -83,8 +18,8 @@ export default function SigninModal() {
             <button className='close_popup_button' onClick={closePopup}>팝업닫기</button>
             <div className='login_container'>
               <div className='web_container'>
-                <input className='email_input' placeholder='이메일입력' onChange={handleInputvalue('email')}></input>
-                <input className='password_input' placeholder='패스워드입력' onChange={handleInputvalue('password')}></input>
+                <input className='email_input' placeholder='이메일입력' onChange={handleInputInvalue('email')}></input>
+                <input className='password_input' placeholder='패스워드입력' onChange={handleInputInvalue('password')}></input>
                 <div className='error_message'>{errorMessage}</div>
                 <div className='web_button_container'>
                   <button className='weblogin_button' onClick={handleLogin}>로그인버튼</button>
@@ -100,6 +35,20 @@ export default function SigninModal() {
           </div>
         </div>
       ):null}
+      {showSignupModal? (
+            <div className='popup'>
+                <div className='popup_inner'>
+                    <button className='close_popup_button' onClick={closePopup}>팝업닫기</button>
+                    <div className='signup_container'>
+                        <input className='email_input' placeholder='이메일' onChange={handleInputUpvalue('email')}></input>
+                        <input className='password_input' placeholder='비밀번호' onChange={handleInputUpvalue('password')}></input>
+                        <input className='password_confirm_input' placeholder='비밀번호확인' onChange={handleInputUpvalue('passwordConfirm')}></input>
+                        <div className='error_message'>{errorMessage}</div>
+                        <button className='signup_button' >회원가입버튼</button>
+                    </div>
+                </div>
+            </div>
+        ):null}
       </signin>
     )
 }
