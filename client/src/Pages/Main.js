@@ -9,7 +9,7 @@ import jejutree1 from "../Imgs/jejutree1.jpg";
 import jejutree from "../Imgs/jejutree.jpg";
 import Footer from "../Component/Footer";
 
-function Main({ favoriteImg, getImage, setFavoriteImg }) {
+function Main() {
   return (
     <main>
       <div id="main_in">
@@ -28,11 +28,7 @@ function Main({ favoriteImg, getImage, setFavoriteImg }) {
         <div id="main_Banner_black_opacity" />
         <img id="main_Banner_img" src={jejutree1} alt="" />
       </div>
-      <FavoritePlace
-        setFavoriteImg={setFavoriteImg}
-        getImage={getImage}
-        favoriteImg={favoriteImg}
-      />
+      <FavoritePlace/>
       <Footer />
     </main>
   );
