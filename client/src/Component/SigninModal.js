@@ -4,7 +4,7 @@ import '../css/SigninModal.css'
 import SignupModal from './SignupModal';
 import { Redirect } from 'react-router';
 
-const SERVER_URL =process.env.SERVER_URL || 'https://localhost:80';
+const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 export default function SigninModal() {
 
@@ -40,7 +40,7 @@ export default function SigninModal() {
           email: signinInfo.email,
           password: signinInfo.password,
         }
-        axios.post(`${SERVER_URL}/signin`, payload)
+        axios.post(`${SERVER_URL}/signin`, payload, { withCredentials: true })
         .then((res)=>{
           axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
           .then((res)=>{
