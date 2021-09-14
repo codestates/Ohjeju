@@ -54,7 +54,7 @@ function App() {
   };
 
   const [isLogin, setisLogin] = useState(false);
-
+  const [userInfo, setuserInfo] =useState(null);
 
   const getuserInfo = (res) =>{
     axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
@@ -81,30 +81,13 @@ function App() {
     });
   };
 
-const [favoriteImg, setFavoriteImg] = useState({
-    image: "",
-  });
-
-
-  // const getImage = () => {
-  //   axios.post("http://localhost:80/attractions").then((res) => {
-  //     let newArray = [...res.data];
-  //     let Imges = newArray.slice(0, 30);
-  //     setFavoriteImg(Imges);
-  //   });
-  // };
-
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
-      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin} userInfo={userInfo} getuserInfo={getuserInfo} handleLogout={handleLogout}/>
+      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin} getuserInfo={getuserInfo} handleLogout={handleLogout}/>
       <Switch>
         <Route exact path="/">
-          <Main
-            // getImage={getImage}
-            favoriteImg={favoriteImg}
-            setFavoriteImg={setFavoriteImg}
-          />
+          <Main/>
         </Route>
         <Route path="/mypage">
           <Mypage/>
