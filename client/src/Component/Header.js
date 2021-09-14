@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import "../css/Header.css";
 import { Link } from "react-router-dom";
@@ -20,8 +21,8 @@ function Header({ isOn, toggleHandler }) {
           </span>
         </div>
         <div id="header_back">
-          <SigninModal/>
-          <SignupModal/>
+          <SigninModal />
+          <SignupModal />
         </div>
       </div>
     </header>

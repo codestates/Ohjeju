@@ -1,13 +1,29 @@
-import React, { useState } from "react";
+/* eslint-disable */
+import React, { useState, useEffect } from "react";
 import "../css/FavoritePlace.css";
 import seongsan from "../Imgs/seongsan.jpg";
-import hanra from "../Imgs/hanra.jpg";
-import manjang from "../Imgs/manjang.jpg";
-import jiyeon from "../Imgs/jiyeon.jpeg";
 import axios from "axios";
 
 function FavoritePlace() {
   const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
+  const [favoriteImg, setFavoriteImg] = useState([]);
+
+  const getImage = axios.post("http://localhost:80/attractions").then((res) => {
+    let newArray = [...res.data];
+    let Imgs = newArray.slice(0, 30);
+    return Imgs;
+    // Imgs.map((el, index) => {
+    //   return <img key={index}>{el.image}</img>;
+    // });
+    // res.data.map((el, index) => {
+    //   <img className="overlay-img" key={index}></img>;
+    // });
+  });
+
+  console.log(getImage);
+  // useEffect(() => {
+  //   getImage();
+  // }, []);
 
   return (
     <div className="favorite">
@@ -17,7 +33,8 @@ function FavoritePlace() {
           <div classname="black-overlay">
             <div className="overlay"></div>
           </div>
-          <img src={seongsan} alt="" className="overlay-img" />
+          {/* <img src={seongsan} alt="" className="overlay-img" /> */}
+          {getImage.map}
         </div>
       </div>
     </div>

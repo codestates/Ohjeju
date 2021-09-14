@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "./App.css";
 import {
   BrowserRouter,
@@ -23,7 +24,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
-  const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
+  const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
   // useEffect(() => {
   //   scrollStop();
   //   setTimeout(() => {
@@ -34,6 +35,10 @@ function App() {
   // useEffect(() => {
   //   scrollStop();
   // }, [isLoading]);
+
+  // useEffect(() => {
+  //   getImage();
+  // }, []);
 
   const scrollStop = () => {
     if (isLoading) {
@@ -60,6 +65,10 @@ function App() {
     image: "",
   });
 
+  const [favoriteImg, setFavoriteImg] = useState({
+    image: "",
+  });
+
   const handleLogout = () => {
     axios.post(`${SERVER_URL}/user/signout`).then((res) => {
       setuserInfo(null);
@@ -68,13 +77,25 @@ function App() {
     });
   };
 
+  // const getImage = () => {
+  //   axios.post("http://localhost:80/attractions").then((res) => {
+  //     let newArray = [...res.data];
+  //     let Imges = newArray.slice(0, 30);
+  //     setFavoriteImg(Imges);
+  //   });
+  // };
+
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
       <Header isOn={isOn} toggleHandler={toggleHandler} />
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main
+            // getImage={getImage}
+            favoriteImg={favoriteImg}
+            setFavoriteImg={setFavoriteImg}
+          />
         </Route>
         <Route path="/mypage">
           <Mypage
