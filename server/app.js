@@ -17,7 +17,10 @@ const attractionsRouter = require('./routes/attractions');
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 //cors설정 개발단계->전부*
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 //req.cookie
 app.use(cookieParser());
 
