@@ -56,7 +56,7 @@ function App() {
   const [isLogin, setisLogin] = useState(false);
   const [userInfo, setuserInfo] =useState(null);
 
-  const getuserInfo = (res) =>{
+  const getuserInfo = (res) =>{ //로그인은 되는데 유저정보가 안받아와진다 서버쪽첫번째 'can't access' 
     axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
           .then((res)=>{
             setuserInfo({
@@ -72,12 +72,10 @@ function App() {
           })
   }
 
-  const handleLogout = () => {
-    console.log('로그아웃')
-    setisLogin(false);
-    setuserInfo(null);
+  const handleLogout = () => {  //로그아웃실행
     axios.post(`${SERVER_URL}/signout`).then((res) => {
-        
+      setisLogin(false);
+      setuserInfo(null);
     });
   };
 
