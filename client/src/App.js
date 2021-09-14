@@ -55,27 +55,36 @@ function App() {
 
   const [isLogin, setisLogin] = useState(false);
 
-  const [userInfo, setuserInfo] = useState({
-    id: "",
-    email: "",
-    userName: "",
-    password: "",
-    plannerId: "",
-    admin: false,
-    image: "",
-  });
 
-  const [favoriteImg, setFavoriteImg] = useState({
-    image: "",
-  });
+  const getuserInfo = (res) =>{
+    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
+          .then((res)=>{
+            setuserInfo({
+              id:res.data.id,
+              email:res.data.email,
+              userName:res.data.userName,
+              password:res.data.password,
+              plannerId:res.data.plannerId,
+              admin:res.data.admin,
+              image:res.data.image
+            })
+            setisLogin(true)
+          })
+  }
 
   const handleLogout = () => {
-    axios.post(`${SERVER_URL}/user/signout`).then((res) => {
-      setuserInfo(null);
-      setisLogin(false);
-      // history.push('/')
+    console.log('로그아웃')
+    setisLogin(false);
+    setuserInfo(null);
+    axios.post(`${SERVER_URL}/signout`).then((res) => {
+        
     });
   };
+
+const [favoriteImg, setFavoriteImg] = useState({
+    image: "",
+  });
+
 
   // const getImage = () => {
   //   axios.post("http://localhost:80/attractions").then((res) => {
@@ -85,11 +94,10 @@ function App() {
   //   });
   // };
 
-
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
-      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin}/>
+      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin} userInfo={userInfo} getuserInfo={getuserInfo} handleLogout={handleLogout}/>
       <Switch>
         <Route exact path="/">
           <Main
