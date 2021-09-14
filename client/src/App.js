@@ -21,6 +21,7 @@ import Footer from "./Component/Footer";
 require("dotenv").config();
 
 function App() {
+
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
@@ -52,9 +53,8 @@ function App() {
     setisOn(!isOn);
   };
 
-  // const useHistory =useHistory();
-
   const [isLogin, setisLogin] = useState(false);
+
   const [userInfo, setuserInfo] = useState({
     id: "",
     email: "",
@@ -85,10 +85,11 @@ function App() {
   //   });
   // };
 
+
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
-      <Header isOn={isOn} toggleHandler={toggleHandler} />
+      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin}/>
       <Switch>
         <Route exact path="/">
           <Main
@@ -98,14 +99,7 @@ function App() {
           />
         </Route>
         <Route path="/mypage">
-          <Mypage
-            userInfo={userInfo}
-            setisLogin={setisLogin}
-            handleLogout={handleLogout}
-            //  getuserInfo={getuserInfo}
-            setuserInfo={setuserInfo}
-          />
-          <Mypage />
+          <Mypage/>
         </Route>
         <Route path="/plannerSelect">
           <PlannerSelect />
