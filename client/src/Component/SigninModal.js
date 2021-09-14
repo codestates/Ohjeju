@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import '../css/SigninModal.css'
-import SignupModal from './SignupModal';
-import { Redirect } from 'react-router';
+/* eslint-disable */
+import React, { useState } from "react";
+import axios from "axios";
+import "../css/SigninModal.css";
+import SignupModal from "./SignupModal";
+import { Redirect } from "react-router";
 
 const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 export default function SigninModal() {
+  const [signinInfo, setSigninInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const [userInfo, setuserInfo] = useState("");
+  const [isLogin, setisLogin] = useState(false);
+  const [showSigninModal, setshowSigninModal] = useState(false);
+  const [showSignupModal, setshowSignupModal] = useState(false);
+  const [errorMessage, seterrorMessage] = useState("에러메세지 테스트");
+
 
     const [signinInfo, setSigninInfo] = useState({
         email:'',
@@ -28,9 +39,9 @@ export default function SigninModal() {
       setshowSignupModal(true) //
     }
 
-    const handleInputvalue = (key) => (e) => {
-      setSigninInfo({ ...signinInfo, [key]: e.target.value });
-    };
+  const handleInputvalue = (key) => (e) => {
+    setSigninInfo({ ...signinInfo, [key]: e.target.value });
+  };
 
     const handleLogin = () => {
       if(!signinInfo.email || !signinInfo.password){
@@ -89,17 +100,20 @@ export default function SigninModal() {
                 <div className='web_button_container'>
                   <button className='weblogin_button' onClick={handleLogin}>로그인버튼</button>
                   <button className='websignup_button' onClick={moveToSignup}>회원가입버튼</button>
+
                 </div>
-                <div className='reCAPTCHA'>reCAPTCHA</div>
+                <div className="reCAPTCHA">reCAPTCHA</div>
               </div>
-              <div className='sociallogin_container'>
-                <button className='kakao_login_button'>카카오</button>
-                <button className='google_login_button'>구글</button>
+              <div className="sociallogin_container">
+                <button className="kakao_login_button">카카오</button>
+                <button className="google_login_button">구글</button>
               </div>
             </div>
           </div>
         </div>
+
       ):null}
       </signin>
     )
 }
+

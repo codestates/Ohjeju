@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "./App.css";
 import {
   BrowserRouter,
@@ -24,7 +25,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
-  const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
+  const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
   // useEffect(() => {
   //   scrollStop();
   //   setTimeout(() => {
@@ -35,6 +36,10 @@ function App() {
   // useEffect(() => {
   //   scrollStop();
   // }, [isLoading]);
+
+  // useEffect(() => {
+  //   getImage();
+  // }, []);
 
   const scrollStop = () => {
     if (isLoading) {
@@ -49,17 +54,49 @@ function App() {
   };
 
   const [isLogin, setisLogin] = useState(false);
-  const [userInfo, setuserInfo] = useState(null);
 
- 
-  
+  const [userInfo, setuserInfo] = useState({
+    id: "",
+    email: "",
+    userName: "",
+    password: "",
+    plannerId: "",
+    admin: false,
+    image: "",
+  });
+
+  const [favoriteImg, setFavoriteImg] = useState({
+    image: "",
+  });
+
+  const handleLogout = () => {
+    axios.post(`${SERVER_URL}/user/signout`).then((res) => {
+      setuserInfo(null);
+      setisLogin(false);
+      // history.push('/')
+    });
+  };
+
+  // const getImage = () => {
+  //   axios.post("http://localhost:80/attractions").then((res) => {
+  //     let newArray = [...res.data];
+  //     let Imges = newArray.slice(0, 30);
+  //     setFavoriteImg(Imges);
+  //   });
+  // };
+
+
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
       <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin}/>
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main
+            // getImage={getImage}
+            favoriteImg={favoriteImg}
+            setFavoriteImg={setFavoriteImg}
+          />
         </Route>
         <Route path="/mypage">
           <Mypage/>

@@ -1,10 +1,12 @@
-import {React, useState} from 'react';
-import axios from 'axios';
-import '../css/SignupModal.css'
+/* eslint-disable */
+import { React, useState } from "react";
+import axios from "axios";
+import "../css/SignupModal.css";
 
 const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 export default function SignupModal() {
+  const [showSignupModal, setshowSignupModal] = useState(false);
 
     const [signupInfo, setSignupInfo] = useState({
         email:'',

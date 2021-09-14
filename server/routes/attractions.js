@@ -1,6 +1,6 @@
-const router = require('express').Router();
-const { getAttraction } = require('../controller/AttractionsController');
+const router = require("express").Router();
+const { getAttraction } = require("../controller/AttractionsController");
 
-router.get('/', getAttraction);
+router.post("/", getAttraction);
 
 module.exports = router;
