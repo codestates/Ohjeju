@@ -54,20 +54,15 @@ function App() {
   };
 
   const [isLogin, setisLogin] = useState(false);
-  const [userInfo, setuserInfo] =useState(null);
+  const [userInfo, setuserInfo] =useState({ //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
+    email:'default-email',
+    userName:'default-userName'
+  });
 
-  const getuserInfo = (res) =>{ //로그인은 되는데 유저정보가 안받아와진다 서버쪽첫번째 'can't access' 
-    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`)
+  const getuserInfo = (res) =>{ //유저정보 받아오기
+    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
           .then((res)=>{
-            setuserInfo({
-              id:res.data.id,
-              email:res.data.email,
-              userName:res.data.userName,
-              password:res.data.password,
-              plannerId:res.data.plannerId,
-              admin:res.data.admin,
-              image:res.data.image
-            })
+            setuserInfo(res.data)
             setisLogin(true)
           })
   }
@@ -75,9 +70,20 @@ function App() {
   const handleLogout = () => {  //로그아웃실행
     axios.post(`${SERVER_URL}/signout`).then((res) => {
       setisLogin(false);
-      setuserInfo(null);
+      setuserInfo({
+        email:'default-email',
+        userName:'default-userName'
+      });
     });
   };
+
+  const handleuserInfoDestroy = () => { //회원탈퇴실행
+    setisLogin(false);
+    setuserInfo({
+      email:'default-email',
+      userName:'default-userName'
+    });
+  }
 
   return (
     <BrowserRouter>
@@ -88,7 +94,7 @@ function App() {
           <Main/>
         </Route>
         <Route path="/mypage">
-          <Mypage/>
+          <Mypage userInfo={userInfo} getuserInfo={getuserInfo} handleuserInfoDestroy={handleuserInfoDestroy}/>
         </Route>
         <Route path="/plannerSelect">
           <PlannerSelect />

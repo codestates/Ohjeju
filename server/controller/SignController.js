@@ -29,7 +29,7 @@ module.exports = {
           "id" : id
         });
     }
-    catch(err) { return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send('server error') } //아이디 패스워드 불일치부분이 여기해당하는지 여쭙고 싶습니다(최용석)
     //이후토큰처리문제는 얘기
   },
   
