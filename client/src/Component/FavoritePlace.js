@@ -1,42 +1,32 @@
-import React, { useState } from "react";
+/* eslint-disable */
+import React, { useState, useEffect } from "react";
 import "../css/FavoritePlace.css";
 import seongsan from "../Imgs/seongsan.jpg";
-import hanra from "../Imgs/hanra.jpg";
-import manjang from "../Imgs/manjang.jpg";
-import jiyeon from "../Imgs/jiyeon.jpeg";
+import axios from "axios";
 
 function FavoritePlace() {
+  const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
+  const [placeList, setPlaceList] = useState([]);
+
+  const getPlace = () => {
+    axios.get("http://localhost:80/attractions").then((res) => {
+      let arr = [...res.data];
+      let newarr = arr.slice(0, 30);
+      setPlaceList(newarr);
+    });
+  };
+
+  useEffect(() => {
+    getPlace();
+  }, []);
+
   return (
     <div className="favorite">
       <div className="favorite_title">title</div>
       <div className="product-container">
-        <div className="product-item">
-          <div classname="black-overlay">
-            <div className="overlay"></div>
-          </div>
-          <img src={seongsan} alt="" className="overlay-img" />
-        </div>
-        <div className="product-item">
-          <img src={manjang} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={hanra} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
-        <div className="product-item">
-          <img src={jiyeon} alt="" />
-        </div>
+        {placeList.map((item, index) => {
+          return <img src={item.image} alt="" className="product-item" />;
+        })}
       </div>
     </div>
   );

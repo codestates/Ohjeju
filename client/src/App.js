@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "./App.css";
 import {
   BrowserRouter,
@@ -15,6 +16,7 @@ import Planner from "./Pages/Planner";
 import Attraction from "./Pages/Attraction";
 import Loading from "./Component/Loading";
 import Header from "./Component/Header";
+import Footer from "./Component/Footer";
 
 require("dotenv").config();
 
@@ -23,17 +25,21 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
-const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
-//  useEffect(() => {
-//    scrollStop();
-//    setTimeout(() => {
-//     setIsLoading(false);
-//    }, 3000);
-//  }, []);
+  const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
+  // useEffect(() => {
+  //   scrollStop();
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3000);
+  // }, []);
 
-//  useEffect(() => {
-//    scrollStop();
-//  }, [isLoading]);
+  // useEffect(() => {
+  //   scrollStop();
+  // }, [isLoading]);
+
+  // useEffect(() => {
+  //   getImage();
+  // }, []);
 
   const scrollStop = () => {
     if (isLoading) {
@@ -47,44 +53,49 @@ const SERVER_URL =process.env.SERVER_URL || 'https://localhos:80';
     setisOn(!isOn);
   };
 
-  // const useHistory =useHistory();
-  
   const [isLogin, setisLogin] = useState(false);
-  const [userInfo, setuserInfo] = useState({
-    id: '',
-    email: '',
-    userName: '',
-    password: '',
-    plannerId: '',
-    admin: false,
-    image: ''
-  })
+  const [userInfo, setuserInfo] =useState({ //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
+    email:'default-email',
+    userName:'default-userName'
+  });
 
-  const handleLogout = () => {
-    axios.post(`${SERVER_URL}/user/signout`)
-    .then((res)=>{
-      setuserInfo(null);
+
+  const getuserInfo = (res) =>{ //유저정보 받아오기
+    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
+          .then((res)=>{
+            setuserInfo(res.data)
+            setisLogin(true)
+          })
+  }
+
+  const handleLogout = () => {  //로그아웃실행
+    axios.post(`${SERVER_URL}/signout`).then((res) => {
       setisLogin(false);
-      // history.push('/')
-    })
+      setuserInfo({
+        email:'default-email',
+        userName:'default-userName'
+      });
+    });
+  };
+
+  const handleuserInfoDestroy = () => { //회원탈퇴실행
+    setisLogin(false);
+    setuserInfo({
+      email:'default-email',
+      userName:'default-userName'
+    });
   }
 
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
-      <Header isOn={isOn} toggleHandler={toggleHandler} />
+      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin} getuserInfo={getuserInfo} handleLogout={handleLogout}/>
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main/>
         </Route>
         <Route path="/mypage">
-          <Mypage
-           userInfo={userInfo}
-           setisLogin={setisLogin}
-           handleLogout={handleLogout}
-          //  getuserInfo={getuserInfo}
-           setuserInfo={setuserInfo}/>
-          <Mypage />
+          <Mypage userInfo={userInfo} getuserInfo={getuserInfo} handleuserInfoDestroy={handleuserInfoDestroy}/>
         </Route>
         <Route path="/plannerSelect">
           <PlannerSelect />

@@ -25,7 +25,7 @@ header {
 
 #header_logo {
   font-weight: 800;
-  font-size: 20px;
+  font-size: 32px;
   cursor: pointer;
   color: white;
 }
@@ -48,12 +48,212 @@ header {
   color: white;
 }
 
+#header_SignOut {
+  color: white;
+}
+
 #header_SignIn:hover {
   color: grey;
   cursor: pointer;
 }
 
-#header_Signup:hover {
+#header_SignUp:hover {
   color: grey;
   cursor: pointer;
+}
+
+#header_SignOut:hover {
+  color: grey;
+  cursor: pointer;
+}
+
+/* 모달css */
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(36, 33, 33, 0.5);
+}
+
+.popup_inner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 35%;
+  right: 35%;
+  top: 15%;
+  bottom: 15%;
+  margin: auto;
+  border-radius: 5;
+  border: 2px solid #ca4e06;
+  background: white;
+  padding: 25px;
+}
+
+.close_popup_container {
+  height: 10%;
+  display: flex;
+}
+
+.Modal_title {
+  width: 95%;
+  margin-left: 15px;
+  font-size: 30px;
+  font-weight: 700;
+  color: rgb(22, 21, 21);
+  text-align: center;
+  padding: 0;
+}
+
+.close_popup_button {
+  width: 5%;
+  float: right;
+  justify-content: center;
+}
+
+.login_container { 
+  /* 'web_container' 'sociallogin_container' 보유 */
+ height: 90%;
+ display: flex;
+ flex-direction: column;
+}
+
+.web_container {
+  /* 'input_container', 'web_button_container', 'reCAPTCHA_container' 보유 */
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input_container {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.email_input {
+  height: 40%;
+  width: 70%;
+  font-size: 15px;
+  text-align: center;
+  border-color: lightcoral;
+}
+
+.password_input {
+  height: 40%;
+  width: 70%;
+  font-size: 15px;
+  margin-top: 11px;
+  text-align: center;
+  border-color: lightcoral;
+}
+
+.error_message {
+  height: 20%;
+  width: 70%;
+  margin-top: 11px;
+  text-align: center;
+  font-weight: 700;
+  background-color: rgb(162, 167, 151);
+  color: rgb(216, 27, 27);
+}
+
+.web_button_container {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.weblogin_button {
+  width: 70%;
+    display: block;
+    padding: 13px 0;
+    /* margin-top: 11px; */
+    background-color: #e9a11d;
+    border: 1px solid #1d1d1c;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+
+.weblogin_button:hover{ 
+  box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; 
+}
+
+.weblogin_button:active{
+  
+}
+
+.websignup_button {
+  width: 70%;
+  display: block;
+    padding: 13px 0;
+    margin-top: 11px;
+    background-color: #e9a11d;
+    border: 1px solid #1d1d1c;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+
+.websignup_button:hover{ 
+  box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; 
+}
+
+.reCAPTCHA_container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reCAPTCHA {
+  width: 70%;
+  /* margin-bottom: 11px; */
+  text-align: center;
+  font-weight: 700;
+  color: rgb(216, 27, 27);
+}
+
+.sociallogin_container {
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kakao_login_button {
+  width: 70%;
+  height: 50%;
+  padding: 15px 0;
+}
+
+.google_login_button {
+  width: 70%;
+  height: 50%;
+  padding: 15px 0;
 }

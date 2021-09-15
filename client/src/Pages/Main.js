@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import FavoritePlace from "../Component/FavoritePlace";
 import "../css/Main.css";
@@ -6,6 +7,7 @@ import jeju_img2 from "../Imgs/jeju2.jpg";
 import jeju_img1 from "../Imgs/jeju1.jpg";
 import jejutree1 from "../Imgs/jejutree1.jpg";
 import jejutree from "../Imgs/jejutree.jpg";
+import Footer from "../Component/Footer";
 
 function Main() {
   return (
@@ -26,7 +28,8 @@ function Main() {
         <div id="main_Banner_black_opacity" />
         <img id="main_Banner_img" src={jejutree1} alt="" />
       </div>
-      <FavoritePlace />
+      <FavoritePlace/>
+      <Footer />
     </main>
   );
 }
