@@ -9,8 +9,8 @@ const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 function Header({ isOn, toggleHandler, isLogin, handleLogout, getuserInfo}) {
 
   const [signinInfo, setSigninInfo] = useState({   //로그인정보기입
-    email:'',
-    password:''
+      email:'',
+      password:''
   })
   const [signupInfo, setSignupInfo] = useState({   //회원가입정보기입
       email:'',
@@ -54,11 +54,8 @@ function Header({ isOn, toggleHandler, isLogin, handleLogout, getuserInfo}) {
       })
       .catch((err)=>{
         console.log(err.message)
-        if(err.message==="not authorized"){
+        if(err.message==="Request failed with status code 500"){ //
           alert('이메일과 비밀번호를 확인하세요')
-        }
-        if(err.message==="server error"){
-          alert('서버 에러')
         }
       })
     }
@@ -84,11 +81,8 @@ function Header({ isOn, toggleHandler, isLogin, handleLogout, getuserInfo}) {
         })
         .catch((err)=>{
           console.log(err.message)
-            if(err.message==="Request failed with status code 409"){
+            if(err.message==="Request failed with status code 409"){ //이게 정확
                 alert('이메일 중복')
-            }
-            if(err.message==="server error"){
-                alert('서버 에러')
             }
         })
     }
