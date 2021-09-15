@@ -6,7 +6,7 @@
 .favorite {
   /* display: flex; */
   padding: 20px;
-  background-color: #f6f6f6;
+  background-color: rgb(206, 206, 206);
 }
 
 .favorite_in {
@@ -53,6 +53,7 @@
   position: relative;
   width: 33.3%;
   padding: 30px;
+  border-radius: 20px;
 }
 
 .product-item:hover {

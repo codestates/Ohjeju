@@ -6,35 +6,27 @@ import axios from "axios";
 
 function FavoritePlace() {
   const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
-  const [imgList, setimgList] = useState([]);
+  const [placeList, setPlaceList] = useState([]);
 
-  const getImg = () => {
-    axios.get('http://localhost:80/attractions')
-    .then((res)=>{
-      let arr= [...res.data]
-      let newarr=arr.slice(0,30)
-      setimgList(newarr);
-    })
-  }
+  const getPlace = () => {
+    axios.get("http://localhost:80/attractions").then((res) => {
+      let arr = [...res.data];
+      let newarr = arr.slice(0, 30);
+      setPlaceList(newarr);
+    });
+  };
 
   useEffect(() => {
-    getImg();
+    getPlace();
   }, []);
 
   return (
     <div className="favorite">
       <div className="favorite_title">title</div>
       <div className="product-container">
-        <div className="product-item">
-          <div classname="black-overlay">
-            <div className="overlay"></div>
-          </div>
-          {imgList.map((img)=>{
-            return(
-              <img src={img.image} alt='' className='overlay-img'/>
-              )
-          })}
-        </div>
+        {placeList.map((item, index) => {
+          return <img src={item.image} alt="" className="product-item" />;
+        })}
       </div>
     </div>
   );
