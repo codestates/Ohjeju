@@ -59,6 +59,7 @@ function App() {
     userName:'default-userName'
   });
 
+
   const getuserInfo = (res) =>{ //유저정보 받아오기
     axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
           .then((res)=>{
