@@ -1,0 +1,29 @@
+.background {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.container {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  width: 90%;
+  height: 700px;
+  padding: 30px;
+}
+
+.leftContainer {
+  background-color: #f9f9f9;
+  width: 55%;
+  height: 100%;
+  padding: 30px;
+}
+
+.rightContainer {
+  background-color: #f9f9f9;
+  width: 35%;
+  height: 100%;
+  padding: 30px;
+}
