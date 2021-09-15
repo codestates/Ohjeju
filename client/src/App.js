@@ -21,7 +21,6 @@ import Footer from "./Component/Footer";
 require("dotenv").config();
 
 function App() {
-
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
@@ -54,25 +53,30 @@ function App() {
   };
 
   const [isLogin, setisLogin] = useState(false);
-  const [userInfo, setuserInfo] =useState(null);
+  const [userInfo, setuserInfo] = useState(null);
 
-  const getuserInfo = (res) =>{ //로그인은 되는데 유저정보가 안받아와진다 서버쪽첫번째 'can't access' 
-    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
-          .then((res)=>{
-            setuserInfo({
-              id:res.data.id,
-              email:res.data.email,
-              userName:res.data.userName,
-              password:res.data.password,
-              plannerId:res.data.plannerId,
-              admin:res.data.admin,
-              image:res.data.image
-            })
-            setisLogin(true)
-          })
-  }
+  const getuserInfo = (res) => {
+    //로그인은 되는데 유저정보가 안받아와진다 서버쪽첫번째 'can't access'
+    axios
+      .get(`${SERVER_URL}/user/info?userId=${res.data.id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setuserInfo({
+          id: res.data.id,
+          email: res.data.email,
+          userName: res.data.userName,
+          password: res.data.password,
+          plannerId: res.data.plannerId,
+          admin: res.data.admin,
+          image: res.data.image,
+        });
+        setisLogin(true);
+      });
+  };
 
-  const handleLogout = () => {  //로그아웃실행
+  const handleLogout = () => {
+    //로그아웃실행
     axios.post(`${SERVER_URL}/signout`).then((res) => {
       setisLogin(false);
       setuserInfo(null);
@@ -82,13 +86,19 @@ function App() {
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
-      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin} getuserInfo={getuserInfo} handleLogout={handleLogout}/>
+      <Header
+        isOn={isOn}
+        toggleHandler={toggleHandler}
+        isLogin={isLogin}
+        getuserInfo={getuserInfo}
+        handleLogout={handleLogout}
+      />
       <Switch>
         <Route exact path="/">
-          <Main/>
+          <Main />
         </Route>
         <Route path="/mypage">
-          <Mypage/>
+          <Mypage />
         </Route>
         <Route path="/plannerSelect">
           <PlannerSelect />
@@ -100,6 +110,7 @@ function App() {
           <Attraction />
         </Route>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

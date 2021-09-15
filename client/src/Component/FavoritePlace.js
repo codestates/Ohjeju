@@ -10,8 +10,9 @@ function FavoritePlace() {
 
   const getPlace = () => {
     axios.get("http://localhost:80/attractions").then((res) => {
+      console.log(res.data[0].info);
       let arr = [...res.data];
-      let newarr = arr.slice(0, 30);
+      let newarr = arr.slice(0, 27);
       setPlaceList(newarr);
     });
   };
