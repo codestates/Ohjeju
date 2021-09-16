@@ -21,7 +21,6 @@ import Footer from "./Component/Footer";
 require("dotenv").config();
 
 function App() {
-
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
@@ -68,7 +67,8 @@ function App() {
           })
   }
 
-  const handleLogout = () => {  //로그아웃실행
+  const handleLogout = () => {
+    //로그아웃실행
     axios.post(`${SERVER_URL}/signout`).then((res) => {
       setisLogin(false);
       setuserInfo({
@@ -89,10 +89,16 @@ function App() {
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
-      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin} getuserInfo={getuserInfo} handleLogout={handleLogout}/>
+      <Header
+        isOn={isOn}
+        toggleHandler={toggleHandler}
+        isLogin={isLogin}
+        getuserInfo={getuserInfo}
+        handleLogout={handleLogout}
+      />
       <Switch>
         <Route exact path="/">
-          <Main/>
+          <Main />
         </Route>
         <Route path="/mypage">
           <Mypage userInfo={userInfo} getuserInfo={getuserInfo} handleuserInfoDestroy={handleuserInfoDestroy}/>
@@ -107,6 +113,7 @@ function App() {
           <Attraction />
         </Route>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -28,8 +28,7 @@ function Main() {
         <div id="main_Banner_black_opacity" />
         <img id="main_Banner_img" src={jejutree1} alt="" />
       </div>
-      <FavoritePlace/>
-      <Footer />
+      <FavoritePlace />
     </main>
   );
 }
