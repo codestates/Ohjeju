@@ -3,14 +3,17 @@ import "../css/Header.css";
 import { Link } from "react-router-dom";
 import Toggle from "./Toggle";
 import axios from "axios";
+import recap from '../Imgs/recap.png'
+import kakao from '../Imgs/kakao_login_medium_wide.png'
+import google from '../Imgs/btn_google_signin_light_normal_web@2x.png'
 
 const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 function Header({ isOn, toggleHandler, isLogin, handleLogout, getuserInfo}) {
 
   const [signinInfo, setSigninInfo] = useState({   //로그인정보기입
-    email:'',
-    password:''
+      email:'',
+      password:''
   })
   const [signupInfo, setSignupInfo] = useState({   //회원가입정보기입
       email:'',
@@ -28,6 +31,7 @@ function Header({ isOn, toggleHandler, isLogin, handleLogout, getuserInfo}) {
   }
 
   const moveToSignup = () => {  //로그인모달에서 회원가입모달로 이동
+    seterrorMessage('')
     setshowSigninModal(false)
     setshowSignupModal(true)
   }
@@ -54,10 +58,10 @@ function Header({ isOn, toggleHandler, isLogin, handleLogout, getuserInfo}) {
       })
       .catch((err)=>{
         console.log(err.message)
-        if(err.message==="not authorized"){
+        if(err.message==="Request failed with status code 400"){ //
           alert('이메일과 비밀번호를 확인하세요')
         }
-        if(err.message==="server error"){
+        if(err.message==="Request failed with status code 500"){
           alert('서버 에러')
         }
       })
@@ -84,11 +88,8 @@ function Header({ isOn, toggleHandler, isLogin, handleLogout, getuserInfo}) {
         })
         .catch((err)=>{
           console.log(err.message)
-            if(err.message==="Request failed with status code 409"){
+            if(err.message==="Request failed with status code 409"){ //이게 정확
                 alert('이메일 중복')
-            }
-            if(err.message==="server error"){
-                alert('서버 에러')
             }
         })
     }
@@ -117,21 +118,31 @@ function Header({ isOn, toggleHandler, isLogin, handleLogout, getuserInfo}) {
             {showSigninModal ? (
               <div className='popup'>
                 <div className='popup_inner'>
-                  <button className='close_popup_button' onClick={closePopup}>팝업닫기</button>
+                  <div className='close_popup_container'>
+                    <span className='Modal_title'>Oh! Jeju</span>
+                    <button className='close_popup_button' onClick={closePopup}>x</button>
+                  </div>
                   <div className='login_container'>
                     <div className='web_container'>
-                      <input className='email_input' placeholder='이메일입력' onChange={handleInputInvalue('email')}></input>
-                      <input className='password_input' placeholder='패스워드입력' onChange={handleInputInvalue('password')}></input>
-                      <div className='error_message'>{errorMessage}</div>
-                      <div className='web_button_container'>
-                        <button className='weblogin_button' onClick={handleLogin}>로그인버튼</button>
-                        <button className='websignup_button' onClick={moveToSignup}>회원가입버튼</button>
+                      <div className='input_container'>
+                        <input className='email_input' placeholder='이메일입력' onChange={handleInputInvalue('email')}></input>
+                        <input className='password_input' placeholder='패스워드입력' onChange={handleInputInvalue('password')}></input>
+                        {errorMessage!=='' ? (
+                          <div className='error_message'>{errorMessage}</div>
+                        ):null}
                       </div>
-                      <div className='reCAPTCHA'>reCAPTCHA</div>
+                      <div className='web_button_container'>
+                        <button className='weblogin_button' onClick={handleLogin}>로그인</button>
+                        <button className='websignup_button' onClick={moveToSignup}>회원가입하기</button>
+                      </div>
+                      <div className='reCAPTCHA_container'>
+                       <div className='reCAPTCHA'>reCAPTCHA</div>
+                       {/* <img className='reCAPTCHA' src={recap}></img> */}
+                      </div>
                     </div>
                     <div className='sociallogin_container'>
-                      <button className='kakao_login_button'>카카오</button>
-                      <button className='google_login_button'>구글</button>
+                      <img className='kakao_login_button' src={kakao}/>
+                      <img className='google_login_button' src={google}/>
                     </div>
                   </div>
                 </div>
