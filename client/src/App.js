@@ -21,7 +21,6 @@ import Footer from "./Component/Footer";
 require("dotenv").config();
 
 function App() {
-
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
@@ -53,7 +52,8 @@ function App() {
     setisOn(!isOn);
   };
 
-  const [isLogin, setisLogin] = useState(false);
+  const [page, setPage] = useState(''); //페이지상태관리
+  const [isLogin, setisLogin] = useState(false); //로그인상태관리
   const [userInfo, setuserInfo] =useState({ //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
     email:'default-email',
     userName:'default-userName'
@@ -75,6 +75,9 @@ function App() {
         email:'default-email',
         userName:'default-userName'
       });
+      if(page==='mypage'){  //현재페이지가 마이페이지일경우 메인페이지로 이동
+        location.href='/'
+      }
     });
   };
 
@@ -89,13 +92,26 @@ function App() {
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
-      <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin} getuserInfo={getuserInfo} handleLogout={handleLogout}/>
+      <Header
+        isOn={isOn}
+        toggleHandler={toggleHandler}
+        page={page}
+        setPage={setPage}
+        userInfo={userInfo}
+        isLogin={isLogin}
+        getuserInfo={getuserInfo}
+        handleLogout={handleLogout}
+      />
       <Switch>
         <Route exact path="/">
-          <Main/>
+          <Main />
         </Route>
         <Route path="/mypage">
-          <Mypage userInfo={userInfo} getuserInfo={getuserInfo} handleuserInfoDestroy={handleuserInfoDestroy}/>
+          <Mypage 
+            userInfo={userInfo} 
+            getuserInfo={getuserInfo} 
+            handleuserInfoDestroy={handleuserInfoDestroy}
+          />
         </Route>
         <Route path="/plannerSelect">
           <PlannerSelect />
@@ -107,6 +123,7 @@ function App() {
           <Attraction />
         </Route>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

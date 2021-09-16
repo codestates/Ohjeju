@@ -10,7 +10,7 @@
   /* align-items: center; */
   justify-content: center;
   width: 90%;
-  height: 700px;
+  height: 1000px;
   padding: 30px;
 }
 
@@ -18,12 +18,91 @@
   background-color: #f9f9f9;
   width: 55%;
   height: 100%;
-  padding: 30px;
 }
 
 .rightContainer {
   background-color: #f9f9f9;
   width: 35%;
   height: 100%;
+  /* padding: 30px; */
+  margin-left: 100px;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.leftTitle {
+  padding-top: 20px;
+  padding: 20px;
+  display: flex;
+  /* border-bottom: 1px solid black; */
+}
+
+.leftImage {
+  margin: auto;
+  background-color: black;
+  /* padding-top: 20px; */
+  width: 70%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.Imgs {
+  width: 100%;
+  height: 500px;
+}
+
+.favoriteInfo {
+  display: flex;
+  word-wrap: break-word;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
   padding: 30px;
+}
+
+.write {
+  font-size: 20px;
+  width: 80%;
+}
+
+.review {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.rightTitle {
+  padding-top: 20px;
+  padding: 20px;
+}
+
+.reviewDiv {
+  width: 90%;
+  background-color: white;
+  height: 500px;
+  border-radius: 5px;
+}
+
+.reviewInput {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.inputText {
+  width: 70%;
+  height: 35px;
+  font-size: 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  box-shadow: none !important;
+}
+
+.reviewBtn {
+  border: none;
+  background-color: royalblue;
+  width: 20%;
+  border-radius: 5px;
+  cursor: pointer;
 }
