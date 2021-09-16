@@ -1,4 +1,3 @@
-/* eslint-disable */
 import "./App.css";
 import {
   BrowserRouter,
@@ -18,7 +17,6 @@ import Loading from "./Component/Loading";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
 import FavoritePlace from "./Component/FavoritePlace";
-
 require("dotenv").config();
 
 function App() {
@@ -118,7 +116,7 @@ function App() {
       />
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main placeList={placeList} getPlace={getPlace} />
         </Route>
         <Route path="/mypage">
           <Mypage
@@ -133,12 +131,12 @@ function App() {
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
         </Route>
+
         <Route path="/planner">
           <Planner />
         </Route>
-        <Route path="/attraction">
-          <Attraction placeList={placeList} getPlace={getPlace} />
-        </Route>
+
+        <Route path="/attraction" component={Attraction}/>
       </Switch>
       <Footer />
     </BrowserRouter>
