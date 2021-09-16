@@ -13,36 +13,14 @@
   .popup_inner {
     position: absolute;
     display: flex;
-    flex-direction: column;
-    left: 36%;
-    right: 36%;
+    left: 35%;
+    right: 35%;
     top: 20%;
-    bottom: 15%;
+    bottom: 20%;
     margin: auto;
-    border-radius: 5px;
-    border: 2px solid #ca4e06;
+    border-radius: 15px;
     background: white;
     padding: 25px;
-  }
-
-  .popup_inner_user_info_destroy {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    left: 36%;
-    right: 36%;
-    top: 20%;
-    bottom: 15%;
-    margin: auto;
-    border-radius: 5px;
-    border: 2px solid #ca4e06;
-    background: white;
-    padding: 25px;
-  }
-
-  .close_popup_container {
-    height: 10%;
-    display: flex;
   }
   
   .close_popup_button {
@@ -50,103 +28,7 @@
     margin: auto;
   }
 
-  .user_info_modify_container { 
-    height: 60%;
-    display: flex;
-    flex-direction: column;
-   }
-
-   .user_info_modify_input_container {
-    height: 70%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .user_info_modify_userName {
-    height: 50%;
-    width: 70%;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    font-size: 20px;
-    text-align: center;
-    border-color: lightcoral;
-  }
-  
-  .user_info_modify_password {
-    height: 50%;
-    width: 70%;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    font-size: 20px;
-    text-align: center;
-    border-color: lightcoral;
-  }
-
-  .error_message_container {
-    height: 30%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .signup_error_message {
-    height: 30%;
-    width: 70%;
-    margin-top: 11px;
-    text-align: center;
-    font-weight: 700;
-    background-color: rgb(162, 167, 151);
-    color: rgb(216, 27, 27);
-    padding: 8px 0;
-  }
-
-  .sociallogin_container {
-    height: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .user_info_modify_confirm {
-    width: 70%;
-    display: block;
-      padding: 13px 0;
-      margin-top: 11px;
-      background-color: #e9a11d;
-      border: 1px solid #1d1d1c;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-      font-size: 20px;
-      color: #fff;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
-  }
-  
-  .user_info_modify_confirm:hover{ 
-    box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; 
-  }
-
   .user_info_destroy_confirm {
-    width: 70%;
-    display: block;
-      padding: 13px 0;
-      margin-top: 11px;
-      background-color: #e9a11d;
-      border: 1px solid #1d1d1c;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-      font-size: 20px;
-      color: #fff;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
+    display: flex;
+    margin: auto;
   }
-  
-  

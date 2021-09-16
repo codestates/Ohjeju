@@ -39,30 +39,12 @@ header {
   font-size: 14px;
 }
 
-#login_welcome {
-  margin-right: 20px;
-  background-color: #e2e2c0;
-  color: rgb(14, 12, 12);
-  font-size: 15px;
-  font-weight: 500;
-}
-
 #header_SignIn {
   margin-right: 30px;
   color: white;
 }
 
 #header_SignUp {
-  color: white;
-}
-
-#header_Main {
-  margin-right: 30px;
-  color: white;
-}
-
-#header_Mypage {
-  margin-right: 30px;
   color: white;
 }
 
@@ -76,16 +58,6 @@ header {
 }
 
 #header_SignUp:hover {
-  color: grey;
-  cursor: pointer;
-}
-
-#header_Main:hover {
-  color: grey;
-  cursor: pointer;
-}
-
-#header_Mypage:hover {
   color: grey;
   cursor: pointer;
 }
@@ -113,12 +85,12 @@ header {
   position: absolute;
   display: flex;
   flex-direction: column;
-  left: 36%;
-  right: 36%;
-  top: 20%;
+  left: 35%;
+  right: 35%;
+  top: 15%;
   bottom: 15%;
   margin: auto;
-  border-radius: 5px;
+  border-radius: 5;
   border: 2px solid #ca4e06;
   background: white;
   padding: 25px;
@@ -152,12 +124,6 @@ header {
  flex-direction: column;
 }
 
-.signup_container { 
- height: 90%;
- display: flex;
- flex-direction: column;
-}
-
 .web_container {
   /* 'input_container', 'web_button_container', 'reCAPTCHA_container' 보유 */
   height: 70%;
@@ -175,27 +141,10 @@ header {
   justify-content: center;
 }
 
-.signup_web_container {
-  height: 70%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.signup_input_container {
-  height: 70%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .email_input {
   height: 40%;
   width: 70%;
-  font-size: 20px;
+  font-size: 15px;
   text-align: center;
   border-color: lightcoral;
 }
@@ -203,45 +152,10 @@ header {
 .password_input {
   height: 40%;
   width: 70%;
-  font-size: 20px;
+  font-size: 15px;
   margin-top: 11px;
   text-align: center;
   border-color: lightcoral;
-}
-
-.signup_email_input {
-  height: 33%;
-  width: 70%;
-  margin-top: 20px;
-  font-size: 20px;
-  text-align: center;
-  border-color: lightcoral;
-}
-
-.signup_password_input {
-  height: 33%;
-  width: 70%;
-  margin-top: 20px;
-  font-size: 20px;
-  text-align: center;
-  border-color: lightcoral;
-}
-
-.signup_password_confirm_input {
-  height: 33%;
-  width: 70%;
-  margin-top: 20px;
-  font-size: 20px;
-  text-align: center;
-  border-color: lightcoral;
-}
-
-.error_message_container {
-  height: 30%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .error_message {
@@ -252,17 +166,6 @@ header {
   font-weight: 700;
   background-color: rgb(162, 167, 151);
   color: rgb(216, 27, 27);
-}
-
-.signup_error_message {
-  height: 30%;
-  width: 70%;
-  margin-top: 11px;
-  text-align: center;
-  font-weight: 700;
-  background-color: rgb(162, 167, 151);
-  color: rgb(216, 27, 27);
-  padding: 8px 0;
 }
 
 .web_button_container {
@@ -283,13 +186,12 @@ header {
     border: 1px solid #1d1d1c;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    font-size: 18px;
+    font-size: 13px;
     color: #fff;
     font-weight: 700;
     text-align: center;
     text-decoration: none;
     transition-duration: 0.3s;
-    cursor: pointer;
 }
 
 .weblogin_button:hover{ 
@@ -309,36 +211,14 @@ header {
     border: 1px solid #1d1d1c;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    font-size: 18px;
+    font-size: 13px;
     color: #fff;
     font-weight: 700;
     text-align: center;
     text-decoration: none;
-    cursor: pointer;
 }
 
 .websignup_button:hover{ 
-  box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; 
-}
-
-.signup_button {
-  width: 70%;
-  display: block;
-    padding: 13px 0;
-    margin-top: 11px;
-    background-color: #e9a11d;
-    border: 1px solid #1d1d1c;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    font-size: 20px;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.signup_button:hover{ 
   box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; 
 }
 
@@ -370,12 +250,10 @@ header {
   width: 70%;
   height: 50%;
   padding: 15px 0;
-  cursor: pointer;
 }
 
 .google_login_button {
   width: 70%;
   height: 50%;
   padding: 15px 0;
-  cursor: pointer;
 }
