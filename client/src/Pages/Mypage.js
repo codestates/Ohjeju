@@ -39,6 +39,10 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
       .then((res)=>{
         getuserInfo(res)
       })
+      setuserInfoModifyInput({
+        userName:'',
+        password:''
+      })
       setshowuserInfoModifyModal(false)
     }
   }
@@ -74,22 +78,35 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
       {showuserInfoModifyModal? (
                   <div className='popup'>
                       <div className='popup_inner'>
-                      <button className='close_popup_button' onClick={closePopup}>팝업닫기</button>
+                      <div className='close_popup_container'>
+                          <span className='Modal_title'>Oh! Jeju</span>
+                          <button className='close_popup_button' onClick={closePopup}>x</button>
+                      </div>
                       <div className='user_info_modify_container'>
                         <div className='user_info_modify_input_container'>
                           <input className='user_info_modify_userName' placeholder='유저네임' onChange={handleModifyInputValue('userName')}></input>
                           <input className='user_info_modify_password' placeholder='비밀번호' onChange={handleModifyInputValue('password')}></input>
                         </div>
-                        <div className='errorMessage'>{errorMessage}</div>
-                        <button className='userInfo_modify_confirm' onClick={userInfoModify}>회원정보수정확인</button>
+                        <div className='error_message_container'>
+                            {errorMessage!=='' ? (
+                              <div className='signup_error_message'>{errorMessage}</div>
+                              ):null}
+                        </div>
+                      </div>
+                      <div className='sociallogin_container'>
+                        <button className='user_info_modify_confirm' onClick={userInfoModify}>회원정보수정확인</button>
                       </div>
                       </div>
                   </div>
       ):null}
       {showuserInfoDestroyModal? (
                   <div className='popup'>
-                      <div className='popup_inner'>
-                      <button className='close_popup_button' onClick={closePopup}>팝업닫기</button>
+                      <div className='popup_inner_user_info_destroy'>
+                      <div className='close_popup_container'>
+                          <span className='Modal_title'>Oh! Jeju</span>
+                          <button className='close_popup_button' onClick={closePopup}>x</button>
+                      </div>
+                      <div className='user_info_destroy_text'>회원탈퇴시 모든 정보가 초기화됩니다</div>
                       <button className='user_info_destroy_confirm' onClick={userInfoDestroy}>회원탈퇴확인버튼</button>
                       </div>
                   </div>
