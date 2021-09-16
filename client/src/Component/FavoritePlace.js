@@ -1,32 +1,33 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import "../css/FavoritePlace.css";
 import seongsan from "../Imgs/seongsan.jpg";
 import axios from "axios";
 
-function FavoritePlace() {
+function FavoritePlace({ getPlace, placeList }) {
+  const history = useHistory();
+
   const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
-  const [placeList, setPlaceList] = useState([]);
-
-  const getPlace = () => {
-    axios.get("http://localhost:80/attractions").then((res) => {
-      console.log(res.data[0].info);
-      let arr = [...res.data];
-      let newarr = arr.slice(0, 27);
-      setPlaceList(newarr);
-    });
-  };
-
-  useEffect(() => {
-    getPlace();
-  }, []);
 
   return (
     <div className="favorite">
       <div className="favorite_title">title</div>
       <div className="product-container">
         {placeList.map((item, index) => {
-          return <img src={item.image} alt="" className="product-item" />;
+          return (
+            <div className="product-item">
+              <img
+                src={item.image}
+                alt=""
+                key={index}
+                onClick={() => {
+                  history.push("/attraction");
+                }}
+              />
+              <div className="product-div">{item.name}</div>
+            </div>
+          );
         })}
       </div>
     </div>
