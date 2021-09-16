@@ -1,4 +1,3 @@
-/* eslint-disable */
 import "./App.css";
 import {
   BrowserRouter,
@@ -17,7 +16,7 @@ import Attraction from "./Pages/Attraction";
 import Loading from "./Component/Loading";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
-
+import FavoritePlace from "./Component/FavoritePlace";
 require("dotenv").config();
 
 function App() {
@@ -54,37 +53,56 @@ function App() {
   };
 
   const [isLogin, setisLogin] = useState(false);
-  const [userInfo, setuserInfo] =useState({ //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
-    email:'default-email',
-    userName:'default-userName'
+  const [userInfo, setuserInfo] = useState({
+    //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
+    email: "default-email",
+    userName: "default-userName",
   });
 
-
-  const getuserInfo = (res) =>{ //유저정보 받아오기
-    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
-          .then((res)=>{
-            setuserInfo(res.data)
-            setisLogin(true)
-          })
-  }
+  const getuserInfo = (res) => {
+    //유저정보 받아오기
+    axios
+      .get(`${SERVER_URL}/user/info?userId=${res.data.id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setuserInfo(res.data);
+        setisLogin(true);
+      });
+  };
 
   const handleLogout = () => {  //로그아웃실행
     axios.post(`${SERVER_URL}/signout`).then((res) => {
       setisLogin(false);
       setuserInfo({
-        email:'default-email',
-        userName:'default-userName'
+        email: "default-email",
+        userName: "default-userName",
       });
     });
   };
 
-  const handleuserInfoDestroy = () => { //회원탈퇴실행
+  const handleuserInfoDestroy = () => {
+    //회원탈퇴실행
     setisLogin(false);
     setuserInfo({
-      email:'default-email',
-      userName:'default-userName'
+      email: "default-email",
+      userName: "default-userName",
     });
-  }
+  };
+
+  const [placeList, setPlaceList] = useState([]);
+
+  const getPlace = () => {
+    axios.get("http://localhost:80/attractions").then((res) => {
+      let arr = [...res.data];
+      let newarr = arr.slice(0, 27);
+      setPlaceList(newarr);
+    });
+  };
+
+  useEffect(() => {
+    getPlace();
+  }, []);
 
   return (
     <BrowserRouter>
@@ -92,20 +110,27 @@ function App() {
       <Header isOn={isOn} toggleHandler={toggleHandler} isLogin={isLogin} getuserInfo={getuserInfo} handleLogout={handleLogout}/>
       <Switch>
         <Route exact path="/">
-          <Main/>
+          <Main placeList={placeList} getPlace={getPlace} />
         </Route>
         <Route path="/mypage">
-          <Mypage userInfo={userInfo} getuserInfo={getuserInfo} handleuserInfoDestroy={handleuserInfoDestroy}/>
+          <Mypage
+            userInfo={userInfo}
+            getuserInfo={getuserInfo}
+            handleuserInfoDestroy={handleuserInfoDestroy}
+          />
         </Route>
         <Route path="/plannerSelect">
           <PlannerSelect />
         </Route>
+        <Route path="/favoritePlace">
+          <FavoritePlace placeList={placeList} getPlace={getPlace} />
+        </Route>
+
         <Route path="/planner">
           <Planner />
         </Route>
-        <Route path="/attraction">
-          <Attraction />
-        </Route>
+
+        <Route path="/attraction" component={Attraction}/>
       </Switch>
     </BrowserRouter>
   );

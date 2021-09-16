@@ -68,6 +68,12 @@
   height: 400px;
 }
 
+.product-div {
+  padding-top: 10px;
+  text-align: center;
+  margin-right: 20px;
+}
+
 .overlay {
   position: absolute;
   width: 100%;
