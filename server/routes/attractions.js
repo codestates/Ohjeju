@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { getAttraction , testAtt } = require("../controller/AttractionsController");
+const { getAllAttraction , getThatAttraction } = require("../controller/AttractionsController");
 
 router.get("/", getAllAttraction);
 router.post('/',getThatAttraction)
