@@ -72,7 +72,7 @@ module.exports = {
     try {
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
 
-      const curUser = decodeToken(reqAccessToken);
+      const curUser = await decodeToken(reqAccessToken);
       if(curUser) return res.status(200)
         .clearCookie('accessToken')
         .clearCookie('refreshToken')
