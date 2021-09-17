@@ -122,7 +122,7 @@ function App() {
       />
       <Switch>
         <Route path='/OAuth/kakao'>
-          <KakaoOAuth setuserInfo={setuserInfo} userInfo={userInfo}/>
+          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin}/>
         </Route>
         <Route exact path="/">
           <Main placeList={placeList} getPlace={getPlace} />
