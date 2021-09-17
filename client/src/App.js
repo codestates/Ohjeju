@@ -17,6 +17,8 @@ import Loading from "./Component/Loading";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
 import FavoritePlace from "./Component/FavoritePlace";
+import KakaoOAuth from './Component/KakaoOAuth';
+
 require("dotenv").config();
 
 function App() {
@@ -50,8 +52,7 @@ function App() {
   const toggleHandler = () => {
     setisOn(!isOn);
   };
-
-
+  
   const [page, setPage] = useState(''); //페이지상태관리
   const [isLogin, setisLogin] = useState(false); //로그인상태관리
   const [userInfo, setuserInfo] =useState({ //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
@@ -62,10 +63,7 @@ function App() {
 
   const getuserInfo = (res) => {
     //유저정보 받아오기
-    axios
-      .get(`${SERVER_URL}/user/info?userId=${res.data.id}`, {
-        withCredentials: true,
-      })
+    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
       .then((res) => {
         setuserInfo(res.data);
         setisLogin(true);
@@ -73,9 +71,9 @@ function App() {
   };
 
   const handleLogout = () => {  //로그아웃실행
-    axios.post(`${SERVER_URL}/signout`, 'NO_BODY_DATA', {
-      withCredentials: true
-    }).then((res) => {
+
+    axios.post(`${SERVER_URL}/signout`,  'NO_BODY_DATA',{ withCredentials: true})
+    .then((res) => {
       setisLogin(false);
       setuserInfo({
         email: "default-email",
@@ -124,11 +122,13 @@ function App() {
         handleLogout={handleLogout}
       />
       <Switch>
+        <Route path='/OAuth/kakao'>
+          <KakaoOAuth setuserInfo={setuserInfo} userInfo={userInfo}/>
+        </Route>
         <Route exact path="/">
           <Main placeList={placeList} getPlace={getPlace} />
         </Route>
         <Route path="/mypage">
-
           <Mypage 
             userInfo={userInfo} 
             getuserInfo={getuserInfo} 
@@ -141,11 +141,9 @@ function App() {
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
         </Route>
-
         <Route path="/planner">
           <Planner />
         </Route>
-
         <Route path="/attraction" component={Attraction}/>
       </Switch>
       <Footer />
