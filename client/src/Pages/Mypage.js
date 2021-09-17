@@ -62,6 +62,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
   return (
     <div className='mypage_container'>
       <img className='user_image' src={defaultImg}></img>
+      <img className='user_image' src={userInfo.image}></img>
       <div className='user_info_container'>
         <div className='user_email'>{userInfo.email}</div>
         <div className='user_username'>{userInfo.userName}</div>
