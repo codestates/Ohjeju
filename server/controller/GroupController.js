@@ -36,7 +36,7 @@ module.exports = {
           return res.status(201)
             .cookie('accessToken', reqAccessToken)
             .cookie('refreshToken', reqRefreshToken)
-            .send('ok')
+            .send({ groupId: newGroupId })
         }
       }
 
@@ -83,6 +83,7 @@ module.exports = {
 
         return res.status(200)
           .send({
+            groupId: findGroup.id,
             groupName: findGroup.name,
             leader: findGroup.leader,
             user: userInGroup
@@ -293,7 +294,6 @@ module.exports = {
       }
       else {
         //삭제할 때 user_group부터 삭제
-        console.log('삭제 가보자고')
         user_group.destroy({ where: { groupId: targetGroup.id } }) //req.query.groupId로 삭제해도 무방
         .then(() => { targetGroup.destroy() })
 
