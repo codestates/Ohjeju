@@ -38,13 +38,16 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
       axios.patch(`${SERVER_URL}/user/info?userId=${userInfo.id}`, payload, { withCredentials: true })
       .then((res)=>{
         getuserInfo(res)
+        setuserInfoModifyInput({
+          userName:'',
+          password:''
+        })
+        setshowuserInfoModifyModal(false)
       })
-      setuserInfoModifyInput({
-        userName:'',
-        password:''
+      .catch((err)=>{
+        alert('소셜로그인은 유저정보수정이 불가합니다')
       })
-      setshowuserInfoModifyModal(false)
-    }
+     }
   }
 
   const handleModifyInputValue = (key) => (e) => { //유저정보수정입력
@@ -56,6 +59,9 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
     .then((res)=>{
       setshowuserInfoDestroyModal(false);
       handleuserInfoDestroy();
+    })
+    .catch((err)=>{
+      alert('소셜로그인은 해당기기에서 연결해제해주세요')
     })
   }
 

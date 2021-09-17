@@ -9,8 +9,9 @@ module.exports = {
 
     const redirect_uri = 'http://localhost:3000/OAuth/kakao'
     const client_id = process.env.KAKAO_REST_KEY || '0f8bff12e99bf62cf63de306e104978b'
+    // 나중에 뒷키 지워야함
     const client_secret = process.env.KAKAO_CLIENT_SECRET ||'I7VJ0NlhM1pXQi9ncFZjqMyPjpNum8Se'
-
+    // 나중에 뒷키 지워야함
     let a = 'https://kauth.kakao.com/oauth/token?'
     let b = `grant_type=authorization_code&`
     let c = `client_id=${client_id}&`
