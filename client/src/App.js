@@ -80,7 +80,7 @@ function App() {
         userName: "default-userName",
       });
       if(page==='mypage'){  //현재페이지가 마이페이지일경우 메인페이지로 이동
-        location.href='/'
+        window.location.replace('/')
       }
     });
   };

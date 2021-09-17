@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Users = require('../models').users;
 const jwt = require('jsonwebtoken');
 
@@ -19,10 +20,10 @@ module.exports = {
       else {
         const { id, email, userName } = findUser;
         const tokenPayload = { id, email, userName };
-  
+        
         const accessToken = jwt.sign(tokenPayload, process.env.ACCESS_SECRET, { expiresIn : '1h' });
         const refreshToken = jwt.sign(tokenPayload, process.env.REFRESH_SECRET, { expiresIn : '14d' });
-  
+
         return res.status(200)
           .cookie('accessToken', accessToken)
           .cookie('refreshToken', refreshToken)
