@@ -71,6 +71,7 @@ function App() {
   };
 
   const handleLogout = () => {  //로그아웃실행
+
     axios.post(`${SERVER_URL}/signout`,  'NO_BODY_DATA',{ withCredentials: true})
     .then((res) => {
       setisLogin(false);
