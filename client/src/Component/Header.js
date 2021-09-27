@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import React,{ useState } from "react";
 import "../css/Header.css";
 import { Link } from "react-router-dom";
 import Toggle from "./Toggle";
@@ -6,11 +6,17 @@ import axios from "axios";
 import recap from '../Imgs/recap.png'
 import kakao from '../Imgs/kakao_login_large_wide.png'
 import google from '../Imgs/btn_google_signin_light_normal_web@2x.png'
+import xbutton from '../Imgs/xbutton.png'
 import Mypage from "../Pages/Mypage";
+import { useHistory } from "react-router";
+
+require('dotenv').config();
 
 const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 function Header({ isOn, toggleHandler, page, setPage, userInfo, isLogin, handleLogout, getuserInfo}) {
+
+  const history = useHistory();
 
   const [signinInfo, setSigninInfo] = useState({   //로그인정보기입
       email:'',
@@ -123,12 +129,24 @@ function Header({ isOn, toggleHandler, page, setPage, userInfo, isLogin, handleL
     }
 }
 
-const kakaoLogin = () => { //카카오로그인
+//소셜로그인
 
+const kakaoLogin = () => { //카카오로그인
+  const CLIENT_ID = process.env.KAKAO_REST_KEY ||'0f8bff12e99bf62cf63de306e104978b' 
+  //여기 process.env는 제대로 안받아와진다 서버는 되는데; 서버쪽에 client_secret이 있으니 상관없을까
+  const REDIRECT_URI =  "http://localhost:3000/OAuth/kakao";
+  const state = 'kakao'
+  const KAKAO_AUTH_URL = 
+  `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
+  window.location.assign(KAKAO_AUTH_URL)
 }
 
 const googleLogin = () => { //구글로그인
-
+  const clientId = process.env.GOOGLE_REST_KEY || "933835778992-s0h1t6030sssr4qqhi9tdu0kj95nnu5i.apps.googleusercontent.com"; //뒤에 지워야함
+  const REDIRECT_URI =  "http://localhost:3000/OAuth/google";
+  const GOOGLE_AUTH_URL = 
+  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
+  window.location.assign(GOOGLE_AUTH_URL);
 }
  
   return (
@@ -168,7 +186,7 @@ const googleLogin = () => { //구글로그인
                 <div className='popup_inner'>
                   <div className='close_popup_container'>
                     <span className='Modal_title'>Oh! Jeju</span>
-                    <button className='close_popup_button' onClick={closePopup}>x</button>
+                    <img className='close_popup_button' src={xbutton} onClick={closePopup}></img>
                   </div>
                   <div className='login_container'>
                     <div className='web_container'>
@@ -201,7 +219,7 @@ const googleLogin = () => { //구글로그인
                       <div className='popup_inner'>
                         <div className='close_popup_container'>
                           <span className='Modal_title'>Oh! Jeju</span>
-                          <button className='close_popup_button' onClick={closePopup}>x</button>
+                          <img className='close_popup_button' src={xbutton}onClick={closePopup}></img>
                         </div>
                         <div className='signup_container'>
                           <div className='signup_web_container'>

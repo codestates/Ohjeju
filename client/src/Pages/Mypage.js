@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../css/Mypage.css";
 import defaultImg from '../Imgs/hanra.jpg'
+import xbutton from '../Imgs/xbutton.png'
+import jejutree1 from "../Imgs/jejutree1.jpg";
 
 require("dotenv").config();
 
@@ -38,13 +40,16 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
       axios.patch(`${SERVER_URL}/user/info?userId=${userInfo.id}`, payload, { withCredentials: true })
       .then((res)=>{
         getuserInfo(res)
+        setuserInfoModifyInput({
+          userName:'',
+          password:''
+        })
+        setshowuserInfoModifyModal(false)
       })
-      setuserInfoModifyInput({
-        userName:'',
-        password:''
+      .catch((err)=>{
+        alert('소셜로그인은 유저정보수정이 불가합니다')
       })
-      setshowuserInfoModifyModal(false)
-    }
+     }
   }
 
   const handleModifyInputValue = (key) => (e) => { //유저정보수정입력
@@ -57,34 +62,41 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
       setshowuserInfoDestroyModal(false);
       handleuserInfoDestroy();
     })
+    .catch((err)=>{
+      alert('소셜로그인은 해당기기에서 연결해제해주세요')
+    })
   }
 
   return (
     <div className='mypage_container'>
       <img className='user_image' src={defaultImg}></img>
-      <div className='user_info_container'>
-        <div className='user_email'>{userInfo.email}</div>
-        <div className='user_username'>{userInfo.userName}</div>
+      {/* <img className='user_image' src={userInfo.image}></img> */}
+      <div className='user_container'>
+        <div className='user_info_container'>
+          <div className='user_email'>{userInfo.email}</div>
+          <div className='user_username'>{userInfo.userName}</div>
+        </div>
+        <div className='user_planner_move'>
+          <Link to ='/plannerSelect'>
+          <button className='move_to_plannerPage'>My 플래너</button>
+          </Link>
+        </div>
       </div>
-      <div className='user_planner'>
-        <Link to ='/plannerSelect'>
-        <button className='move_to_plannerPage'>플래너 페이지 이동버튼</button>
-        </Link>
+      <div className='user_info_modify_destroy_container'>
+        <button className='user_info_modify_button' onClick={setshowuserInfoModifyModal}>회원정보 수정</button>
+        <button className='user_info_destroy_button' onClick={setshowuserInfoDestroyModal}>회원탈퇴</button>
       </div>
-      <div className='usermodify_container'>
-        <button className='user_info_modify_button' onClick={setshowuserInfoModifyModal}>유저정보 수정버튼</button>
-        <button className='user_info_destroy_button' onClick={setshowuserInfoDestroyModal}>유저탈퇴 버튼</button>
-      </div>
+      
       {showuserInfoModifyModal? (
                   <div className='popup'>
-                      <div className='popup_inner'>
+                      <div className='popup_inner_mypage'>
                       <div className='close_popup_container'>
                           <span className='Modal_title'>Oh! Jeju</span>
-                          <button className='close_popup_button' onClick={closePopup}>x</button>
+                          <img className='close_popup_button' src={xbutton}onClick={closePopup}></img>
                       </div>
                       <div className='user_info_modify_container'>
                         <div className='user_info_modify_input_container'>
-                          <input className='user_info_modify_userName' placeholder='유저네임' onChange={handleModifyInputValue('userName')}></input>
+                          <input className='user_info_modify_userName' placeholder='닉네임' onChange={handleModifyInputValue('userName')}></input>
                           <input className='user_info_modify_password' placeholder='비밀번호' onChange={handleModifyInputValue('password')}></input>
                         </div>
                         <div className='error_message_container'>
@@ -104,10 +116,12 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
                       <div className='popup_inner_user_info_destroy'>
                       <div className='close_popup_container'>
                           <span className='Modal_title'>Oh! Jeju</span>
-                          <button className='close_popup_button' onClick={closePopup}>x</button>
+                          <img className='close_popup_button' src={xbutton} onClick={closePopup}></img>
                       </div>
-                      <div className='user_info_destroy_text'>회원탈퇴시 모든 정보가 초기화됩니다</div>
-                      <button className='user_info_destroy_confirm' onClick={userInfoDestroy}>회원탈퇴확인버튼</button>
+                      <div className='user_info_destroy_container'>
+                        <div className='user_info_destroy_text'>회원탈퇴시 모든 정보가 초기화됩니다</div>
+                        <button className='user_info_destroy_confirm' onClick={userInfoDestroy}>회원탈퇴확인</button>
+                      </div>
                       </div>
                   </div>
       ):null}
