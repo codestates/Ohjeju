@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
-import { Link, useHistory,RouteComponentProps } from "react-router-dom";
+import { Link, useHistory, RouteComponentProps } from "react-router-dom";
 import "../css/FavoritePlace.css";
 import seongsan from "../Imgs/seongsan.jpg";
 import axios from "axios";
@@ -16,19 +16,20 @@ function FavoritePlace({ getPlace, placeList }) {
         {placeList.map((item, index) => {
           return (
             <div className="product-item">
-              <Link to ={{
-                pathname:`/attraction`,
-                state:{
-                  info : item.info,
-                  image: item.image,
-                  name: item.name
-                }
-              }}>
-              <img
-                src={item.image}
-                alt=""
-                key={index}
-              />
+              <Link
+                to={{
+                  pathname: `/attraction`,
+                  state: {
+                    info: item.info,
+                    image: item.image,
+                    name: item.name,
+                  },
+                }}
+              >
+                <div className="product-all">
+                  <img src={item.image} alt="" key={index} />
+                  <p className="product-p">상세페이지</p>
+                </div>
               </Link>
               <div className="product-div">{item.name}</div>
             </div>

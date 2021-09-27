@@ -143,19 +143,20 @@ header {
   width: 5%;
   float: right;
   justify-content: center;
+  cursor: pointer;
 }
 
-.login_container { 
+.login_container {
   /* 'web_container' 'sociallogin_container' 보유 */
- height: 90%;
- display: flex;
- flex-direction: column;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
 }
 
-.signup_container { 
- height: 90%;
- display: flex;
- flex-direction: column;
+.signup_container {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
 }
 
 .web_container {
@@ -276,70 +277,72 @@ header {
 
 .weblogin_button {
   width: 70%;
-    display: block;
-    padding: 13px 0;
-    /* margin-top: 11px; */
-    background-color: #e9a11d;
-    border: 1px solid #1d1d1c;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    font-size: 18px;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none;
-    transition-duration: 0.3s;
-    cursor: pointer;
+  display: block;
+  padding: 13px 0;
+  /* margin-top: 11px; */
+  background-color: #e9a11d;
+  border: 1px solid #1d1d1c;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition-duration: 0.3s;
+  cursor: pointer;
 }
 
-.weblogin_button:hover{ 
-  box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; 
+.weblogin_button:hover {
+  box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
 }
 
-.weblogin_button:active{
-  
+.weblogin_button:active {
 }
 
 .websignup_button {
   width: 70%;
   display: block;
-    padding: 13px 0;
-    margin-top: 11px;
-    background-color: #e9a11d;
-    border: 1px solid #1d1d1c;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    font-size: 18px;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
+  padding: 13px 0;
+  margin-top: 11px;
+  background-color: #e9a11d;
+  border: 1px solid #1d1d1c;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.websignup_button:hover{ 
-  box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; 
+.websignup_button:hover {
+  box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
 }
 
 .signup_button {
   width: 70%;
   display: block;
-    padding: 13px 0;
-    margin-top: 11px;
-    background-color: #e9a11d;
-    border: 1px solid #1d1d1c;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    font-size: 20px;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
+  padding: 13px 0;
+  margin-top: 11px;
+  background-color: #e9a11d;
+  border: 1px solid #1d1d1c;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.signup_button:hover{ 
-  box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; 
+.signup_button:hover {
+  box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
 }
 
 .reCAPTCHA_container {
