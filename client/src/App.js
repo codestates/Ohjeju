@@ -26,16 +26,16 @@ function App() {
   const [isOn, setisOn] = useState(false);
 
   const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
-  // useEffect(() => {
-  //   scrollStop();
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 3000);
-  // }, []);
+  useEffect(() => {
+    scrollStop();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
-  // useEffect(() => {
-  //   scrollStop();
-  // }, [isLoading]);
+  useEffect(() => {
+    scrollStop();
+  }, [isLoading]);
 
   // useEffect(() => {
   //   getImage();
@@ -52,13 +52,13 @@ function App() {
   const toggleHandler = () => {
     setisOn(!isOn);
   };
-  
-  const [page, setPage] = useState(''); //페이지상태관리
-  const [isLogin, setisLogin] = useState(false); //로그인상태관리
-  const [userInfo, setuserInfo] =useState({ //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
-    email:'default-email',
-    userName:'default-userName'
 
+  const [page, setPage] = useState(""); //페이지상태관리
+  const [isLogin, setisLogin] = useState(false); //로그인상태관리
+  const [userInfo, setuserInfo] = useState({
+    //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
+    email: "default-email",
+    userName: "default-userName",
   });
 
   const getuserInfo = (res) => {
@@ -70,8 +70,8 @@ function App() {
       });
   };
 
-  const handleLogout = () => {  //로그아웃실행
 
+  const handleLogout = () => {  //로그아웃실행
     axios.post(`${SERVER_URL}/signout`,  'NO_BODY_DATA',{ withCredentials: true})
     .then((res) => {
       setisLogin(false);
@@ -104,13 +104,16 @@ function App() {
     });
   };
 
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+
   useEffect(() => {
     getPlace();
   }, []);
 
   return (
     <BrowserRouter>
-      {/* {isLoading ? <Loading /> : null} */}
+      {isLoading ? <Loading /> : null}
       <Header
         isOn={isOn}
         toggleHandler={toggleHandler}
@@ -144,8 +147,8 @@ function App() {
         <Route path="/planner">
           <Planner />
         </Route>
-        <Route path="/attraction" component={Attraction}/>
-      </Switch>
+        <Route path="/attraction" component={Attraction} />
+       </Switch>
       <Footer />
     </BrowserRouter>
   );
