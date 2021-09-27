@@ -18,6 +18,7 @@ import Header from "./Component/Header";
 import Footer from "./Component/Footer";
 import FavoritePlace from "./Component/FavoritePlace";
 import KakaoOAuth from './Component/KakaoOAuth';
+import GoogleOAuth from "./Component/GoogleOAuth";
 
 require("dotenv").config();
 
@@ -111,6 +112,28 @@ function App() {
     getPlace();
   }, []);
 
+  const [plannerList, setplannerList] = useState([{
+    id:0,
+    groupId:0,
+    name:'테스트플래너1',
+    day:1
+  },{
+    id:0,
+    groupId:0,
+    name:'테스트플래너2',
+    day:1
+  },{
+    id:0,
+    groupId:0,
+    name:'테스트플래너3',
+    day:1
+  },{
+    id:0,
+    groupId:0,
+    name:'테스트플래너4',
+    day:1
+  }])
+
   return (
     <BrowserRouter>
       {isLoading ? <Loading /> : null}
@@ -128,6 +151,9 @@ function App() {
         <Route path='/OAuth/kakao'>
           <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin}/>
         </Route>
+        <Route path='/OAuth/google'>
+          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin}/>
+        </Route>
         <Route exact path="/">
           <Main placeList={placeList} getPlace={getPlace} />
         </Route>
@@ -139,7 +165,7 @@ function App() {
           />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect />
+          <PlannerSelect plannerList={plannerList}/>
         </Route>
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />

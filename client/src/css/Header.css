@@ -143,6 +143,7 @@ header {
   width: 5%;
   float: right;
   justify-content: center;
+  cursor: pointer;
 }
 
 .login_container {
