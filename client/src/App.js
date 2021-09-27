@@ -17,6 +17,8 @@ import Loading from "./Component/Loading";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
 import FavoritePlace from "./Component/FavoritePlace";
+import KakaoOAuth from './Component/KakaoOAuth';
+
 require("dotenv").config();
 
 function App() {
@@ -61,27 +63,24 @@ function App() {
 
   const getuserInfo = (res) => {
     //유저정보 받아오기
-    axios
-      .get(`${SERVER_URL}/user/info?userId=${res.data.id}`, {
-        withCredentials: true,
-      })
+    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
       .then((res) => {
         setuserInfo(res.data);
         setisLogin(true);
       });
   };
 
-  const handleLogout = () => {
-    //로그아웃실행
-    axios.post(`${SERVER_URL}/signout`).then((res) => {
+
+  const handleLogout = () => {  //로그아웃실행
+    axios.post(`${SERVER_URL}/signout`,  'NO_BODY_DATA',{ withCredentials: true})
+    .then((res) => {
       setisLogin(false);
       setuserInfo({
         email: "default-email",
         userName: "default-userName",
       });
-      if (page === "mypage") {
-        //현재페이지가 마이페이지일경우 메인페이지로 이동
-        window.location.replace("/");
+      if(page==='mypage'){  //현재페이지가 마이페이지일경우 메인페이지로 이동
+        window.location.replace('/')
       }
     });
   };
@@ -126,13 +125,16 @@ function App() {
         handleLogout={handleLogout}
       />
       <Switch>
+        <Route path='/OAuth/kakao'>
+          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin}/>
+        </Route>
         <Route exact path="/">
           <Main placeList={placeList} getPlace={getPlace} />
         </Route>
         <Route path="/mypage">
-          <Mypage
-            userInfo={userInfo}
-            getuserInfo={getuserInfo}
+          <Mypage 
+            userInfo={userInfo} 
+            getuserInfo={getuserInfo} 
             handleuserInfoDestroy={handleuserInfoDestroy}
           />
         </Route>
@@ -142,13 +144,11 @@ function App() {
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
         </Route>
-
         <Route path="/planner">
           <Planner />
         </Route>
-
         <Route path="/attraction" component={Attraction} />
-      </Switch>
+       </Switch>
       <Footer />
     </BrowserRouter>
   );
