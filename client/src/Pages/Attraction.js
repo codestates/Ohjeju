@@ -8,19 +8,14 @@ import jeju1 from "../Imgs/jeju1.jpg";
 
 require("dotenv").config();
 
-const Attraction = ({match,location,history}) => {
+const Attraction = ({ match, location, history }) => {
   // const history = useHistory();
   const [placeList, setPlaceList] = useState([]);
   const [starfill, setStarFill] = useState([1, 2, 3, 4, 5]);
-  console.log('!@#!@#@!@!#!@')
-  console.log(location)
-  
+  console.log("!@#!@#@!@!#!@");
+  console.log(location);
 
-
-
-  useEffect(() => {
-  }, []);
-
+  useEffect(() => {}, []);
 
   return (
     <div className={style.background}>
@@ -33,9 +28,7 @@ const Attraction = ({match,location,history}) => {
             </div>
           </div>
           <div className={style.favoriteInfo}>
-            <div className={style.write}>
-              {location.state.info}
-            </div>
+            <div className={style.write}>{location.state.info}</div>
           </div>
         </div>
         <div className={style.rightContainer}>

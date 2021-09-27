@@ -24,16 +24,16 @@ function App() {
   const [isOn, setisOn] = useState(false);
 
   const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
-  // useEffect(() => {
-  //   scrollStop();
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 3000);
-  // }, []);
+  useEffect(() => {
+    scrollStop();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
-  // useEffect(() => {
-  //   scrollStop();
-  // }, [isLoading]);
+  useEffect(() => {
+    scrollStop();
+  }, [isLoading]);
 
   // useEffect(() => {
   //   getImage();
@@ -51,13 +51,12 @@ function App() {
     setisOn(!isOn);
   };
 
-
-  const [page, setPage] = useState(''); //페이지상태관리
+  const [page, setPage] = useState(""); //페이지상태관리
   const [isLogin, setisLogin] = useState(false); //로그인상태관리
-  const [userInfo, setuserInfo] =useState({ //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
-    email:'default-email',
-    userName:'default-userName'
-
+  const [userInfo, setuserInfo] = useState({
+    //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
+    email: "default-email",
+    userName: "default-userName",
   });
 
   const getuserInfo = (res) => {
@@ -72,15 +71,17 @@ function App() {
       });
   };
 
-  const handleLogout = () => {  //로그아웃실행
+  const handleLogout = () => {
+    //로그아웃실행
     axios.post(`${SERVER_URL}/signout`).then((res) => {
       setisLogin(false);
       setuserInfo({
         email: "default-email",
         userName: "default-userName",
       });
-      if(page==='mypage'){  //현재페이지가 마이페이지일경우 메인페이지로 이동
-        location.href='/'
+      if (page === "mypage") {
+        //현재페이지가 마이페이지일경우 메인페이지로 이동
+        window.location.replace("/");
       }
     });
   };
@@ -104,13 +105,16 @@ function App() {
     });
   };
 
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+
   useEffect(() => {
     getPlace();
   }, []);
 
   return (
     <BrowserRouter>
-      {/* {isLoading ? <Loading /> : null} */}
+      {isLoading ? <Loading /> : null}
       <Header
         isOn={isOn}
         toggleHandler={toggleHandler}
@@ -126,10 +130,9 @@ function App() {
           <Main placeList={placeList} getPlace={getPlace} />
         </Route>
         <Route path="/mypage">
-
-          <Mypage 
-            userInfo={userInfo} 
-            getuserInfo={getuserInfo} 
+          <Mypage
+            userInfo={userInfo}
+            getuserInfo={getuserInfo}
             handleuserInfoDestroy={handleuserInfoDestroy}
           />
         </Route>
@@ -144,7 +147,7 @@ function App() {
           <Planner />
         </Route>
 
-        <Route path="/attraction" component={Attraction}/>
+        <Route path="/attraction" component={Attraction} />
       </Switch>
       <Footer />
     </BrowserRouter>
