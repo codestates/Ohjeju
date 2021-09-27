@@ -40,6 +40,7 @@ function KakaoOAuth({setuserInfo, setisLogin}) {
                 console.log('이미 가입된 계정, 바로 setuserInfo로 넘어간다') //signup요청에 email이 없어서 그런지 카카오로 signup이 안된다
             })
             setuserInfo({                        //이미 가입된 계정일경우 바로 유저정보를 바로 set한다
+                email:res.data.kakao_account.email,
                 userName:res.data.kakao_account.profile.nickname,
                 image:res.data.kakao_account.profile.profile_image_url
             })

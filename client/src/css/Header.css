@@ -110,11 +110,13 @@ header {
 }
 
 .popup_inner {
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
-  left: 36%;
-  right: 36%;
+  max-width: 500px;
+  height: 700px;
+  /* left: 36%;
+  right: 36%; */
   top: 20%;
   bottom: 15%;
   margin: auto;
