@@ -202,10 +202,10 @@ const googleLogin = () => { //구글로그인
                         <button className='weblogin_button' onClick={handleLogin}>로그인</button>
                         <button className='websignup_button' onClick={moveToSignup}>회원가입하기</button>
                       </div>
-                      <div className='reCAPTCHA_container'>
+                      {/* <div className='reCAPTCHA_container'>
                        <div className='reCAPTCHA'>reCAPTCHA</div>
-                       {/* <img className='reCAPTCHA' src={recap}></img> */}
-                      </div>
+                       <img className='reCAPTCHA' src={recap}></img>
+                      </div> */}
                     </div>
                     <div className='sociallogin_container'>
                       <img className='kakao_login_button' src={kakao} onClick={kakaoLogin}/>
@@ -217,7 +217,7 @@ const googleLogin = () => { //구글로그인
             ):null}
             {showSignupModal? (
                   <div className='popup'>
-                      <div className='popup_inner'>
+                      <div className='popup_inner_signup'>
                         <div className='close_popup_container'>
                           <span className='Modal_title'>Oh! Jeju</span>
                           <img className='close_popup_button' src={xbutton}onClick={closePopup}></img>

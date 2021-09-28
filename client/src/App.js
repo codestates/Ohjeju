@@ -19,6 +19,7 @@ import Footer from "./Component/Footer";
 import FavoritePlace from "./Component/FavoritePlace";
 import KakaoOAuth from './Component/KakaoOAuth';
 import GoogleOAuth from "./Component/GoogleOAuth";
+import Chat from "./Component/Chat";
 
 require("dotenv").config();
 
@@ -112,28 +113,6 @@ function App() {
     getPlace();
   }, []);
 
-  const [plannerList, setplannerList] = useState([{
-    id:0,
-    groupId:0,
-    name:'테스트플래너1',
-    day:1
-  },{
-    id:0,
-    groupId:0,
-    name:'테스트플래너2',
-    day:1
-  },{
-    id:0,
-    groupId:0,
-    name:'테스트플래너3',
-    day:1
-  },{
-    id:0,
-    groupId:0,
-    name:'테스트플래너4',
-    day:1
-  }])
-
   return (
     <BrowserRouter>
       {isLoading ? <Loading /> : null}
@@ -165,7 +144,9 @@ function App() {
           />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect plannerList={plannerList}/>
+          <PlannerSelect
+            userInfo={userInfo}  
+          />
         </Route>
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
@@ -174,6 +155,7 @@ function App() {
           <Planner />
         </Route>
         <Route path="/attraction" component={Attraction} />
+        <Route path="/chat" component={Chat} />
        </Switch>
       <Footer />
     </BrowserRouter>
