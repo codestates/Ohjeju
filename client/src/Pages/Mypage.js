@@ -5,6 +5,7 @@ import axios from "axios";
 import "../css/Mypage.css";
 import defaultImg from '../Imgs/hanra.jpg'
 import xbutton from '../Imgs/xbutton.png'
+import jejutree1 from "../Imgs/jejutree1.jpg";
 
 require("dotenv").config();
 
@@ -85,9 +86,10 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
         <button className='user_info_modify_button' onClick={setshowuserInfoModifyModal}>회원정보 수정</button>
         <button className='user_info_destroy_button' onClick={setshowuserInfoDestroyModal}>회원탈퇴</button>
       </div>
+      
       {showuserInfoModifyModal? (
                   <div className='popup'>
-                      <div className='popup_inner'>
+                      <div className='popup_inner_mypage'>
                       <div className='close_popup_container'>
                           <span className='Modal_title'>Oh! Jeju</span>
                           <img className='close_popup_button' src={xbutton}onClick={closePopup}></img>

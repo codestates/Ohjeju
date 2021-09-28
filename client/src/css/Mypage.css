@@ -21,6 +21,7 @@
   height: 300px;
   justify-content: space-evenly;
   padding: 30px 15px 30px 15px;
+  border: 0.4em inset #009688;
 }
 
 .user_info_container {
@@ -75,12 +76,14 @@
 .user_info_modify_destroy_container {
   display: flex;
   justify-content: space-evenly;
-  width: 70%;
+  width: 25%;
+  border: 2px solid #bcbcbc;
   padding: 30px 0px 30px 0px;
+  margin: 40px;
 }
 
 .user_info_modify_button {
-  width: 20%;
+  width: 100px;
   display: block;
   padding: 13px 0;
   margin: 15px 15px 15px 15px;
@@ -88,7 +91,7 @@
   border: 1px solid #1d1d1c;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  font-size: 20px;
+  font-size: 15px;
   color: #fff;
   font-weight: 600;
   text-align: center;
@@ -102,7 +105,7 @@
 }
 
 .user_info_destroy_button {
-  width: 20%;
+  width: 100px;
   display: block;
   padding: 13px 0;
   margin: 15px 15px 15px 15px;
@@ -110,7 +113,7 @@
   border: 1px solid #1d1d1c;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  font-size: 20px;
+  font-size: 15px;
   color: #fff;
   font-weight: 600;
   text-align: center;
@@ -137,12 +140,14 @@
   background-color: rgba(36, 33, 33, 0.5);
 }
 
-.popup_inner {
-  position: absolute;
+.popup_inner_mypage {
+  position: relative;
   display: flex;
   flex-direction: column;
-  left: 36%;
-  right: 36%;
+  max-width: 500px;
+  height: 500px;
+  /* left: 36%;
+  right: 36%; */
   top: 20%;
   bottom: 15%;
   margin: auto;
@@ -153,11 +158,13 @@
 }
 
 .popup_inner_user_info_destroy {
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
-  left: 36%;
-  right: 36%;
+  max-width: 500px;
+  height: 350px;
+  /* left: 36%;
+  right: 36%; */
   top: 30%;
   bottom: 30%;
   margin: auto;
