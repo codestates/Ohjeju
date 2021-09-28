@@ -19,6 +19,7 @@ import Footer from "./Component/Footer";
 import FavoritePlace from "./Component/FavoritePlace";
 import KakaoOAuth from './Component/KakaoOAuth';
 import GoogleOAuth from "./Component/GoogleOAuth";
+import Chat from "./Component/Chat";
 
 require("dotenv").config();
 
@@ -174,6 +175,7 @@ function App() {
           <Planner />
         </Route>
         <Route path="/attraction" component={Attraction} />
+        <Route path="/chat" component={Chat} />
        </Switch>
       <Footer />
     </BrowserRouter>
