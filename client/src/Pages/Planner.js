@@ -5,9 +5,6 @@ import axios from "axios";
 import KakaoMap from "../Component/KakaoMap";
 import Chat from "../Component/Chat";
 
-
-import "../css/Planner.module.css";
-
 require("dotenv").config();
 
 const Planner = () => {
