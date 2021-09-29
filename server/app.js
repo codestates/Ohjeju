@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 //cors설정 개발단계->전부*
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://oh-jeju.ml',
   credentials: true
 }));
 //req.cookie

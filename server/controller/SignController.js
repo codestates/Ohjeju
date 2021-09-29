@@ -32,7 +32,6 @@ module.exports = {
       }
     }
     catch(err) { return res.status(500).send('server error') }
-    //아이디 패스워드 불일치부분이 여기해당하는지 여쭙고 싶습니다(최용석)
   },
   
   signUp: async (req, res) => {
@@ -65,7 +64,6 @@ module.exports = {
 
   signOut: async (req, res) => {
     //* endpoint: https://www.Ohjeju.com/signout
-    //signOut부분은 토큰 관리 함수 템플릿 만들고나서 다시 바꿔둘게요
 
     //토큰 확인해서 해당 토큰이 유효할 경우에만 로그아웃
     try {
@@ -77,7 +75,6 @@ module.exports = {
         .clearCookie('refreshToken')
         .send('sign out successfully')
     }
-    //catch에서 토큰이 유효하지 않은 경우도 잡히는데 API에 401같은거 있어야될거같아요 invalid token으로
     catch(err) { return res.status(500).send('server error') }
   }
 }
