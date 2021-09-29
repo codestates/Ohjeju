@@ -31,7 +31,7 @@ module.exports = {
           .send({ "id" : id });
       }
     }
-    catch(err) { return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send(err) }
   },
   
   signUp: async (req, res) => {
@@ -59,7 +59,7 @@ module.exports = {
         }
       }
     }
-    catch(err) { return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send(err) }
   },
 
   signOut: async (req, res) => {
