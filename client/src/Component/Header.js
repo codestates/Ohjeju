@@ -3,11 +3,9 @@ import "../css/Header.css";
 import { Link } from "react-router-dom";
 import Toggle from "./Toggle";
 import axios from "axios";
-import recap from '../Imgs/recap.png'
 import kakao from '../Imgs/kakao_login_large_wide.png'
 import google from '../Imgs/btn_google_signin_light_normal_web@2x.png'
 import xbutton from '../Imgs/xbutton.png'
-import Mypage from "../Pages/Mypage";
 import { useHistory } from "react-router";
 
 require('dotenv').config();
@@ -67,10 +65,6 @@ function Header({ isOn, toggleHandler, page, setPage, userInfo, isLogin, handleL
     if(!signinInfo.email || !signinInfo.password){
       seterrorMessage('이메일과 비밀번호를 모두 입력해주세요')
     }
-    // if(validateEmail(signinInfo.email)===false){        마지막완성단계에서 주석해제시켜서 기능적용하자
-    //   console.log(validateEmail(signinInfo.email))
-    //   seterrorMessage('이메일형식이 올바르지 않습니다')
-    // }
     else{
       seterrorMessage('')
       const payload= {
@@ -99,7 +93,10 @@ function Header({ isOn, toggleHandler, page, setPage, userInfo, isLogin, handleL
   };
 
   const handleSignup = () => {  //회원가입실행
-    if(!signupInfo.email || !signupInfo.password || !signupInfo.passwordConfirm){
+    if(validateEmail(signupInfo.email)===false){
+        seterrorMessage('이메일형식이 올바르지 않습니다')
+    }
+    else if(!signupInfo.email || !signupInfo.password || !signupInfo.passwordConfirm){
         seterrorMessage('이메일과 비밀번호를 모두 입력하세요')
     }
     else if(signupInfo.password!==signupInfo.passwordConfirm){
@@ -144,7 +141,6 @@ const kakaoLogin = () => { //카카오로그인
 const googleLogin = () => { //구글로그인
   const clientId = process.env.GOOGLE_REST_KEY || "933835778992-s0h1t6030sssr4qqhi9tdu0kj95nnu5i.apps.googleusercontent.com"; //뒤에 지워야함
   const REDIRECT_URI =  "http://localhost:3000/OAuth/google";
-  const state = 'google'
   const GOOGLE_AUTH_URL = 
   `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
   window.location.assign(GOOGLE_AUTH_URL);
@@ -187,7 +183,7 @@ const googleLogin = () => { //구글로그인
                 <div className='popup_inner'>
                   <div className='close_popup_container'>
                     <span className='Modal_title'>Oh! Jeju</span>
-                    <img className='close_popup_button' src={xbutton} onClick={closePopup}></img>
+                    <img className='close_popup_button' src={xbutton} onClick={closePopup} alt=''></img>
                   </div>
                   <div className='login_container'>
                     <div className='web_container'>
@@ -208,8 +204,8 @@ const googleLogin = () => { //구글로그인
                       </div> */}
                     </div>
                     <div className='sociallogin_container'>
-                      <img className='kakao_login_button' src={kakao} onClick={kakaoLogin}/>
-                      <img className='google_login_button' src={google} onClick={googleLogin}/>
+                      <img className='kakao_login_button' src={kakao} onClick={kakaoLogin} alt=''/>
+                      <img className='google_login_button' src={google} onClick={googleLogin} alt=''/>
                     </div>
                   </div>
                 </div>
@@ -220,7 +216,7 @@ const googleLogin = () => { //구글로그인
                       <div className='popup_inner_signup'>
                         <div className='close_popup_container'>
                           <span className='Modal_title'>Oh! Jeju</span>
-                          <img className='close_popup_button' src={xbutton}onClick={closePopup}></img>
+                          <img className='close_popup_button' src={xbutton}onClick={closePopup} alt=''></img>
                         </div>
                         <div className='signup_container'>
                           <div className='signup_web_container'>
