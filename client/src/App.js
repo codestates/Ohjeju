@@ -134,7 +134,7 @@ function App() {
       />
       <Switch>
         <Route path="/OAuth/kakao">
-          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} />
+          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
         </Route>
         <Route path="/OAuth/google">
           <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} />
