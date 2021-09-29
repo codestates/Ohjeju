@@ -28,16 +28,12 @@ module.exports = {
         headers: {
           Authorization: `Bearer ${kakaoAccessToken}`
         }
-      }).then((info) => { return { //회원가입/로그인을 클라에서 진행하지 말고 서버에서 하는 방향으로 수정
+      }).then((info) => { return { //회원가입을 클라에서 진행하지 말고 서버에서 하는 방향으로 수정
         userName: info.data.kakao_account.profile.nickname,
         email: info.data.kakao_account.email,
         image: info.data.kakao_account.profile.profile_image_url,
         password: process.env.KAKAO_LOGIN_PASSWORD //dummy data
       } })
-
-      //findOrCreate로 유저 정보 저장하고 있는데
-      //이 과정을 그냥 user에서 검색해서 있으면 signin, 없으면 signup 요청 보내는 것으로 수정
-      //-> findOrCreate로 만들어놓고 해당 유저 정보로 로그인 요청하고 리다이렉션
 
       const kakaoUser = await users.findOrCreate({
         where: { email: kakaoUserInfo.email },
