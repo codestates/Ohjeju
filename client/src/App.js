@@ -151,7 +151,8 @@ function App() {
         </Route>
         <Route path="/plannerSelect">
           <PlannerSelect
-            userInfo={userInfo}  
+            userInfo={userInfo}
+            isLogin={isLogin} 
           />
         </Route>
         <Route path="/favoritePlace">
