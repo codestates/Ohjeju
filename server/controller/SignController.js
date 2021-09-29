@@ -8,6 +8,7 @@ const { verifyToken, decodeToken } = require('./VerifyToken');
 module.exports = {
   signIn: async (req, res) => {
     //* endpoint: https://www.Ohjeju.com/signin
+
     try {
       const findUser = await Users.findOne({
         where:  {
@@ -27,13 +28,11 @@ module.exports = {
         return res.status(200)
           .cookie('accessToken', accessToken)
           .cookie('refreshToken', refreshToken)
-          .send({
-            "id" : id
-          });
+          .send({ "id" : id });
       }
     }
-    catch(err) { return res.status(500).send('server error') } //아이디 패스워드 불일치부분이 여기해당하는지 여쭙고 싶습니다(최용석)
-    //이후토큰처리문제는 얘기
+    catch(err) { return res.status(500).send('server error') }
+    //아이디 패스워드 불일치부분이 여기해당하는지 여쭙고 싶습니다(최용석)
   },
   
   signUp: async (req, res) => {
@@ -50,14 +49,14 @@ module.exports = {
         //email이나 password가 입력되어있지 않은 경우
         if(!req.body.email || !req.body.password) return res.status(400).send('no content');
         else { //required한 정보가 정상적으로 입력이 되어있는 경우
-          Users.create({
+          const newUserId = await Users.create({
             email: req.body.email,
             password: req.body.password,
             userName: req.body.userName || 'Default',
             image: req.body.image || null
-          })
+          }).then((user) => user.id)
 
-          return res.status(201).send('ok');
+          return res.status(201).send({ "id" : newUserId });
         }
       }
     }
