@@ -118,32 +118,6 @@ function App() {
     getPlace();
   }, []);
 
-  const [plannerList, setplannerList] = useState([
-    {
-      id: 0,
-      groupId: 0,
-      name: "테스트플래너1",
-      day: 1,
-    },
-    {
-      id: 0,
-      groupId: 0,
-      name: "테스트플래너2",
-      day: 1,
-    },
-    {
-      id: 0,
-      groupId: 0,
-      name: "테스트플래너3",
-      day: 1,
-    },
-    {
-      id: 0,
-      groupId: 0,
-      name: "테스트플래너4",
-      day: 1,
-    },
-  ]);
 
   return (
     <BrowserRouter>
@@ -176,7 +150,9 @@ function App() {
           />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect plannerList={plannerList} />
+          <PlannerSelect
+            userInfo={userInfo}  
+          />
         </Route>
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
