@@ -43,7 +43,7 @@ module.exports = {
           image: kakaoUserInfo.image
         }
       })
-      .then((arr) => arr[0])
+      .then((user) => user[0])
       .then((data) => {
         return {
           id: data.id,
@@ -59,20 +59,56 @@ module.exports = {
   OAuthGoogle: async (req, res) => {
     //* endpoint: https://www.Ohjeju.com/OAuth/google
 
-    if(req.body.hash){
-      const accessToken = req.body.hash.split("=")[1].split("&")[0];  //hash 부분에서 accessToken을 떼어준다
-      await axios.get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + accessToken, { 
-        headers: { 
-          authorization: `token ${accessToken}`,    //어세스토큰을 통해 유저정보를 요청한다
+    try {
+      const accessToken = req.body.hash.split('=')[1].split('&')[0];
+      const googleUserInfo = await axios.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`, { 
+        headers: { //accessToken 이용해 유저 정보 요청
+          authorization: `token ${accessToken}`,
           accept: 'application/json' 
         }
-      }).then(item => {
-        res.status(200).json(item.data)   //요청된 유저정보데이터
       })
-      .catch((err)=>{
-        console.log('구글로그인 에러')
+      .then((res) => {
+        return {
+          email: res.data.email,
+          password: process.env.GOOGLE_LOGIN_PASSWORD,
+          userName: 'Google User',
+          image: res.data.picture
+        }
       })
+
+      const googleUser = await users.findOrCreate({
+        where: { email: googleUserInfo.email },
+        defaults: {
+          password: googleUserInfo.password,
+          userName: googleUserInfo.userName,
+          image: googleUserInfo.image
+        }
+      })
+      .then((user) => user[0])
+      .then((data) => {
+        return {
+          id: data.id,
+          email: data.email
+        }
+      })
+
+      return res.status(200).send(googleUser);
     }
-    
+    catch(err) { return res.status(500).send('server error') }
+
+    // if(req.body.hash){
+    //   const accessToken = req.body.hash.split("=")[1].split("&")[0];  //hash 부분에서 accessToken을 떼어준다
+    //   await axios.get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + accessToken, { 
+    //     headers: { 
+    //       authorization: `token ${accessToken}`,    //어세스토큰을 통해 유저정보를 요청한다
+    //       accept: 'application/json' 
+    //     }
+    //   }).then(item => {
+    //     res.status(200).json(item.data)   //요청된 유저정보데이터
+    //   })
+    //   .catch((err)=>{
+    //     console.log('구글로그인 에러')
+    //   })
+    // }
   }
 }
