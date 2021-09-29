@@ -31,7 +31,7 @@ module.exports = {
           .send({ "id" : id });
       }
     }
-    catch(err) { return res.status(500).send(err) }
+    catch(err) { return res.status(500).send('server error') }
   },
   
   signUp: async (req, res) => {
@@ -59,7 +59,7 @@ module.exports = {
         }
       }
     }
-    catch(err) { return res.status(500).send(err) }
+    catch(err) { return res.status(500).send('server error') }
   },
 
   signOut: async (req, res) => {
@@ -75,6 +75,6 @@ module.exports = {
         .clearCookie('refreshToken')
         .send('sign out successfully')
     }
-    catch(err) { return res.status(500).send(err) }
+    catch(err) { return res.status(500).send('server error') }
   }
 }
