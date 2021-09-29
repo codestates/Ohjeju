@@ -31,7 +31,8 @@ function PlannerSelect({userInfo}){
   const getPlanner = () => {
     axios.get(`${SERVER_URL}/planner?plannerId=${userInfo.plannerId}`)
     .then((res)=>{
-      setplannerList(res.data)
+      console.log(res.data)
+      setplannerList([res.data])
     })
   }
 
@@ -47,6 +48,9 @@ function PlannerSelect({userInfo}){
           <div className='planner_item'>
             {planner.name}
           </div>
+          <button className='planner_create'>
+            플래너생성
+          </button>
           </Link>
         )
       })}
