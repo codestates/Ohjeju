@@ -1,39 +1,125 @@
+/* @font-face {
+  font-family: "나눔";
+  src: url(../font/NanumSquareB.woff);
+} */
+
 .favorite {
-  display: flex;
+  /* display: flex; */
   padding: 20px;
-  background-color: white;
+  background-color: rgb(206, 206, 206);
 }
 
 .favorite_in {
   width: 100%;
-  /* background-color: yellow; */
 }
 
 .favorite_title {
-  color: white;
-  font-size: 24px;
+  color: black;
+  font-size: 30px;
   font-weight: 600;
-  margin-bottom: 20px;
+  /* background-color: yellowgreen; */
+  text-align: center;
 }
 
-.favorite_img {
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .flex-img {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 0px 20px;
+} */
+
+/* .favorite_img {
+  position: relative;
+  width: 25%;
   height: 450px;
   object-fit: cover;
-}
+  padding: 45px;
+} */
 
-.favorite_star {
-  color: rgb(255, 196, 0);
-  font-size: 26px;
-  position: absolute;
-  padding: 8px;
-}
-
-.favorite_icon:hover {
-  color: rgb(255, 153, 0);
-  cursor: pointer;
-}
-
-.flex-img {
+.product-container {
   display: flex;
-  justify-content: space-around;
+  width: 70%;
+  /* max-width: 1200px; */
+  margin: auto;
+}
+
+.product-item {
+  width: 33.3%;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.product-item:hover {
+  /* opacity: 0.8;
+  transition: all 1s; */
+  filter: brightness(70%);
+  transition: 1s;
+}
+
+.product-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.product-item img {
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 400px;
+  z-index: 9;
+}
+
+.product-item img:hover {
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 400px;
+  z-index: 0;
+}
+
+.product-all p {
+  position: absolute;
+  top: 200px;
+  color: white;
+  font-size: 30px;
+}
+
+.product-div {
+  position: relative;
+  padding-top: 10px;
+  text-align: center;
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 1400px) {
+  .product-container {
+    flex-wrap: wrap;
+  }
+  .product-item {
+    width: 50%;
+  }
+
+  .product-all p {
+    font-size: 25px;
+  }
+  .product-item img {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-container {
+    flex-wrap: wrap;
+  }
+  .product-item {
+    width: 100%;
+  }
 }

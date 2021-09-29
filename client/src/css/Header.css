@@ -25,7 +25,7 @@ header {
 
 #header_logo {
   font-weight: 800;
-  font-size: 20px;
+  font-size: 32px;
   cursor: pointer;
   color: white;
 }
@@ -39,6 +39,14 @@ header {
   font-size: 14px;
 }
 
+#login_welcome {
+  margin-right: 20px;
+  background-color: #e2e2c0;
+  color: rgb(14, 12, 12);
+  font-size: 15px;
+  font-weight: 500;
+}
+
 #header_SignIn {
   margin-right: 30px;
   color: white;
@@ -48,12 +56,347 @@ header {
   color: white;
 }
 
+#header_Main {
+  margin-right: 30px;
+  color: white;
+}
+
+#header_Mypage {
+  margin-right: 30px;
+  color: white;
+}
+
+#header_SignOut {
+  color: white;
+}
+
 #header_SignIn:hover {
   color: grey;
   cursor: pointer;
 }
 
-#header_Signup:hover {
+#header_SignUp:hover {
   color: grey;
+  cursor: pointer;
+}
+
+#header_Main:hover {
+  color: grey;
+  cursor: pointer;
+}
+
+#header_Mypage:hover {
+  color: grey;
+  cursor: pointer;
+}
+
+#header_SignOut:hover {
+  color: grey;
+  cursor: pointer;
+}
+
+/* 모달css */
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(36, 33, 33, 0.5);
+}
+
+.popup_inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  height: 700px;
+  /* left: 36%;
+  right: 36%; */
+  top: 20%;
+  bottom: 15%;
+  margin: auto;
+  border-radius: 5px;
+  border: 2px solid #ca4e06;
+  background: white;
+  padding: 25px;
+}
+
+.popup_inner_signup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  height: 550px;
+  /* left: 36%;
+  right: 36%; */
+  top: 20%;
+  bottom: 15%;
+  margin: auto;
+  border-radius: 5px;
+  border: 2px solid #ca4e06;
+  background: white;
+  padding: 25px;
+}
+
+.close_popup_container {
+  height: 10%;
+  display: flex;
+}
+
+.Modal_title {
+  width: 95%;
+  margin-left: 15px;
+  font-size: 30px;
+  font-weight: 700;
+  color: rgb(22, 21, 21);
+  text-align: center;
+  padding: 0;
+}
+
+.close_popup_button {
+  width: 5%;
+  float: right;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.login_container {
+  /* 'web_container' 'sociallogin_container' 보유 */
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup_container {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.web_container {
+  /* 'input_container', 'web_button_container', 'reCAPTCHA_container' 보유 */
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input_container {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup_web_container {
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup_input_container {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.email_input {
+  height: 40%;
+  width: 70%;
+  font-size: 20px;
+  text-align: center;
+  border-color: lightcoral;
+}
+
+.password_input {
+  height: 40%;
+  width: 70%;
+  font-size: 20px;
+  margin-top: 11px;
+  text-align: center;
+  border-color: lightcoral;
+}
+
+.signup_email_input {
+  height: 33%;
+  width: 70%;
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
+  border-color: lightcoral;
+}
+
+.signup_password_input {
+  height: 33%;
+  width: 70%;
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
+  border-color: lightcoral;
+}
+
+.signup_password_confirm_input {
+  height: 33%;
+  width: 70%;
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
+  border-color: lightcoral;
+}
+
+.error_message_container {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error_message {
+  height: 13%;
+  width: 70%;
+  margin-top: 11px;
+  text-align: center;
+  font-weight: 700;
+  background-color: rgb(162, 167, 151);
+  color: rgb(216, 27, 27);
+}
+
+.signup_error_message {
+  height: 30%;
+  width: 70%;
+  margin-top: 11px;
+  text-align: center;
+  font-weight: 700;
+  background-color: rgb(162, 167, 151);
+  color: rgb(216, 27, 27);
+  padding: 8px 0;
+}
+
+.web_button_container {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.weblogin_button {
+  width: 70%;
+  display: block;
+  padding: 13px 0;
+  /* margin-top: 11px; */
+  background-color: #e9a11d;
+  border: 1px solid #1d1d1c;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+.weblogin_button:hover {
+  box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
+}
+
+.websignup_button {
+  width: 70%;
+  display: block;
+  padding: 13px 0;
+  margin-top: 11px;
+  background-color: #e9a11d;
+  border: 1px solid #1d1d1c;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.websignup_button:hover {
+  box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
+}
+
+.signup_button {
+  width: 70%;
+  display: block;
+  padding: 13px 0;
+  margin-top: 11px;
+  background-color: #e9a11d;
+  border: 1px solid #1d1d1c;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.signup_button:hover {
+  box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
+}
+
+.reCAPTCHA_container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reCAPTCHA {
+  width: 70%;
+  /* margin-bottom: 11px; */
+  text-align: center;
+  font-weight: 700;
+  color: rgb(216, 27, 27);
+}
+
+.sociallogin_container {
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.kakao_login_button {
+  width: 70%;
+  height: 50%;
+  padding: 15px 0;
+  cursor: pointer;
+}
+
+.google_login_button {
+  width: 70%;
+  height: 50%;
+  margin-top: 11px;
+  padding: 15px 0;
   cursor: pointer;
 }
