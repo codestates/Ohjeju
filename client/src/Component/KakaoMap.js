@@ -348,7 +348,7 @@ function KakaoMap() {
   }, []);
 
   return (
-    <div>
+    <div id='test'>
       {/* 카테고리는 추가가능 */}
       <div id="category">
         <button id="CE7" onClick={() => getCategory("CE7", 1)}>

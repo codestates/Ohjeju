@@ -5,18 +5,22 @@
 }
 
 .container {
-  width: 100%;
-}
-
-.map {
+  height: 100%;
   width: 100%;
 }
 
 .main {
   /* display: flex; */
+  height: 100%;
+  width: 100%;
 }
 
 .chat {
   width: 100%;
   background-color: #eee;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
 }
