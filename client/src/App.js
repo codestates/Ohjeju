@@ -137,7 +137,7 @@ function App() {
           <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
         </Route>
         <Route path="/OAuth/google">
-          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} />
+          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
         </Route>
         <Route exact path="/">
           <Main placeList={placeList} getPlace={getPlace} />

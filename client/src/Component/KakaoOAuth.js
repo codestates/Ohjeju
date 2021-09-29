@@ -22,6 +22,7 @@ function KakaoOAuth({setuserInfo, setisLogin, getuserInfo}) {
         }, { withCredentials: true })
         .then((res) => { getuserInfo(res) })
       })
+      .catch((err) => { alert(err) })
       //   const payload = {
       //       email:res.data.kakao_account.email,  // 동의했을시 받아온다
       //       userName:res.data.kakao_account.profile.nickname,
