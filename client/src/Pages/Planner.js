@@ -18,9 +18,9 @@ const Planner = () => {
         <div className={style.map}>
           <KakaoMap />
         </div>
-        <div className={style.chat}>
+        {/* <div className={style.chat}>
           <Chat />
-        </div>
+        </div> */}
       </div>
     </div>
   );
