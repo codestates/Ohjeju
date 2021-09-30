@@ -43,7 +43,7 @@ function PlannerSelect({userInfo, isLogin}){
   }
 
   const getPlanner = () => {        //플래너 불러오기
-    axios.get(`${SERVER_URL}/user/planner?userId=${userInfo.id}`, {withCredentials:true})
+    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/planner?userId=${userInfo.id}`, {withCredentials:true})
     .then((res)=>{
       setplannerList(res.data)
     })
@@ -51,7 +51,7 @@ function PlannerSelect({userInfo, isLogin}){
 
   const getPlannerInfo = (idx) => {     //플래너정보 불러오기
     const plannerId=plannerList[idx].id
-    axios.get(`${SERVER_URL}/planner?plannerId=${plannerId}`)
+    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner?plannerId=${plannerId}`)
     .then((res)=>{
       console.log(res.data)
       setplannerInfo(res.data)
@@ -84,7 +84,7 @@ function PlannerSelect({userInfo, isLogin}){
   }
 
   const createPlanner = () => {           //플래너생성
-    axios.post(`${SERVER_URL}/planner`, {isLogin:isLogin, name:plannerName}, {withCredentials:true})
+    axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner`, {isLogin:isLogin, name:plannerName}, {withCredentials:true})
     .then((res)=>{
       alert('생성완료')
       setplannerName('')
@@ -97,7 +97,7 @@ function PlannerSelect({userInfo, isLogin}){
 
   const deletePlanner = (idx) => {    //플래너삭제
     const plannerId=plannerList[idx].id
-    axios.delete(`${SERVER_URL}/planner?plannerId=${plannerId}`, {withCredentials:true})
+    axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner?plannerId=${plannerId}`, {withCredentials:true})
     .then((res)=>{
       alert('삭제완료')
       getPlanner();
