@@ -1,9 +1,17 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+  Link,
+} from "react-router-dom";
 import { useHistory } from "react-router";
 import axios from "axios";
 import "../css/PlannerSelect.css";
+import Planner from "./Planner";
+
 
 require("dotenv").config();
 
@@ -11,51 +19,51 @@ const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 function PlannerSelect({userInfo, isLogin}){
 
+
   const history = useHistory();
 
-  const [plannerList, setplannerList] = useState([{  //모든 플래너 리스트
-    id:16,name:"테스트플래너1"
-  },{
-    id:17,name:"테스트플래너2"
-  },{
-    id:18,name:"테스트플래너3"
-  }])
-
+  //빈배열이라 에러뜨면 밑에 map부분 if로분기
+  const [plannerList, setplannerList] = useState([])
   const [plannerInfo, setplannerInfo] = useState([{  //플래너각각의 정보리스트
     plan:[{id:1,day:3,departureTime:1530,destination:'목적지',memo:'메모',activityContent:'활동내용'}],
     group: {groupId:1,userName:[],leader:'리더'},
     name:'테스트이름',
    }])
 
-  const [plannerName, setplannerName] = useState('') //플래너생성이름
 
-  const [overplannerInfo, setoverplannerInfo] =useState(false)
+  const [plannerName, setplannerName] = useState('') //플래너생성이름
 
   const mouseOn = (idx) => {  //마우스오버시 플래너정보불러오기 및 표시
     getPlannerInfo(idx)
-    setoverplannerInfo(true)
+    const element = document.getElementsByClassName(`planner_item_info_info${idx}`)
+    element[0].classList.toggle("open")
   }
 
-  const mouseOut = () => {   //마우스아웃시 플래너정보 비표시
+  const mouseOut = (idx) => {   //마우스아웃시 플래너정보 비표시
     setplannerInfo('')
-    setoverplannerInfo(false)
-    console.log(`마우스아웃${overplannerInfo}`)
+    const element = document.getElementsByClassName(`planner_item_info_info${idx}`)
+    element[0].classList.remove('open')
+    element[0].classList.add('close')
   }
-
+ 
   const getPlanner = () => {        //플래너 불러오기
-    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/planner?userId=${userInfo.id}`, {withCredentials:true})
+    //`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/planner?userId=${userInfo.id}`
+    axios.get(`http://localhost:80/user/planner?userId=${userInfo.id}`, {withCredentials:true})
     .then((res)=>{
-      setplannerList(res.data)
+      res.data.forEach(item => {
+        if(!plannerList.includes(item))  plannerList.push(item)
+      })
+      const result = JSON.parse(JSON.stringify(plannerList))
+      setplannerList(result)
     })
   }
 
   const getPlannerInfo = (idx) => {     //플래너정보 불러오기
     const plannerId=plannerList[idx].id
-    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner?plannerId=${plannerId}`)
+    //${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner?plannerId=${plannerId}
+    axios.get(`http://localhost:80/planner?plannerId=${plannerId}`)
     .then((res)=>{
-      console.log(res.data)
       setplannerInfo(res.data)
-      setoverplannerInfo(true)
     })
   }
 
@@ -71,7 +79,7 @@ function PlannerSelect({userInfo, isLogin}){
     localStorage.setItem('plannerInfo', JSON.stringify(plannerInfo));
     const planner=JSON.parse(localStorage.getItem('plannerInfo'));
     console.log(`local${planner.name}`)
-    history.push('/planner')
+    // history.push('/planner')
     // const plannerInfo=JSON.parse(localStorage.getItem('plannerInfo')); 플래너페이지에서 이 코드를 실행하면 해당정보를 갱신한다
   }
 
@@ -84,7 +92,8 @@ function PlannerSelect({userInfo, isLogin}){
   }
 
   const createPlanner = () => {           //플래너생성
-    axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner`, {isLogin:isLogin, name:plannerName}, {withCredentials:true})
+    //`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner`
+    axios.post(`http://localhost:80/planner`, {isLogin:isLogin, name:plannerName}, {withCredentials:true})
     .then((res)=>{
       alert('생성완료')
       setplannerName('')
@@ -118,21 +127,26 @@ function PlannerSelect({userInfo, isLogin}){
     <div className='planner_container'>
       {plannerList.map((planner, idx)=>{
         return (
-          <div className='planner_item' onMouseOver={()=>mouseOn(idx)} onMouseLeave={mouseOut}>
+          <div className='planner_item' onMouseEnter={()=>mouseOn(idx)} onMouseLeave={()=>mouseOut(idx)}>
             <button className='planner_item_delete' onClick={()=>deletePlanner(idx)}>x</button>
             <div className='planner_item_info'>
               Planner{idx+1}
-              {overplannerInfo ? (
                 <div>
-                <div className='planner_item_info_info'>
-                  {plannerInfo.name}<br></br>
+                <div className={`planner_item_info_info${idx} close`}>
+                  {planner.name}<br></br>
                   {plannerInfo.group ? (
                     <a>Leader : {plannerInfo.group.leader}</a>
                   ):null}
                 </div>
-                <button className='planner_item_move' onClick={()=>movetoPlanner(idx)}>플래너이동</button>
+                  <Link to ={
+                    {
+                      pathname:'/planner',
+                      state:{userInfo,plannerInfo}
+                    }
+                  }>
+                  <button className='planner_item_move' onClick={()=>movetoPlanner(idx)}>플래너이동</button>
+                  </Link>
                 </div>
-              ):null}
             </div>
           </div>
         )

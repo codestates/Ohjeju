@@ -65,8 +65,9 @@ function App() {
 
   const getuserInfo = (res) => {
     //유저정보 받아오기
+    //`${process.env.REACT_APP_API_URL || "http://localhost:80"
     axios
-      .get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/info?userId=${res.data.id}`, {
+      .get(`http://localhost:80/user/info?userId=${res.data.id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -113,6 +114,7 @@ function App() {
 
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  console.log(`App ${userInfo}`)
 
   useEffect(() => {
     getPlace();
@@ -157,9 +159,10 @@ function App() {
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
         </Route>
-        <Route path="/planner">
-          <Planner />
-        </Route>
+        {/* <Route path="/planner">
+          <Planner userInfo={userInfo} />
+        </Route> */}
+        <Route path="/planner" component={Planner}/>
         <Route path="/attraction" component={Attraction} />
         <Route path="/chat" component={Chat} />
       </Switch>
