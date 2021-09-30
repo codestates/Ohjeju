@@ -134,7 +134,7 @@ const kakaoLogin = () => { //카카오로그인
   const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/kakao"; //배포시변경필요
   const state = 'kakao'
   const KAKAO_AUTH_URL = 
-  `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
+  `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_KEY}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
   window.location.assign(KAKAO_AUTH_URL)
 }
 
@@ -142,7 +142,7 @@ const googleLogin = () => { //구글로그인
   const clientId = process.env.GOOGLE_REST_KEY;
   const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/google"; //배포시변경필요
   const GOOGLE_AUTH_URL = 
-  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
+  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_REST_KEY}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
   window.location.assign(GOOGLE_AUTH_URL);
 }
  
