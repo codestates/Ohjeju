@@ -10,13 +10,13 @@ function KakaoOAuth({setuserInfo, setisLogin, getuserInfo}) {
     const history = useHistory();
 
     useEffect( async () => {
-      axios.post(`${SERVER_URL}/OAuth/kakao`, { //인가코드첨부 => 토큰을 요청한다
+      axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/OAuth/kakao`, { //인가코드첨부 => 토큰을 요청한다
         code:new URL(window.location.href).searchParams.get('code'),
         state:new URL(window.location.href).searchParams.get('state')
       })
       .then((res) => {
         history.push('/');
-        axios.post(`${SERVER_URL}/signin`, {
+        axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`, {
           email: res.data.email,
           password: KAKAO_LOGIN_PASSWORD
         }, { withCredentials: true })

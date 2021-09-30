@@ -11,12 +11,12 @@ function GoogleOAuth({setuserInfo, setisLogin, getuserInfo}){
     const history = useHistory();
     
     useEffect( async () => {
-      axios.post(`${SERVER_URL}/google`,{
+      axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/google`,{
         hash: new URL(window.location.href).hash
       })
       .then((res) => {
         history.push('/');
-        axios.post(`${SERVER_URL}/signin`, {
+        axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`, {
           email: res.data.email,
           password: GOOGLE_LOGIN_PASSWORD
         }, { withCredentials: true })
