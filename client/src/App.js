@@ -133,10 +133,10 @@ function App() {
       />
       <Switch>
         <Route path="/OAuth/kakao">
-          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} />
+          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
         </Route>
         <Route path="/OAuth/google">
-          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} />
+          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
         </Route>
         <Route exact path="/">
           <Main placeList={placeList} getPlace={getPlace} />
@@ -149,7 +149,10 @@ function App() {
           />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect userInfo={userInfo} />
+          <PlannerSelect
+            userInfo={userInfo}
+            isLogin={isLogin} 
+          />
         </Route>
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
