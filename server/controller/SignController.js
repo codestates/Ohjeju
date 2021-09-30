@@ -3,6 +3,12 @@ const Users = require('../models').users;
 const jwt = require('jsonwebtoken');
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
+const COOKIE_OPTIONS = {
+  domain: 'oh-jeju.ml',
+  path: '/',
+  sameSite: 'none',
+  httpOnly: true
+}
 
 //유저 로그인 상태 관련 method
 module.exports = {
@@ -26,8 +32,8 @@ module.exports = {
         const refreshToken = jwt.sign(tokenPayload, process.env.REFRESH_SECRET, { expiresIn : '14d' });
 
         return res.status(200)
-          .cookie('accessToken', accessToken)
-          .cookie('refreshToken', refreshToken)
+          .cookie('accessToken', accessToken, COOKIE_OPTIONS)
+          .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
           .send({ "id" : id });
       }
     }
