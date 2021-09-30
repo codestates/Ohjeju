@@ -129,7 +129,7 @@ function Header({ isOn, toggleHandler, page, setPage, userInfo, isLogin, handleL
 //소셜로그인
 
 const kakaoLogin = () => { //카카오로그인
-  const CLIENT_ID = process.env.KAKAO_REST_KEY;
+  const CLIENT_ID = process.env.KAKAO_REST_KEY
   //여기 process.env는 제대로 안받아와진다 서버는 되는데; 서버쪽에 client_secret이 있으니 상관없을까
   const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/kakao"; //배포시변경필요
   const state = 'kakao'
