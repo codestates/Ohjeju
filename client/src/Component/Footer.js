@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <div className={style.background}>
       <div className={style.container}>
-        <img src={logo2} className={style.logoImg}></img>
+        {/* <img src={logo2} className={style.logoImg}></img> */}
         <div className={style.logo}>
           <h2>Front end</h2>
           <p>Lee sangkwon</p>

@@ -118,7 +118,6 @@ function App() {
     getPlace();
   }, []);
 
-
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
@@ -164,7 +163,7 @@ function App() {
         <Route path="/attraction" component={Attraction} />
         <Route path="/chat" component={Chat} />
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }
