@@ -104,7 +104,7 @@ function App() {
   const [placeList, setPlaceList] = useState([]);
 
   const getPlace = () => {
-    axios.get(`${SERVER_URL}/attractions`).then((res) => {
+    axios.get(`${process.env.REACT_APP_API_URL}/attractions`).then((res) => {
       let arr = [...res.data];
       let newarr = arr.slice(0, 27);
       setPlaceList(newarr);
