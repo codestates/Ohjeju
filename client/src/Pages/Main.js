@@ -8,8 +8,9 @@ import jeju_img1 from "../Imgs/jeju1.jpg";
 import jejutree1 from "../Imgs/jejutree1.jpg";
 import jejutree from "../Imgs/jejutree.jpg";
 import Footer from "../Component/Footer";
+import background from "../Imgs/background.jpg";
 
-function Main({placeList,getPlace}) {
+function Main({ placeList, getPlace }) {
   return (
     <main>
       <div id="main_in">
@@ -26,9 +27,9 @@ function Main({placeList,getPlace}) {
           </div>
         </div>
         <div id="main_Banner_black_opacity" />
-        <img id="main_Banner_img" src={jejutree1} alt="" />
+        <img id="main_Banner_img" src={background} alt="" />
       </div>
-      <FavoritePlace placeList={placeList} getPlace={getPlace}/>
+      <FavoritePlace placeList={placeList} getPlace={getPlace} />
     </main>
   );
 }

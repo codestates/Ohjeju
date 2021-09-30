@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/KakaoMap.css";
+import Chat from "../Component/Chat";
 
 const axios = require("axios");
 
@@ -348,7 +349,7 @@ function KakaoMap() {
   }, []);
 
   return (
-    <div id='test'>
+    <div id="test">
       {/* 카테고리는 추가가능 */}
       <div id="category">
         <button id="CE7" onClick={() => getCategory("CE7", 1)}>
@@ -369,6 +370,14 @@ function KakaoMap() {
         >
           키워드검색
         </button>
+        <button
+          onClick={() => {
+            const getChatMenu = document.getElementById("chat_wrap");
+            getChatMenu.classList.toggle("open");
+          }}
+        >
+          채팅창열기
+        </button>
       </div>
 
       <div className="map_wrap">
@@ -379,6 +388,11 @@ function KakaoMap() {
             <input id="keyword" size="15" type="text" onKeyUp={testKeydown} />
             <button onClick={getCategory}>검색</button>
           </div>
+          <hr></hr>
+          <ul id="placesList"></ul>
+        </div>
+        <div id="chat_wrap" className="bg_white close">
+          <Chat />
           <hr></hr>
           <ul id="placesList"></ul>
         </div>
