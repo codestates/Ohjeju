@@ -26,6 +26,8 @@ function PlannerSelect({userInfo, isLogin}){
 
   const [plannerName, setplannerName] = useState('') //플래너생성이름
 
+  const [overplannerInfo, setoverplannerInfo] =useState('')
+
   const getPlanner = () => {        //플래너 불러오기
     axios.get(`${SERVER_URL}/user/planner?userId=${userInfo.id}`, {withCredentials:true})
     .then((res)=>{
@@ -33,10 +35,12 @@ function PlannerSelect({userInfo, isLogin}){
     })
   }
 
-  const getPlannerInfo = (plannerId) => {     //플래너정보 불러오기
+  const getPlannerInfo = (idx) => {     //플래너정보 불러오기
+    const plannerId=plannerList[idx].id
     axios.get(`${SERVER_URL}/planner?plannerId=${plannerId}`)
     .then((res)=>{
       setplannerInfo(res.data)
+      console.log(plannerInfo)
     })
   }
 
@@ -91,15 +95,19 @@ function PlannerSelect({userInfo, isLogin}){
   useEffect(() => {
     getPlanner();
   }, []);
+  
+  
+  
 
   return (
     <div className='planner_container'>
       {plannerList.map((planner, idx)=>{
         return (
-          <div className='planner_item' onClick={()=>movetoPlanner(idx)}>
+          <div className='planner_item' onMouseOver={()=>getPlannerInfo(idx)}>
             <button className='planner_item_delete' onClick={()=>deletePlanner(idx)}>x</button>
             <div className='planner_item_info'>
               {planner.name}
+              {plannerInfo.name}
             </div>
           </div>
         )
