@@ -17,4 +17,5 @@ export KAKAO_CLIENT_SECRET=$(aws ssm get-parameters --region ap-northeast-2 --na
 export KAKAO_LOGIN_PASSWORD=$(aws ssm get-parameters --region ap-northeast-2 --names KAKAO_LOGIN_PASSWORD --query Parameters[0].Value | sed 's/"//g')
 export GOOGLE_LOGIN_PASSWORD=$(aws ssm get-parameters --region ap-northeast-2 --names GOOGLE_LOGIN_PASSWORD --query Parameters[0].Value | sed 's/"//g')
 
+authbind --deep pm2 stop app.js
 authbind --deep pm2 start app.js
