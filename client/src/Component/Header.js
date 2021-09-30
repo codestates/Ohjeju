@@ -129,20 +129,20 @@ function Header({ isOn, toggleHandler, page, setPage, userInfo, isLogin, handleL
 //소셜로그인
 
 const kakaoLogin = () => { //카카오로그인
-  const CLIENT_ID = process.env.KAKAO_REST_KEY
+  const CLIENT_ID = process.env.KAKAO_REST_KEY || '0f8bff12e99bf62cf63de306e104978b'
   //여기 process.env는 제대로 안받아와진다 서버는 되는데; 서버쪽에 client_secret이 있으니 상관없을까
   const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/kakao"; //배포시변경필요
   const state = 'kakao'
   const KAKAO_AUTH_URL = 
-  `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_KEY}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
+  `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
   window.location.assign(KAKAO_AUTH_URL)
 }
 
 const googleLogin = () => { //구글로그인
-  const clientId = process.env.GOOGLE_REST_KEY;
+  const clientId = process.env.GOOGLE_REST_KEY || '933835778992-s0h1t6030sssr4qqhi9tdu0kj95nnu5i.apps.googleusercontent.com'
   const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/google"; //배포시변경필요
   const GOOGLE_AUTH_URL = 
-  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_REST_KEY}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
+  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
   window.location.assign(GOOGLE_AUTH_URL);
 }
  
