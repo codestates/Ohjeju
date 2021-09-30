@@ -12,6 +12,10 @@ import "../css/Planner.module.css";
 require("dotenv").config();
 
 const Planner = () => {
+
+  const plannerInfo=JSON.parse(localStorage.getItem('plannerInfo')); //플래너셀렉트페이지에서 저장한 정보
+
+  console.log(`플래너페이지 plannerInfo${plannerInfo.name}`)
   
   return (
     <div className={style.container}>

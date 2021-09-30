@@ -43,6 +43,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
           userName:'',
           password:''
         })
+        alert('변경완료')
         setshowuserInfoModifyModal(false)
       })
       .catch((err)=>{
