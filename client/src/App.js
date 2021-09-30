@@ -118,7 +118,6 @@ function App() {
     getPlace();
   }, []);
 
-
   return (
     <BrowserRouter>
       {/* {isLoading ? <Loading /> : null} */}
@@ -150,9 +149,7 @@ function App() {
           />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect
-            userInfo={userInfo}  
-          />
+          <PlannerSelect userInfo={userInfo} />
         </Route>
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
@@ -163,7 +160,7 @@ function App() {
         <Route path="/attraction" component={Attraction} />
         <Route path="/chat" component={Chat} />
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }

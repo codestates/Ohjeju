@@ -28,7 +28,7 @@ function FavoritePlace({ getPlace, placeList }) {
               >
                 <div className="product-all">
                   <img src={item.image} alt="" key={index} />
-                  <p className="product-p">상세페이지</p>
+                  <p className="product-p">{item.name}</p>
                 </div>
               </Link>
               <div className="product-div">{item.name}</div>
