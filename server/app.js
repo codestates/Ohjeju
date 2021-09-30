@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 //cors설정 개발단계->전부*
 app.use(cors({
-  origin: 'http://oh-jeju.ml',
+  origin: ['http://oh-jeju.ml', 'http://ohjeju-bucket-deploy2.s3-website.ap-northeast-2.amazonaws.com/'],
   credentials: true
 }));
 //req.cookie
