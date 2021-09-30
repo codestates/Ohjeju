@@ -66,7 +66,7 @@ function App() {
   const getuserInfo = (res) => {
     //유저정보 받아오기
     axios
-      .get(`${SERVER_URL}/user/info?userId=${res.data.id}`, {
+      .get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/info?userId=${res.data.id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -78,7 +78,7 @@ function App() {
   const handleLogout = () => {
     //로그아웃실행
     axios
-      .post(`${SERVER_URL}/signout`, "NO_BODY_DATA", { withCredentials: true })
+      .post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signout`, "NO_BODY_DATA", { withCredentials: true })
       .then((res) => {
         setisLogin(false);
         setuserInfo({
@@ -104,7 +104,7 @@ function App() {
   const [placeList, setPlaceList] = useState([]);
 
   const getPlace = () => {
-    axios.get(`${SERVER_URL}/attractions`).then((res) => {
+    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/attractions`).then((res) => {
       let arr = [...res.data];
       let newarr = arr.slice(0, 27);
       setPlaceList(newarr);
