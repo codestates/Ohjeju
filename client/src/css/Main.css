@@ -17,14 +17,14 @@
   font-size: 60px;
   margin-bottom: 30px;
   font-weight: 700;
-  color: white;
+  color: #111;
 }
 
 #main_story {
   text-align: center;
   width: 70%;
   height: 50px;
-  color: white;
+  color: #111;
   font-size: 30px;
   font-weight: 400;
 }

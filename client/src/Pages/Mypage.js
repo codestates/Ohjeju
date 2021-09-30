@@ -5,7 +5,6 @@ import axios from "axios";
 import "../css/Mypage.css";
 import defaultImg from '../Imgs/hanra.jpg'
 import xbutton from '../Imgs/xbutton.png'
-import jejutree1 from "../Imgs/jejutree1.jpg";
 
 require("dotenv").config();
 
@@ -30,7 +29,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
 
   const userInfoModify = () => { //유저정보수정실행
     if(!userInfoModifyInput.userName || !userInfoModifyInput.password){
-      seterrorMessage('닉네임과 비밀번호를 모두 입력해주세요')
+      seterrorMessage('모든사항을 입력해주세요')
     }
     else{
       const payload={
@@ -44,6 +43,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
           userName:'',
           password:''
         })
+        alert('변경완료')
         setshowuserInfoModifyModal(false)
       })
       .catch((err)=>{
@@ -68,13 +68,18 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
   }
 
   return (
-    <div className='mypage_container'>
-      <img className='user_image' src={defaultImg}></img>
-      {/* <img className='user_image' src={userInfo.image}></img> */}
+      <div className='mypage_container'>
+      {userInfo.image ? 
+      (<img className='user_image' src={userInfo.image}/>):
+      (<img className='user_image' src={defaultImg}/>)}
       <div className='user_container'>
         <div className='user_info_container'>
-          <div className='user_email'>{userInfo.email}</div>
-          <div className='user_username'>{userInfo.userName}</div>
+          <div className='user_email_container'>
+            <div className='user_email'>{userInfo.email}</div>
+          </div>
+          <div className='user_username_container'>
+            <div className='user_username'>{userInfo.userName}</div>
+          </div>
         </div>
         <div className='user_planner_move'>
           <Link to ='/plannerSelect'>
@@ -101,7 +106,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
                         </div>
                         <div className='error_message_container'>
                             {errorMessage!=='' ? (
-                              <div className='signup_error_message'>{errorMessage}</div>
+                              <div className='modify_error_message'>{errorMessage}</div>
                               ):null}
                         </div>
                       </div>

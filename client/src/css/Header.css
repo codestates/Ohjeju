@@ -8,7 +8,7 @@ header {
   justify-content: center;
   align-items: center;
   color: white;
-  background-color: #ff622d;
+  background-color: #2860c2;
 }
 
 #header_front {
@@ -126,6 +126,23 @@ header {
   padding: 25px;
 }
 
+.popup_inner_signup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  height: 550px;
+  /* left: 36%;
+  right: 36%; */
+  top: 20%;
+  bottom: 15%;
+  margin: auto;
+  border-radius: 5px;
+  border: 2px solid #ca4e06;
+  background: white;
+  padding: 25px;
+}
+
 .close_popup_container {
   height: 10%;
   display: flex;
@@ -170,7 +187,7 @@ header {
 }
 
 .input_container {
-  height: 40%;
+  height: 50%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -248,7 +265,7 @@ header {
 }
 
 .error_message {
-  height: 20%;
+  height: 13%;
   width: 70%;
   margin-top: 11px;
   text-align: center;
@@ -269,7 +286,7 @@ header {
 }
 
 .web_button_container {
-  height: 40%;
+  height: 50%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -298,9 +315,6 @@ header {
 .weblogin_button:hover {
   box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
     0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
-}
-
-.weblogin_button:active {
 }
 
 .websignup_button {
@@ -369,6 +383,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .kakao_login_button {

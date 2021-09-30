@@ -17,8 +17,9 @@ import Loading from "./Component/Loading";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
 import FavoritePlace from "./Component/FavoritePlace";
-import KakaoOAuth from './Component/KakaoOAuth';
+import KakaoOAuth from "./Component/KakaoOAuth";
 import GoogleOAuth from "./Component/GoogleOAuth";
+import Chat from "./Component/Chat";
 
 require("dotenv").config();
 
@@ -27,16 +28,16 @@ function App() {
   const [isOn, setisOn] = useState(false);
 
   const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
-  useEffect(() => {
-    scrollStop();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   scrollStop();
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000);
+  // }, []);
 
-  useEffect(() => {
-    scrollStop();
-  }, [isLoading]);
+  // useEffect(() => {
+  //   scrollStop();
+  // }, [isLoading]);
 
   // useEffect(() => {
   //   getImage();
@@ -64,26 +65,31 @@ function App() {
 
   const getuserInfo = (res) => {
     //유저정보 받아오기
-    axios.get(`${SERVER_URL}/user/info?userId=${res.data.id}`, { withCredentials: true })
+    axios
+      .get(`${SERVER_URL}/user/info?userId=${res.data.id}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setuserInfo(res.data);
         setisLogin(true);
       });
   };
 
-
-  const handleLogout = () => {  //로그아웃실행
-    axios.post(`${SERVER_URL}/signout`,  'NO_BODY_DATA',{ withCredentials: true})
-    .then((res) => {
-      setisLogin(false);
-      setuserInfo({
-        email: "default-email",
-        userName: "default-userName",
+  const handleLogout = () => {
+    //로그아웃실행
+    axios
+      .post(`${SERVER_URL}/signout`, "NO_BODY_DATA", { withCredentials: true })
+      .then((res) => {
+        setisLogin(false);
+        setuserInfo({
+          email: "default-email",
+          userName: "default-userName",
+        });
+        if (page === "mypage") {
+          //현재페이지가 마이페이지일경우 메인페이지로 이동
+          window.location.replace("/");
+        }
       });
-      if(page==='mypage'){  //현재페이지가 마이페이지일경우 메인페이지로 이동
-        window.location.replace('/')
-      }
-    });
   };
 
   const handleuserInfoDestroy = () => {
@@ -98,7 +104,7 @@ function App() {
   const [placeList, setPlaceList] = useState([]);
 
   const getPlace = () => {
-    axios.get("http://localhost:80/attractions").then((res) => {
+    axios.get(`${SERVER_URL}/attractions`).then((res) => {
       let arr = [...res.data];
       let newarr = arr.slice(0, 27);
       setPlaceList(newarr);
@@ -112,31 +118,9 @@ function App() {
     getPlace();
   }, []);
 
-  const [plannerList, setplannerList] = useState([{
-    id:0,
-    groupId:0,
-    name:'테스트플래너1',
-    day:1
-  },{
-    id:0,
-    groupId:0,
-    name:'테스트플래너2',
-    day:1
-  },{
-    id:0,
-    groupId:0,
-    name:'테스트플래너3',
-    day:1
-  },{
-    id:0,
-    groupId:0,
-    name:'테스트플래너4',
-    day:1
-  }])
-
   return (
     <BrowserRouter>
-      {isLoading ? <Loading /> : null}
+      {/* {isLoading ? <Loading /> : null} */}
       <Header
         isOn={isOn}
         toggleHandler={toggleHandler}
@@ -148,24 +132,27 @@ function App() {
         handleLogout={handleLogout}
       />
       <Switch>
-        <Route path='/OAuth/kakao'>
-          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin}/>
+        <Route path="/OAuth/kakao">
+          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
         </Route>
-        <Route path='/OAuth/google'>
-          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin}/>
+        <Route path="/OAuth/google">
+          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
         </Route>
         <Route exact path="/">
           <Main placeList={placeList} getPlace={getPlace} />
         </Route>
         <Route path="/mypage">
-          <Mypage 
-            userInfo={userInfo} 
-            getuserInfo={getuserInfo} 
+          <Mypage
+            userInfo={userInfo}
+            getuserInfo={getuserInfo}
             handleuserInfoDestroy={handleuserInfoDestroy}
           />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect plannerList={plannerList}/>
+          <PlannerSelect
+            userInfo={userInfo}
+            isLogin={isLogin} 
+          />
         </Route>
         <Route path="/favoritePlace">
           <FavoritePlace placeList={placeList} getPlace={getPlace} />
@@ -174,7 +161,8 @@ function App() {
           <Planner />
         </Route>
         <Route path="/attraction" component={Attraction} />
-       </Switch>
+        <Route path="/chat" component={Chat} />
+      </Switch>
       <Footer />
     </BrowserRouter>
   );

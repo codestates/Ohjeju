@@ -3,33 +3,59 @@ import { useState, useEffect } from 'react';
 import { useHistory } from "react-router";
 import axios from 'axios';
 
-export default function GoogleOAuth({setuserInfo, setisLogin}){
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:80';
+const GOOGLE_LOGIN_PASSWORD = process.env.GOOGLE_LOGIN_PASSWORD || 'Z29vZ2xlIGxvZ2luIHBhc3N3b3Jk'
+
+function GoogleOAuth({setuserInfo, setisLogin, getuserInfo}){
 
     const history = useHistory();
     
     useEffect( async () => {
-    const url = new URL(window.location.href);
-    const hash = url.hash;
-    if (hash) {
-      const accessToken = hash.split("=")[1].split("&")[0];
-      await axios.get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + accessToken, { 
-        headers: { 
-          authorization: `token ${accessToken}`, 
-          accept: 'application/json' 
-        }})
-        .then(res => {
-            setuserInfo({
-                email:res.data.email,
-                userName:'Google User',
-                image:res.data.picture
-            })
-            setisLogin(true)
-            history.push('/')
-      }).catch(e => console.log('oAuth token expired'));
-    }
-  }, [])
+      axios.post(`${SERVER_URL}/google`,{
+        hash: new URL(window.location.href).hash
+      })
+      .then((res) => {
+        history.push('/');
+        axios.post(`${SERVER_URL}/signin`, {
+          email: res.data.email,
+          password: GOOGLE_LOGIN_PASSWORD
+        }, { withCredentials: true })
+        .then((res) => { getuserInfo(res) })
+      })
+      .catch((err) => { alert(err) })
+      // .then((res) => {              //res => 구글유저정보(id, email, picture)
+      //     const payload = {
+      //       email:res.data.email,
+      //       userName:'Google User',
+      //       password:'google',
+      //       image:res.data.picture
+      //     }
+      //     axios.post(`${SERVER_URL}/signup`, payload)  //첫 회원가입 시도
+      //     .then((res)=>{
+      //       setuserInfo({
+      //         email:res.data.email,
+      //         userName:'Google User',
+      //         image:res.data.picture
+      //       })
+      //       setisLogin(true)
+      //       history.push('/')
+      //     })
+      //     .catch((err)=>{         //이미 존재하는 회원일시 바로 userInfo를 set하고 로그인상태로 만든다
+      //       setuserInfo({
+      //         email:res.data.email,
+      //         userName:'Google User',
+      //         image:res.data.picture
+      //     })
+      //     setisLogin(true)
+      //     history.push('/')
+      //     })
+      // })
+      // .catch(e => console.log('oAuth token expired'));
+    }, [])
 
   return (
     <div>구글로그인 로딩창(로딩화면 필요)</div>
   );
 }
+
+export default GoogleOAuth;

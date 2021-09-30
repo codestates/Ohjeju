@@ -1,5 +1,4 @@
-const Users = require('../models').users;
-//const {attractions,group,plan,planner,reviews,users,user_group} = require('../models')
+const { group, planner, users, user_group} = require('../models')
 //const axios = require('axios');
 //const jwt = require('jsonwebtoken');
 
@@ -41,6 +40,41 @@ module.exports = {
     }
   },
 
+  getUserPlannerList: async (req, res) => {
+    //* endpoint: https://www.Ohjeju.com/user/planner?userId=''
+
+    try {
+      const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
+      if(!reqAccessToken) return res.status(403).send('can\'t access');
+      const tokenUser = await decodeToken(reqAccessToken);
+
+      if(!tokenUser) return res.status(403).send('can\'t access');
+      else if(tokenUser.id !== Number(req.query.userId)) return res.status(404).send('can\'t find the user');
+      else if(tokenUser.id === Number(req.query.userId)) {
+        const targetGroups = await user_group.findAll({ where: { userId: tokenUser.id } })
+          .then((user_groups) => user_groups.map((user_group) => user_group.groupId))
+          .then((groups) => groups.map(async (group) => {
+            const targetPlanner = await planner.findOne({ where: { groupId: group } })
+            return targetPlanner
+          }))
+
+        const targetPlanners = await Promise.all(targetGroups)
+          .then((planners) => planners.map((planner) => {
+            return {
+              id: planner.id,
+              name: planner.name
+            }
+          }))
+
+        return res.status(200)
+        .cookie('accessToken', reqAccessToken)
+        .cookie('refreshToken', reqRefreshToken)
+        .send(targetPlanners)
+      }
+    }
+    catch(err) { console.log(err); return res.status(500).send('server error') }
+  },
+
   modifyUser: async (req, res) => {
     //* endpoint: https://www.Ohjeju.com/user/info?userId=''
 
@@ -55,7 +89,7 @@ module.exports = {
       else if(tokenUser.id !== Number(req.query.userId)) return res.status(404).send('can\'t find the user');
       else if(tokenUser.id === Number(req.query.userId)) {
         //일치하는 경우에만 정보 수정
-        const curUser = await Users.findOne({ where: { id: tokenUser.id } });
+        const curUser = await users.findOne({ where: { id: tokenUser.id } });
 
         for(let key in req.body) {
           curUser.update({
@@ -95,7 +129,7 @@ module.exports = {
       else if(tokenUser.id !== Number(req.query.userId)) return res.status(404).send('can\'t find the user');
       else if(tokenUser.id === Number(req.query.userId)) {
         //일치하는 경우에만 탈퇴 진행
-        const curUser = await Users.findOne({ where: { id: tokenUser.id } });
+        const curUser = await users.findOne({ where: { id: tokenUser.id } });
 
         curUser.destroy()
           .then(_ => {
