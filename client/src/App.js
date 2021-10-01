@@ -79,7 +79,11 @@ function App() {
   const handleLogout = () => {
     //로그아웃실행
     axios
-      .post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signout`, "NO_BODY_DATA", { withCredentials: true })
+      .post(
+        `${process.env.REACT_APP_API_URL || "http://localhost:80"}/signout`,
+        "NO_BODY_DATA",
+        { withCredentials: true }
+      )
       .then((res) => {
         setisLogin(false);
         setuserInfo({
@@ -105,16 +109,20 @@ function App() {
   const [placeList, setPlaceList] = useState([]);
 
   const getPlace = () => {
-    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/attractions`).then((res) => {
-      let arr = [...res.data];
-      let newarr = arr.slice(0, 14);
-      setPlaceList(newarr);
-    });
+    axios
+      .get(
+        `${process.env.REACT_APP_API_URL || "http://localhost:80"}/attractions`
+      )
+      .then((res) => {
+        let arr = [...res.data];
+        let newarr = arr.slice(0, 200);
+        setPlaceList(newarr);
+      });
   };
 
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
-  console.log(`App ${userInfo}`)
+  // console.log(`App ${userInfo}`);
 
   useEffect(() => {
     getPlace();
@@ -171,7 +179,7 @@ function App() {
         {/* <Route path="/planner">
           <Planner userInfo={userInfo} />
         </Route> */}
-        <Route path="/planner" component={Planner}/>
+        <Route path="/planner" component={Planner} />
         <Route path="/attraction" component={Attraction} />
         <Route path="/chat" component={Chat} />
       </Switch>
