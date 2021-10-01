@@ -67,22 +67,6 @@ function PlannerSelect({userInfo, isLogin}){
     })
   }
 
-  const movetoPlanner = () => {   //해당플래너로 이동
-      // {
-      //   plan:[{id,day,departureTime,destination,memo,activityContent}],
-      //   group: {groupId,userName:[]},
-      //   name: plannerName
-      //  }
-
-      //세팅한 plannerInfo로 Planner페이지로 이동해야한다
-
-    localStorage.setItem('plannerInfo', JSON.stringify(plannerInfo));
-    const planner=JSON.parse(localStorage.getItem('plannerInfo'));
-    console.log(`local${planner.name}`)
-    // history.push('/planner')
-    // const plannerInfo=JSON.parse(localStorage.getItem('plannerInfo')); 플래너페이지에서 이 코드를 실행하면 해당정보를 갱신한다
-  }
-
   const handleInputvalue = (e) => {      //플래너이름 입력
     setplannerName(e.target.value);
   };
@@ -141,15 +125,15 @@ function PlannerSelect({userInfo, isLogin}){
                   {plannerInfo.group ? (
                     <a>Leader : {plannerInfo.group.leader}</a>
                   ):null}
-                </div>
                   <Link to ={
                     {
                       pathname:'/planner',
                       state:{userInfo,plannerInfo}
                     }
                   }>
-                  <button className='planner_item_move' onClick={()=>movetoPlanner(idx)}>플래너이동</button>
+                  <button className='planner_item_move'>플래너이동</button>
                   </Link>
+                </div>
                 </div>
             </div>
           </div>
