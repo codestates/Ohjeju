@@ -25,9 +25,8 @@ module.exports = {
         if(!req.body.groupName) return res.status(400).send('Content is empty');
         else { //제대로 받아온 경우 그룹 생성
           const newGroupId = await group.create({
-            //group이라는 모델 자체가 스키마에 없네요?
             name: req.body.groupName,
-            leader: tokenUser.userName
+            leaderId: tokenUser.id
           })
           .then((group) => group.id)
           user_group.create({ userId: tokenUser.id, groupId: newGroupId })
@@ -77,15 +76,19 @@ module.exports = {
           }
         })
 
-        const findGroup = await group.findOne({
+        const targetGroup = await group.findOne({
           where: { id: req.query.groupId }
         })
+        const targetGroupLeader = await users.findOne({
+          where: { id: targetGroup.leaderId }
+        })
+        .then((user) => user.userName)
 
         return res.status(200)
           .send({
-            groupId: findGroup.id,
-            groupName: findGroup.name,
-            leader: findGroup.leader,
+            groupId: targetGroup.id,
+            groupName: targetGroup.name,
+            leader: targetGroupLeader,
             user: userInGroup
           })
       }
@@ -118,7 +121,6 @@ module.exports = {
     //postman으로 수정data 받아오는거 전부 확인 + 복잡할수있어서 try catch안묶음 -> try catch문으로 변경
     //action 따라 진행
     try {
-      console.log('modifyGroup')
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
       //여기가 null로잡힘 그래서 밑에 스위치문까지안감 -> 확인부탁
       if(!reqAccessToken) return res.status(401).send('Token expired');
@@ -128,7 +130,7 @@ module.exports = {
       //0. 현재 이 요청을 한 유저가 leader인지 먼저 확인
       //-> 리더가 아니라면 403 응답(리더만 수정 가능)
       const targetGroup = await group.findOne({ where: { id: req.query.groupId } });
-      if(tokenUser.userName !== targetGroup.leader) return res.status(403).send('Authority unavailable');
+      if(tokenUser.id !== targetGroup.leaderId) return res.status(403).send('Authority unavailable');
 
       //1. 요청의 action따라 동작
       //모든 액션을 하기 전에 req.body에 수정될 email이 있는지 검색
@@ -143,7 +145,7 @@ module.exports = {
         console.log('add')
           if(targetGroupMember.includes(req.body.email)) {
             //'T dhe user is already exist in group'
-            return res.status(409).send('T dhe user is already exist in group')
+            return res.status(409).send('The user is already exist in group')
           }
           else {
             const addUserId = await users.findOne({ where: { email : req.body.email} })
@@ -184,13 +186,14 @@ module.exports = {
             return res.status(404).send('can\'t find the group or user')
           }
           else {
-            const newLeaderName = await users.findOne({ where: { email: req.body.email } })
-              .then((user) => user.userName)
-            if(targetGroup.leader === newLeaderName) return res.status(409).send('the user is already leader of this group')
+            console.log(targetGroup)
+            const newLeaderId = await users.findOne({ where: { email: req.body.email } })
+              .then((user) => user.id)
+            if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
             else {
-              targetGroup.update({ leader: newLeaderName })
+              targetGroup.update({ leaderId: newLeaderId })
 
-              const modifiedGroup = await axios.get(`http://localhost:90/group?groupId=${targetGroup.id}`)
+              const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
                 .then((res) => res.data)
 
               return res.status(200)
@@ -205,10 +208,7 @@ module.exports = {
           return res.status(400).send('Bad Request');
       }
     }
-    catch(err) {
-      console.log(err)
-      return res.status(500).send('server error')
-    }
+    catch(err) { console.log(err); return res.status(500).send('server error') }
     // if(!reqAccessToken)
     // //1. body에 email 있어야 진행 가능
     // if(req.body.email){ //body에 email content가 있어야로직돌림
@@ -293,7 +293,7 @@ module.exports = {
       //권한이 있으면 삭제
       const targetGroup = await group.findOne({ where: { id: req.query.groupId } })
       if(!targetGroup) return res.status(404).send('can\'t find the group');
-      if(targetGroup.leader !== tokenUser.userName) {
+      if(targetGroup.leaderId !== tokenUser.id) {
         return res.status(403).send('Authority unavailable')
       }
       else {
@@ -304,7 +304,7 @@ module.exports = {
         return res.status(200)
           .cookie('accessToken', reqAccessToken)
           .cookie('refreshToken', reqRefreshToken)
-          .send('ok');
+          .send('group successfully deleted');
       }
       
       // const findGroup = await group.findOne({
