@@ -123,7 +123,7 @@ function PlannerSelect({userInfo, isLogin}){
                 <div className={`planner_item_info_info${idx} close`}>
                   {planner.name}<br></br>
                   {plannerInfo.group ? (
-                    <a>Leader : {plannerInfo.group.leader}</a>
+                    <div>Leader : {plannerInfo.group.leader}</div>
                   ):null}
                   <Link to ={
                     {
