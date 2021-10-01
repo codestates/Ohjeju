@@ -19,7 +19,34 @@ const Planner = ({userInfo,plannerInfo,location}) => {
   // name: "www"
   // plan: {departureTime ,destination, memo, day, plannerId, id} 플랜이 여러개 들어갈수있다
 
+  const [planDate, setplanDate] = useState()
+
   const [planInfo, setplanInfo] = useState([]);  //받아온 플랜정보   여러개 들어갈수있다
+
+//   {
+//     "2021-10-13": [
+//         {
+//             "id": 9,
+//             "departureTime": "19:32",
+//             "destination": "도착지",
+//             "memo": "메모메모"
+//         }
+//     ],
+//     "0000-00-00": [
+//         {
+//             "id": 10,
+//             "departureTime": "출발시간",
+//             "destination": "도착지",
+//             "memo": "메모메모메모"
+//         },
+//         {
+//             "id": 11,
+//             "departureTime": "출발시간",
+//             "destination": "도착지",
+//             "memo": "메모"
+//         }
+//     ]
+// }
 
   const [planningInfo, setPlanningInfo] = useState({  //작성하고 있는 플랜정보
     departureTime:'출발시간',
@@ -50,7 +77,6 @@ const Planner = ({userInfo,plannerInfo,location}) => {
     const payload = planningInfo
     axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/plan`, payload, {withCredentials:true})
     .then((res)=>{
-      console.log(payload)
       planInfo.push(payload)
       const result = JSON.parse(JSON.stringify(planInfo))
       setplanInfo(result)
@@ -68,9 +94,12 @@ const Planner = ({userInfo,plannerInfo,location}) => {
   }
   
   const deletePlan = (idx) => {    //플랜삭제
-    axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/plan?planId=${planInfo.id}`, {withCredentials:true})
+    const planId = planInfo[idx].id
+    axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/plan?planId=${planId}`, {withCredentials:true})
     .then((res)=>{
       setplanInfo.splice(idx,1)
+      const result = JSON.parse(JSON.stringify(planInfo))
+      setplanInfo(result)
     })
     .catch((err)=>{
       alert(err.message)
@@ -94,12 +123,14 @@ const Planner = ({userInfo,plannerInfo,location}) => {
       <input type="date" onChange={handleDay('day')}></input>
       <input type="time" onChange={handleDeparureTime('departureTime')}></input>
       {planInfo.map((plan,idx)=>{
+        return (
         <div>
         <div>저장된 플랜일차 : {plan.day}</div>
         <div>저장된 플랜시간 : {plan.departureTime}</div>
         <div>저장된 플랜목적지 : {plan.destination}</div>
         <button onClick={()=>deletePlan(idx)}>플랜삭제버튼</button>
         </div>
+        )
       })}
       <div>------------------------------------------</div>
       <div>작성중인 플랜일차 : {planningInfo.day}</div>
