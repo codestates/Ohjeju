@@ -12,6 +12,7 @@ const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
   
+  console.log(`mypage ${userInfo}`)
   const [showuserInfoModifyModal, setshowuserInfoModifyModal] = useState(false) //유저정보수정모달
   const [showuserInfoDestroyModal, setshowuserInfoDestroyModal] = useState(false) //유저탈퇴모달
   const [userInfoModifyInput, setuserInfoModifyInput] = useState({  //유저정보수정입력구조
@@ -36,13 +37,14 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
         userName:userInfoModifyInput.userName,
         password:userInfoModifyInput.password
       }
-      axios.patch(`${SERVER_URL}/user/info?userId=${userInfo.id}`, payload, { withCredentials: true })
+      axios.patch(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/info?userId=${userInfo.id}`, payload, { withCredentials: true })
       .then((res)=>{
         getuserInfo(res)
         setuserInfoModifyInput({
           userName:'',
           password:''
         })
+        alert('변경완료')
         setshowuserInfoModifyModal(false)
       })
       .catch((err)=>{
@@ -56,7 +58,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
   }
 
   const userInfoDestroy = () => { //회원탈퇴
-    axios.delete(`${SERVER_URL}/user/info?userId=${userInfo.id}`, {withCredentials: true})
+    axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/info?userId=${userInfo.id}`, {withCredentials: true})
     .then((res)=>{
       setshowuserInfoDestroyModal(false);
       handleuserInfoDestroy();

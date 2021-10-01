@@ -61,6 +61,7 @@ module.exports = {
     //* endpoint: https://www.Ohjeju.com/planner?plannerId=''
 
     try {
+      console.log('getPlanner')
       const targetPlanner = await planner.findOne({
         where: { id: req.query.plannerId },
         include: [ { model: group } ]
@@ -93,6 +94,7 @@ module.exports = {
 
       if(!targetPlanner.group) { //1인 플래너일 경우
         return res.status(200).send({
+          id:targetPlanner.id,
           name: targetPlanner.name,
           group: null,
           plan: customedPlanner
@@ -103,6 +105,7 @@ module.exports = {
           .then((res) => res.data)
         
         return res.status(200).send({
+          id:targetPlanner.id,
           name: targetPlanner.name,
           group: groupInThis,
           plan: customedPlanner

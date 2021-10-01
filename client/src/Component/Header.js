@@ -85,17 +85,17 @@ function Header({
       const payload = {
         email: signinInfo.email,
         password: signinInfo.password,
-      };
-      axios
-        .post(`${SERVER_URL}/signin`, payload, { withCredentials: true })
-        .then((res) => {
-          getuserInfo(res);
-          setSigninInfo({
-            email: "",
-            password: "",
-          });
-          setshowSigninModal(false);
+      }
+      //`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`
+      axios.post("http://localhost:80/signin", payload, { withCredentials: true })
+      .then((res)=>{
+        getuserInfo(res)
+        setSigninInfo({
+          email:'',
+          password:''
         })
+        setshowSigninModal(false)
+      })
         .catch((err) => {
           console.log(err.message);
           if (err.message === "Request failed with status code 400") {
@@ -109,34 +109,31 @@ function Header({
     }
   };
 
-  const handleSignup = () => {
-    //회원가입실행
-    if (validateEmail(signupInfo.email) === false) {
-      seterrorMessage("이메일형식이 올바르지 않습니다");
-    } else if (
-      !signupInfo.email ||
-      !signupInfo.password ||
-      !signupInfo.passwordConfirm
-    ) {
-      seterrorMessage("이메일과 비밀번호를 모두 입력하세요");
-    } else if (signupInfo.password !== signupInfo.passwordConfirm) {
-      seterrorMessage("비밀번호가 일치하지 않습니다");
-    } else {
-      const payload = {
-        email: signupInfo.email,
-        password: signupInfo.password,
-        passwordConfirm: signupInfo.passwordConfirm,
-      };
-      axios
-        .post(`${SERVER_URL}/signup`, payload)
-        .then((res) => {
-          alert("가입완료");
-          setSignupInfo({
-            email: "",
-            password: "",
-            passwordConfirm: "",
-          });
-          setshowSignupModal(false);
+  const handleSignup = () => {  //회원가입실행
+    if(validateEmail(signupInfo.email)===false){
+        seterrorMessage('이메일형식이 올바르지 않습니다')
+    }
+    else if(!signupInfo.email || !signupInfo.password || !signupInfo.passwordConfirm){
+        seterrorMessage('이메일과 비밀번호를 모두 입력하세요')
+    }
+    else if(signupInfo.password!==signupInfo.passwordConfirm){
+        seterrorMessage('비밀번호가 일치하지 않습니다')
+    }
+    else{
+        const payload={
+            email:signupInfo.email,
+            password:signupInfo.password,
+            passwordConfirm:signupInfo.passwordConfirm
+        }
+        axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signup`, payload)
+        .then((res)=>{
+            alert('가입완료')
+            setSignupInfo({
+              email:'',
+              password:'',
+              passwordConfirm:''
+            })
+            setshowSignupModal(false)
         })
         .catch((err) => {
           if (err.message === "Request failed with status code 409") {
@@ -149,27 +146,26 @@ function Header({
 
   //소셜로그인
 
-  const kakaoLogin = () => {
-    //카카오로그인
-    const CLIENT_ID =
-      process.env.KAKAO_REST_KEY || "0f8bff12e99bf62cf63de306e104978b";
-    //여기 process.env는 제대로 안받아와진다 서버는 되는데; 서버쪽에 client_secret이 있으니 상관없을까
-    const REDIRECT_URI = "http://localhost:3000/OAuth/kakao";
-    const state = "kakao";
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
-    window.location.assign(KAKAO_AUTH_URL);
-  };
+const kakaoLogin = () => { //카카오로그인
+  const CLIENT_ID = process.env.KAKAO_REST_KEY || '0f8bff12e99bf62cf63de306e104978b'
+  //여기 process.env는 제대로 안받아와진다 서버는 되는데; 서버쪽에 client_secret이 있으니 상관없을까
+  const REDIRECT_URI =  "http://localhost:3000/OAuth/kakao";
+  // const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/kakao"; 배포시 변경해야함 카카오dev에서도 변경해야함
+  const state = 'kakao'
+  const KAKAO_AUTH_URL = 
+  `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
+  window.location.assign(KAKAO_AUTH_URL)
+}
 
-  const googleLogin = () => {
-    //구글로그인
-    const clientId =
-      process.env.GOOGLE_REST_KEY ||
-      "933835778992-s0h1t6030sssr4qqhi9tdu0kj95nnu5i.apps.googleusercontent.com"; //뒤에 지워야함
-    const REDIRECT_URI = "http://localhost:3000/OAuth/google";
-    const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`;
-    window.location.assign(GOOGLE_AUTH_URL);
-  };
-
+const googleLogin = () => { //구글로그인
+  const clientId = process.env.GOOGLE_REST_KEY || '933835778992-s0h1t6030sssr4qqhi9tdu0kj95nnu5i.apps.googleusercontent.com'
+  const REDIRECT_URI =  "http://localhost:3000/OAuth/google"; 
+  // const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/google"; 배포시 변경해야함
+  const GOOGLE_AUTH_URL = 
+  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
+  window.location.assign(GOOGLE_AUTH_URL);
+}
+ 
   return (
     <header>
       <div id="header_in">
