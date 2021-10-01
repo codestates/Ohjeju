@@ -3,7 +3,7 @@ const axios = require('axios')
 
 const InviteGroup = ({userInfo,plannerInfo}) => {
     console.log(`invite ${userInfo}`)
-    console.log(plannerInfo)
+    // console.log(plannerInfo.group.user)
     const [emailInputValue,setEmailInputValue] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [findUser, setFindUser] = useState({
@@ -43,8 +43,20 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
     const inputEmail = (e) => {
         setEmailInputValue(e.target.value)
     }
+    const removeUserInGroup = (userInfo) => {
+        console.log('제거')
+        console.log(userInfo)
+    }
+    const renderUserList = (ele,fun) => {
+        console.log('!#@!@#')
+        return ele.group.user.map((item,idx) =>  {
+            return(
+            <li>{item.userName}<button onClick={()=>{fun(item)}}>제거</button></li>
+            )
+        })
+    }
 
-    const renderUser = (fun) => {
+    const userSearch = (fun) => {
         if(findUser.id > 0){
             //서버랑 요청중에 톱니바퀴라던지 넣으면 더좋을듯
             return (
@@ -59,17 +71,21 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
     }
 
 
+
     return (
         <div>
+            <ul>그룹내 유저목록
+                {renderUserList(plannerInfo,removeUserInGroup)}
+            </ul>
             <form onSubmit={getUserInfo}>
                 유저e-mail<input type="text" value={emailInputValue} name="userEmail" onChange={inputEmail}></input><button>검색</button>
             </form>
             <div>
-                해당유저 : 
-                {renderUser(addToUser)}
+                {userSearch(addToUser)}
             </div>
         </div>
     );
 };
 
 export default InviteGroup;
+
