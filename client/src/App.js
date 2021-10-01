@@ -107,7 +107,7 @@ function App() {
   const getPlace = () => {
     axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/attractions`).then((res) => {
       let arr = [...res.data];
-      let newarr = arr.slice(0, 27);
+      let newarr = arr.slice(0, 14);
       setPlaceList(newarr);
     });
   };
@@ -135,10 +135,18 @@ function App() {
       />
       <Switch>
         <Route path="/OAuth/kakao">
-          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
+          <KakaoOAuth
+            setuserInfo={setuserInfo}
+            setisLogin={setisLogin}
+            getuserInfo={getuserInfo}
+          />
         </Route>
         <Route path="/OAuth/google">
-          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
+          <GoogleOAuth
+            setuserInfo={setuserInfo}
+            setisLogin={setisLogin}
+            getuserInfo={getuserInfo}
+          />
         </Route>
         <Route exact path="/">
           <Main placeList={placeList} getPlace={getPlace} />
@@ -151,13 +159,14 @@ function App() {
           />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect
-            userInfo={userInfo}
-            isLogin={isLogin} 
-          />
+          <PlannerSelect userInfo={userInfo} isLogin={isLogin} />
         </Route>
         <Route path="/favoritePlace">
-          <FavoritePlace placeList={placeList} getPlace={getPlace} />
+          <FavoritePlace
+            placeList={placeList}
+            getPlace={getPlace}
+            setPlaceList={setPlaceList}
+          />
         </Route>
         {/* <Route path="/planner">
           <Planner userInfo={userInfo} />
