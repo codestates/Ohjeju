@@ -142,7 +142,6 @@ module.exports = {
 
       switch(req.body.action) {
         case 'add': //그룹에 멤버 추가
-        console.log('add')
           if(targetGroupMember.includes(req.body.email)) {
             //'T dhe user is already exist in group'
             return res.status(409).send('The user is already exist in group')
@@ -186,7 +185,6 @@ module.exports = {
             return res.status(404).send('can\'t find the group or user')
           }
           else {
-            console.log(targetGroup)
             const newLeaderId = await users.findOne({ where: { email: req.body.email } })
               .then((user) => user.id)
             if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
@@ -208,7 +206,7 @@ module.exports = {
           return res.status(400).send('Bad Request');
       }
     }
-    catch(err) { console.log(err); return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send('server error') }
     // if(!reqAccessToken)
     // //1. body에 email 있어야 진행 가능
     // if(req.body.email){ //body에 email content가 있어야로직돌림
@@ -323,6 +321,6 @@ module.exports = {
       //   })
       // }
     }
-    catch(err) { res.status(500).send('server error') }
+    catch(err) { return res.status(500).send('server error') }
   }
 }
