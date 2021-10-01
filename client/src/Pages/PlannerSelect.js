@@ -47,8 +47,8 @@ function PlannerSelect({userInfo, isLogin}){
   }
  
   const getPlanner = () => {        //플래너 불러오기
-    //`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/planner?userId=${userInfo.id}`
-    axios.get(`http://localhost:80/user/planner?userId=${userInfo.id}`, {withCredentials:true})
+    //
+    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/planner?userId=${userInfo.id}`, {withCredentials:true})
     .then((res)=>{
       res.data.forEach(item => {
         if(!plannerList.includes(item))  plannerList.push(item)
@@ -60,8 +60,8 @@ function PlannerSelect({userInfo, isLogin}){
 
   const getPlannerInfo = (idx) => {     //플래너정보 불러오기
     const plannerId=plannerList[idx].id
-    //${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner?plannerId=${plannerId}
-    axios.get(`http://localhost:80/planner?plannerId=${plannerId}`)
+    //sele
+    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner?plannerId=${plannerId}`)
     .then((res)=>{
       setplannerInfo(res.data)
     })
@@ -92,8 +92,8 @@ function PlannerSelect({userInfo, isLogin}){
   }
 
   const createPlanner = () => {           //플래너생성
-    //`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner`
-    axios.post(`http://localhost:80/planner`, {isLogin:isLogin, name:plannerName}, {withCredentials:true})
+    //
+    axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner`, {isLogin:isLogin, name:plannerName}, {withCredentials:true})
     .then((res)=>{
       alert('생성완료')
       setplannerName('')
@@ -111,7 +111,9 @@ function PlannerSelect({userInfo, isLogin}){
     axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner?plannerId=${plannerId}`, {withCredentials:true})
     .then((res)=>{
       alert('삭제완료')
-      getPlanner();
+      plannerList.splice(idx,1)
+      const result = JSON.parse(JSON.stringify(plannerList))
+      setplannerList(result)
     })
     .catch((err)=>{
       alert(`플레너삭제에러:${err.message}`)
@@ -129,7 +131,7 @@ function PlannerSelect({userInfo, isLogin}){
     <div className='planner_container'>
       {plannerList.map((planner, idx)=>{
         return (
-          <div className='planner_item' onMouseEnter={()=>mouseOn(idx)} onMouseLeave={()=>mouseOut(idx)}>
+          <div key={idx} className='planner_item' onMouseEnter={()=>mouseOn(idx)} onMouseLeave={()=>mouseOut(idx)}>
             <button className='planner_item_delete' onClick={()=>deletePlanner(idx)}>x</button>
             <div className='planner_item_info'>
               Planner{idx+1}

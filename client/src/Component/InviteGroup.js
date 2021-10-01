@@ -25,12 +25,18 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
     const addToUser = () => {
         console.log('add')
         const groupId = plannerInfo.group.groupId
-        console.log(userEmail)
         axios.patch(`http://localhost:80/group?groupId=${groupId}`,{
             email:userEmail,
             action:'add'
+        },{withCredentials: true})
+        .then(item => {
+            console.log('성공')
+            console.log(item)
+            alert('추가되엇습니다')
         })
-        .then(item => console.log(item))
+        .catch(item => {
+            if(item.response.status === 409) alert('이미존재합니다')
+        })
         //여기까지함 -> add하면 그룹묶고 이 그룹을 또 챗컴포넌트에 연결을 하든 하고 채팅방확인해야함
     }
 
