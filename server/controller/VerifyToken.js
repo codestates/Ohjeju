@@ -3,6 +3,7 @@ const Users = require('../models').users;
 
 module.exports = {
   verifyToken: async (req) => { //요청에서 토큰 읽어서 해당 토큰의 유효성 검증하는 함수
+    console.log('veri')
     const reqAccessToken = req.cookies.accessToken;
     const reqRefreshToken = req.cookies.refreshToken;
 
