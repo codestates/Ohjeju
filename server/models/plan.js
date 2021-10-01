@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     departureTime: DataTypes.STRING,
     destination: DataTypes.STRING,
     memo: DataTypes.STRING,
-    day: DataTypes.INTEGER,
+    day: DataTypes.DATEONLY,
   }, {
     sequelize,
     modelName: 'plan',
