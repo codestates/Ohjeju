@@ -2,14 +2,15 @@ import "../css/chat.css";
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 
-function Chat() {
-  const [USERNAME , setUserName] = useState('상대방(=내userName)')
-  const [message, setMessage] = useState({userName:'',content:''})
+function Chat({userInfo,plannerInfo}) {
+  const [USERNAME , setUserName] = useState(userInfo.userName||'')
+  const [message, setMessage] = useState({userName:userInfo.userName||'',content:''})
   const [chatMsg, setChatMsg] = useState([]);
-  const [groupNum, setGroupNum] = useState(1)
+  const [groupNum, setGroupNum] = useState(plannerInfo.group.groupId||1)
   const [nowChatUsers, setNowChatUsers] = useState([]);
   const socketRef = useRef()
   const imgSrc='https://media3.giphy.com/media/9rv3RJwRmXWkISOUQc/giphy.gif?cid=ecf05e479nfusr0h4m7inyn3k4xeszsk00zzcj0b7z55gxjx&rid=giphy.gif&ct=g'
+  
   const messageInChat = (msg) => {
       chatMsg.push(msg)
       const copyArray = JSON.parse(JSON.stringify(chatMsg))
@@ -24,6 +25,8 @@ function Chat() {
   }
 
   const keyTestFun = (e) => {
+      console.log('!@##@!##@!')
+      console.log(message)
       setMessage({...message,[e.target.name]:e.target.value})
       socketRef.current.emit('nowchating-back',{userName:USERNAME,content:e.target.value})
   }
@@ -53,7 +56,7 @@ const renderChat = () => {
       socketRef.current.emit('join rooms', {userName:USERNAME ,groupNum})
       socketRef.current.on('broadcast',({userName,content})=>{
           console.log('broadcast')
-          messageInChat({userName:USERNAME,content})
+          messageInChat({userName,content})
           removeNowChatUser()
       })
       socketRef.current.on('welcome',({userName,content})=>{
@@ -90,7 +93,7 @@ const renderChat = () => {
           </ul>
           {renderNowChat()}
           <form id="form" action="" onSubmit={sendMessage}>
-              <input id="input" autocomplete="off" value={message.content} name="content" onChange={keyTestFun} /><button>Send</button>
+              <input id="input" autoComplete="off" value={message.content} name="content" onChange={keyTestFun} /><button>Send</button>
           </form>
       </div>
   );

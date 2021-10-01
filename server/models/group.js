@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.users,{as:'leader'})
     }
   };
   group.init({
     name: DataTypes.STRING, //딴애는다 name인데 얘만 groupName -> name으로바꿈
-    leader: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'group',

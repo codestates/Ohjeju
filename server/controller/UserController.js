@@ -40,7 +40,6 @@ module.exports = {
               id: tokenUser.id,
               email: tokenUser.email,
               userName: tokenUser.userName,
-              plannerId: tokenUser.plannerId,
               admin: tokenUser.admin,
               image: tokenUser.image
             })
@@ -117,7 +116,6 @@ module.exports = {
             id: curUser.id,
             email: curUser.email,
             userName: curUser.userName,
-            plannerId: curUser.plannerId,
             admin: curUser.admin,
             image: curUser.image
           });

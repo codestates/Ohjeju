@@ -119,10 +119,7 @@ module.exports = {
     //action 따라 진행
     try {
       console.log('modifyGroup')
-      console.log(req.body)
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
-      console.log(reqAccessToken)
-      console.log(reqRefreshToken)
       //여기가 null로잡힘 그래서 밑에 스위치문까지안감 -> 확인부탁
       if(!reqAccessToken) return res.status(401).send('Token expired');
       const tokenUser = await decodeToken(reqAccessToken);
@@ -145,7 +142,8 @@ module.exports = {
         case 'add': //그룹에 멤버 추가
         console.log('add')
           if(targetGroupMember.includes(req.body.email)) {
-            return res.status(409).send('The user is already exist in group')
+            //'T dhe user is already exist in group'
+            return res.status(409).send('T dhe user is already exist in group')
           }
           else {
             const addUserId = await users.findOne({ where: { email : req.body.email} })

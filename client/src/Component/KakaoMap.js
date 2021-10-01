@@ -407,7 +407,7 @@ function KakaoMap({userInfo,plannerInfo,handleDestination}) {
           <ul id="placesList"></ul>
         </div>
         <div id="chat_wrap" className="bg_white close">
-          <Chat />
+          <Chat plannerInfo={plannerInfo} userInfo={userInfo}/>
           <hr></hr>
           <ul id="placesList"></ul>
         </div>
