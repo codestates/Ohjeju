@@ -97,7 +97,9 @@ function PlannerSelect({userInfo, isLogin}){
     .then((res)=>{
       alert('생성완료')
       setplannerName('')
-      getPlanner();
+      plannerList.push(res.data)
+      const result = JSON.parse(JSON.stringify(plannerList))
+      setplannerList(result)
     })
     .catch((err)=>{
       alert('플래너이름을 입력해주세요')

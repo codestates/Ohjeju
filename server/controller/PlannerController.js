@@ -28,13 +28,13 @@ module.exports = {
           })
           .then((res) => res.data.groupId)
 
-          const newPlannerId = await planner.create({
+          const newPlanner = await planner.create({
             name: req.body.name,
             groupId: newGroupId
           })
-          .then((planner) => planner.id)
+          .then((planner) => planner)
 
-          return res.status(201).send({ plannerId: newPlannerId });
+          return res.status(201).send(newPlanner);
         }
       }
       
