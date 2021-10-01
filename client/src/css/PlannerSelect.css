@@ -49,8 +49,9 @@
 }
 
 .planner_item_move {
-  height: 30%;
+  height: 40px;
   width: 50%;
+  margin-top: 70px;
   border-radius: 8px;
 }
 

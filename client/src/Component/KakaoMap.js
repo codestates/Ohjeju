@@ -5,7 +5,7 @@ import InviteGroup from '../Component/InviteGroup';
 
 const axios = require("axios");
 
-function KakaoMap({userInfo,plannerInfo}) {
+function KakaoMap({userInfo,plannerInfo,handleDestination}) {
   console.log('kakaomap')
   const mapStyle = {
     //size는 알아서
@@ -21,6 +21,7 @@ function KakaoMap({userInfo,plannerInfo}) {
   const [markers, setMarkers] = useState([]);
   const [overLayArray, setOverLay] = useState([]);
   const [hasKeyWord, setHasKeyWord] = useState("");
+  const [destination, setDestination] =useState('목적지');
   const drawTool = () => {
     //사각형생성 -> +각종 와리가리기능
     removeArea();
@@ -342,6 +343,10 @@ function KakaoMap({userInfo,plannerInfo}) {
     itemStr += '<span class="tel">' + places.phone + "</span>" + "</div>";
     el.innerHTML = itemStr;
     el.className = "item";
+    el.addEventListener('click', function (){
+      setDestination(places.place_name)
+      handleDestination(destination)
+    })
     return el;
   }
 
@@ -396,6 +401,7 @@ function KakaoMap({userInfo,plannerInfo}) {
             키워드 :{" "}
             <input id="keyword" size="15" type="text" onKeyUp={testKeydown} />
             <button onClick={getCategory}>검색</button>
+            <div>선택중: {destination}</div>
           </div>
           <hr></hr>
           <ul id="placesList"></ul>
