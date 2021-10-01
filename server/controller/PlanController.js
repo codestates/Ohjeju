@@ -11,7 +11,7 @@ module.exports = {
       //코드는 신재님이 기존에 작성해주신 코드 기반으로 작성했어요
       const { departureTime, destination, memo, day } = req.body;
       await plan.create({
-        plannerId: req.query.plannerId,
+        plannerId: req.body.plannerId,
         departureTime, destination, memo, day
       })
 
