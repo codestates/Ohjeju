@@ -78,16 +78,16 @@ module.exports = {
         const planner = new Object();
 
         for(const plan of planArr) {
-          if(!planner[`day ${plan.day}`]) planner[`day ${plan.day}`] = new Array();
-          planner[`day ${plan.day}`].push({
+          if(!planner[plan.day]) planner[plan.day] = new Array();
+          planner[plan.day].push({
             id: plan.id,
             departureTime: plan.departureTime,
             destination: plan.destination,
             memo: plan.memo
           })
         }
-        //왜 시간순 정렬이 안되지?
         for(const day in planner) planner[day].sort((a, b) => a.departureTime - b.departureTime);
+
         return planner;
       }
       const customedPlanner = customPlanner(planInThis);
