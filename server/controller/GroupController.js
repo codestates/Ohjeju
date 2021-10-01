@@ -118,7 +118,12 @@ module.exports = {
     //postman으로 수정data 받아오는거 전부 확인 + 복잡할수있어서 try catch안묶음 -> try catch문으로 변경
     //action 따라 진행
     try {
+      console.log('modifyGroup')
+      console.log(req.body)
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
+      console.log(reqAccessToken)
+      console.log(reqRefreshToken)
+      //여기가 null로잡힘 그래서 밑에 스위치문까지안감 -> 확인부탁
       if(!reqAccessToken) return res.status(401).send('Token expired');
       const tokenUser = await decodeToken(reqAccessToken);
       if(!tokenUser) return res.status(401).send('Invalid token');
@@ -138,6 +143,7 @@ module.exports = {
 
       switch(req.body.action) {
         case 'add': //그룹에 멤버 추가
+        console.log('add')
           if(targetGroupMember.includes(req.body.email)) {
             return res.status(409).send('The user is already exist in group')
           }

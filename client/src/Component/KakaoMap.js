@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/KakaoMap.css";
 import Chat from "../Component/Chat";
+import InviteGroup from '../Component/InviteGroup';
 
 const axios = require("axios");
 
-function KakaoMap() {
+function KakaoMap({userInfo,plannerInfo}) {
+  console.log('kakaomap')
   const mapStyle = {
     //size는 알아서
     width: "100%",
@@ -378,6 +380,13 @@ function KakaoMap() {
         >
           채팅창열기
         </button>
+        <button
+          onClick={()=>{
+            const getInviteGroup = document.getElementById("invite_wrap");
+            getInviteGroup.classList.toggle("open")
+          }}>
+          그룹초대(test)
+        </button>
       </div>
 
       <div className="map_wrap">
@@ -396,6 +405,9 @@ function KakaoMap() {
           <hr></hr>
           <ul id="placesList"></ul>
         </div>
+      </div>
+      <div id="invite_wrap" className="bg_white close">그룹초대(test)
+          <InviteGroup userInfo={userInfo} plannerInfo={plannerInfo}/>
       </div>
     </div>
   );

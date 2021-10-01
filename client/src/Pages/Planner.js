@@ -11,17 +11,16 @@ import "../css/Planner.module.css";
 
 require("dotenv").config();
 
-const Planner = () => {
+const Planner = ({userInfo,plannerInfo,location}) => { 
 
-  const plannerInfo=JSON.parse(localStorage.getItem('plannerInfo')); //플래너셀렉트페이지에서 저장한 정보
-
-  console.log(`플래너페이지 plannerInfo${plannerInfo.name}`)
+  console.log('planner')
+  // const plannerInfo=JSON.parse(localStorage.getItem('plannerInfo')); //플래너셀렉트페이지에서 저장한 정보
   
   return (
     <div className={style.container}>
       <div className={style.main}>
         <div className={style.map}>
-          <KakaoMap />
+          <KakaoMap userInfo={location.state.userInfo} plannerInfo={location.state.plannerInfo}/>
         </div>
         {/* <div className={style.chat}>
           <Chat />
