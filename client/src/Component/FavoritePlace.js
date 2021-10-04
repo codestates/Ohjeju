@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useHistory, RouteComponentProps } from "react-router-dom";
 import "../css/FavoritePlace.css";
 import seongsan from "../Imgs/seongsan.jpg";
@@ -9,23 +9,30 @@ import logo2 from "../Imgs/logo2.png";
 import logo3 from "../Imgs/logo3.png";
 
 function FavoritePlace({ getPlace, placeList, setPlaceList }) {
-  console.log(placeList);
+  // console.log(placeList);
   const history = useHistory();
   const SERVER_URL = process.env.SERVER_URL || "https://localhos:80";
 
-  const [count, setCount] = useState(-100);
+  let count = useRef(0);
+
+  // const [count, setCount] = useState(-100);
   const [slide, setSlide] = useState({
-    transform: `translate(${0}+vw)`,
+    transform: "translate(0vw)",
   });
 
   const slideNextHandler = () => {
+    count.current -= 100;
     setSlide({
-      transform: `translate(${count}vw)`,
+      transform: `translate(${count.current}vw)`,
     });
-    setCount(count - 100);
   };
 
-  const slideBeforeHandler = () => {};
+  const slideBeforeHandler = () => {
+    count.current += 100;
+    setSlide({
+      transform: `translate(${count.current}vw)`,
+    });
+  };
 
   return (
     <div className="favorite">
@@ -34,16 +41,31 @@ function FavoritePlace({ getPlace, placeList, setPlaceList }) {
         {placeList.map((item, index) => {
           return (
             <div className="middleContainer">
-              <button className="slideNextBtn" onClick={slideBeforeHandler}>
+              <div className="iconBefore">
+                <i
+                  class="fas fa-chevron-circle-left"
+                  onClick={slideBeforeHandler}
+                ></i>
+              </div>
+              <div className="iconNext">
+                <i
+                  class="fas fa-chevron-circle-right"
+                  onClick={slideNextHandler}
+                ></i>
+              </div>
+              {/* 
+              <button className="slideBeforeBtn" onClick={slideBeforeHandler}>
                 before
-              </button>
+              </button> */}
               <div className="container">
                 <img src={item.image} className="main-img" style={slide} />
               </div>
-              <button className="slideBeforeBtn" onClick={slideNextHandler}>
+              {/* <button className="slideNextBtn" onClick={slideNextHandler}>
                 next
-              </button>
-              <div className="slideInfo">{item.info}</div>
+              </button> */}
+              <div className="slideInfo" style={slide}>
+                {item.info}
+              </div>
             </div>
 
             // <div className="product-item">

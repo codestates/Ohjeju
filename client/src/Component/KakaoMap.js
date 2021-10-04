@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/KakaoMap.css";
 import Chat from "../Component/Chat";
-import InviteGroup from '../Component/InviteGroup';
+import InviteGroup from "../Component/InviteGroup";
 
 const axios = require("axios");
 
-function KakaoMap({userInfo,plannerInfo,handleDestination}) {
-  console.log('kakaomap')
+function KakaoMap({ userInfo, plannerInfo, handleDestination }) {
+  console.log("kakaomap");
   const mapStyle = {
     //size는 알아서
-    width: "100%",
-    height: "100%",
+    width: "95%",
+    height: "80%",
     position: "relative",
     overflow: "hidden",
+    margin: "auto",
   };
   const [map, setMap] = useState("");
   const [ractangleDraw, setRactangleDraw] = useState("");
@@ -21,7 +22,7 @@ function KakaoMap({userInfo,plannerInfo,handleDestination}) {
   const [markers, setMarkers] = useState([]);
   const [overLayArray, setOverLay] = useState([]);
   const [hasKeyWord, setHasKeyWord] = useState("");
-  const [destination, setDestination] =useState('목적지');
+  const [destination, setDestination] = useState("목적지");
   const drawTool = () => {
     //사각형생성 -> +각종 와리가리기능
     removeArea();
@@ -343,10 +344,10 @@ function KakaoMap({userInfo,plannerInfo,handleDestination}) {
     itemStr += '<span class="tel">' + places.phone + "</span>" + "</div>";
     el.innerHTML = itemStr;
     el.className = "item";
-    el.addEventListener('click', function (){
-      setDestination(places.place_name)
-      handleDestination(destination)
-    })
+    el.addEventListener("click", function () {
+      setDestination(places.place_name);
+      handleDestination(destination);
+    });
     return el;
   }
 
@@ -386,10 +387,11 @@ function KakaoMap({userInfo,plannerInfo,handleDestination}) {
           채팅창열기
         </button>
         <button
-          onClick={()=>{
+          onClick={() => {
             const getInviteGroup = document.getElementById("invite_wrap");
-            getInviteGroup.classList.toggle("open")
-          }}>
+            getInviteGroup.classList.toggle("open");
+          }}
+        >
           그룹초대(test)
         </button>
       </div>
@@ -407,13 +409,14 @@ function KakaoMap({userInfo,plannerInfo,handleDestination}) {
           <ul id="placesList"></ul>
         </div>
         <div id="chat_wrap" className="bg_white close">
-          <Chat plannerInfo={plannerInfo} userInfo={userInfo}/>
+          <Chat plannerInfo={plannerInfo} userInfo={userInfo} />
           <hr></hr>
           <ul id="placesList"></ul>
         </div>
       </div>
-      <div id="invite_wrap" className="bg_white close">그룹초대(test)
-          <InviteGroup userInfo={userInfo} plannerInfo={plannerInfo}/>
+      <div id="invite_wrap" className="bg_white close">
+        그룹초대(test)
+        <InviteGroup userInfo={userInfo} plannerInfo={plannerInfo} />
       </div>
     </div>
   );
