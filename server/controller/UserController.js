@@ -54,6 +54,8 @@ module.exports = {
 
   getUserPlannerList: async (req, res) => {
     //* endpoint: https://www.Ohjeju.com/user/planner?userId=''
+    
+    console.log('hear')
 
     try {
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
@@ -72,6 +74,7 @@ module.exports = {
 
         const targetPlanners = await Promise.all(targetGroups)
           .then((planners) => planners.map((planner) => {
+            console.log(planners)
             return {
               id: planner.id,
               name: planner.name

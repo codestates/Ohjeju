@@ -76,19 +76,27 @@ module.exports = {
           }
         })
 
+        let leaderName,leaderId
         const targetGroup = await group.findOne({
           where: { id: req.query.groupId }
         })
         const targetGroupLeader = await users.findOne({
           where: { id: targetGroup.leaderId }
         })
-        .then((user) => user.userName)
+        .then((user) => {
+          //return user.userName
+          leaderName = user.userName
+          leaderId = user.id
+        })
 
         return res.status(200)
+        //leaderId가 필요해서 임시로 대충짭니다 
           .send({
             groupId: targetGroup.id,
             groupName: targetGroup.name,
-            leader: targetGroupLeader,
+            //leader:targetGroupLeader
+            leader: leaderName,
+            leaderId:leaderId,
             user: userInGroup
           })
       }
@@ -148,16 +156,32 @@ module.exports = {
           }
           else {
             const addUserId = await users.findOne({ where: { email : req.body.email} })
-              .then((user) => user.id)
-            user_group.create({ userId: addUserId, groupId: targetGroup.id });
+              .then(async (user) => {
+                user_group.create({userId:user.id,groupId:targetGroup.id})
+                .then(()=>{
+                  axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                  .then(item => {
+                    console.log('@!##!@')
+                    console.log(item.data)
+                    return res.status(200)
+                    .cookie('accessToken', reqAccessToken)
+                    .cookie('refreshToken', reqRefreshToken)
+                    .send(item.data)
+                  })
+                  //밑에 delete와 마찬가지로 추가하고 바로 modifiedgroup이 최신화된 데이터가아닌 추가하기 전에데이터를 보내줘서수정햇습니다
+                }
+                )
+              })
 
-            const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
-              .then((res) => res.data)
+            // const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+            //   .then((res) => {
+            //     console.log(res.data)
+            //   })
 
-            return res.status(200)
-              .cookie('accessToken', reqAccessToken)
-              .cookie('refreshToken', reqRefreshToken)
-              .send(modifiedGroup)
+            // return res.status(200)
+            //   .cookie('accessToken', reqAccessToken)
+            //   .cookie('refreshToken', reqRefreshToken)
+            //   .send(modifiedGroup)
           }
           break;
 
@@ -166,39 +190,64 @@ module.exports = {
             return res.status(404).send('can\'t find the group or user')
           }
           else {
-            const deleteUserId = await users.findOne({ where: { email: req.body.email } })
-              .then((user) => user.id)
-            user_group.destroy({ where: { userId: deleteUserId } });
-
-            const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
-              .then((res) => res.data)
-
-            return res.status(200)
-              .cookie('accessToken', reqAccessToken)
-              .cookie('refreshToken', reqRefreshToken)
-              .send(modifiedGroup)
-          }
+              const deleteUserId = await users.findOne({ where: { email : req.body.email} })
+              .then(async (user) => {
+                user_group.destroy({where:{userId:user.id}})
+                .then(()=>{
+                  axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                  .then(item => {
+                    console.log('@!##!@')
+                    console.log(item.data)
+                    return res.status(200)
+                    .cookie('accessToken', reqAccessToken)
+                    .cookie('refreshToken', reqRefreshToken)
+                    .send(item.data)
+                  })
+                }
+                )
+              })
+            }
           break;
 
         case 'change leader': //그룹 리더 변경
+        console.log('change')
           if(!targetGroupMember.includes(req.body.email)) {
             return res.status(404).send('can\'t find the group or user')
           }
           else {
+            console.log('else')
             const newLeaderId = await users.findOne({ where: { email: req.body.email } })
-              .then((user) => user.id)
-            if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
-            else {
-              targetGroup.update({ leaderId: newLeaderId })
+              .then(async (user) => {
+                //리더변경 버튼을 리더가 아니면 나오게하지 않게짜서 일단 주석처리함
+                
+                // if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
+                // else{
+                  targetGroup.update({ leaderId: user.dataValues.id })
+                  .then(()=>{
+                    axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                    .then(item => {
+                      console.log('@!##!@')
+                      console.log(item.data)
+                      return res.status(200)
+                      .cookie('accessToken', reqAccessToken)
+                      .cookie('refreshToken', reqRefreshToken)
+                      .send(item.data)
+                  })
+                })
+              // }
+            })
+            // if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
+            // else {
+            //   targetGroup.update({ leaderId: newLeaderId })
 
-              const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
-                .then((res) => res.data)
+            //   const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+            //     .then((res) => res.data)
 
-              return res.status(200)
-                .cookie('accessToken', reqAccessToken)
-                .cookie('refreshToken', reqRefreshToken)
-                .send(modifiedGroup)
-            }
+            //   return res.status(200)
+            //     .cookie('accessToken', reqAccessToken)
+            //     .cookie('refreshToken', reqRefreshToken)
+            //     .send(modifiedGroup)
+            // }
           }
           break;
 
