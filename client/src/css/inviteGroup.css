@@ -1,0 +1,9 @@
+.close {
+  display: none;
+}
+.open {
+  display: block;
+}
+.leader {
+  color: red;
+}
