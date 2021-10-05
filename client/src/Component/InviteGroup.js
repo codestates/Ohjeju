@@ -37,7 +37,7 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
             console.log('성공')
             const result  = JSON.parse(JSON.stringify(item.data))
             setGroupInfo(result)
-            alert('추가되엇습니다')
+            alert('추가되었습니다')
         })
         .catch(item => {
             console.log('catch')
@@ -62,7 +62,7 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
                 console.log('제거성공')
                 const result  = JSON.parse(JSON.stringify(item.data))
                 setGroupInfo(result)
-                alert('제거되엇습니다')
+                alert('제거되었습니다')
             })
         }
     }
@@ -73,7 +73,7 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
             return (
                 <div>
                     <span>유저이름 : {findUser.userName}</span>
-                    <span>유저이미지 : {findUser.image}</span>
+                    <span>유저이미지 : <img src={findUser.image} alt='' width='70' /></span>
                     <button onClick={fun}>Add</button>
                 </div>
             )

@@ -91,11 +91,8 @@ function App() {
           email: "default-email",
           userName: "default-userName",
         });
-        if (page === "mypage") {
-          //현재페이지가 마이페이지일경우 메인페이지로 이동
           window.location.replace("/");
-        }
-      });
+        });
   };
 
   const handleuserInfoDestroy = () => {
@@ -158,7 +155,7 @@ function App() {
           />
         </Route>
         <Route exact path="/">
-          <Main placeList={placeList} getPlace={getPlace} />
+          <Main placeList={placeList} getPlace={getPlace} isLogin={isLogin}/>
         </Route>
         <Route path="/mypage">
           <Mypage
