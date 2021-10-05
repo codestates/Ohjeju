@@ -9,7 +9,7 @@ import Footer from "../Component/Footer";
 import Couple from "../Component/Couple";
 import { Link } from "react-router-dom";
 
-function Main({ placeList, getPlace }) {
+function Main({ placeList, getPlace, isLogin }) {
   return (
     <main>
       <div id="main_in">
@@ -25,9 +25,15 @@ function Main({ placeList, getPlace }) {
             실시간채팅과 더불어 화면공유까지! 오! 제주가 지인들과의 즐거운 제주
             <br />
             여행플래너짜기를 도와드립니다.
-            <Link to='planner'>
-            <button className='main_to_planner'>Get own Planner!</button>
-            </Link>
+              {isLogin ? (
+                <Link to='plannerSelect'>
+                <button className='main_to_plannerSelect'>Get own Planner!</button>
+                </Link>
+              ):(
+                <Link to='planner'>
+                <button className='main_to_planner'>Get own Planner!</button>
+                </Link>
+              )}
           </div>
         </div>
         <div id="main_Banner_black_opacity" />
