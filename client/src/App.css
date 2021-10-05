@@ -4,3 +4,8 @@
   margin: 0;
   text-decoration: none;
 }
+
+@font-face {
+  font-family: "nanum";
+  src: url("./fonts/NanumSquareB.woff");
+}

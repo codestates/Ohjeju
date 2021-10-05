@@ -1,21 +1,21 @@
 /* eslint-disable */
 import React from "react";
 import FavoritePlace from "../Component/FavoritePlace";
+import "../App.css";
 import "../css/Main.css";
-// import jeju_img from "../Imgs/jeju.jpg";
-import jeju_img2 from "../Imgs/jeju2.jpg";
-import jeju_img1 from "../Imgs/jeju1.jpg";
-import jejutree1 from "../Imgs/jejutree1.jpg";
-import jejutree from "../Imgs/jejutree.jpg";
-import Footer from "../Component/Footer";
+import background2 from "../Imgs/background2.png";
 import background1 from "../Imgs/background1.jpg";
+import Footer from "../Component/Footer";
+import Couple from "../Component/Couple";
 
 function Main({ placeList, getPlace }) {
   return (
     <main>
       <div id="main_in">
         <div id="main_text">
-          <div id="main_title">Oh! Jeju</div>
+          <div id="main_title">
+            가족, 친구, 애인 모두가 <br></br>함께 계획하는 여행플래너
+          </div>
           <div id="main_story">
             제주도로 여행가고 싶다. 하지만 혼자서 짜는 여행플래너는 외롭다.
             <br />
@@ -27,9 +27,10 @@ function Main({ placeList, getPlace }) {
           </div>
         </div>
         <div id="main_Banner_black_opacity" />
-        <img id="main_Banner_img" src={background1} alt="" />
+        <img id="main_Banner_img" src={background2} alt="" />
       </div>
       <FavoritePlace placeList={placeList} getPlace={getPlace} />
+      <Couple></Couple>
     </main>
   );
 }

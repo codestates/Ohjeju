@@ -11,26 +11,32 @@
   position: absolute;
   z-index: 2;
   top: 300px;
+  right: 5%;
 }
 
 #main_title {
-  font-size: 60px;
+  /* font-family: "nanum"; */
+  font-size: 55px;
   margin-bottom: 30px;
-  font-weight: 700;
-  color: #eee;
+  font-weight: 500;
+  color: black;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 #main_story {
-  text-align: center;
-  width: 70%;
+  /* text-align: center; */
+  font-family: "nanum";
+  flex-wrap: wrap;
+  width: 100%;
   height: 50px;
-  color: #eee;
+  color: black;
   font-size: 30px;
   font-weight: 400;
 }
 
 #main_Banner_black_opacity {
-  position: absolute;
+  position: relative;
   top: 60;
   width: 100%;
   height: 800px;
@@ -39,11 +45,12 @@
 }
 
 #main_Banner_img {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  left: 10%;
+  /* width: 80%; */
   height: 800px;
-  object-fit: cover;
-  z-index: 0;
+  object-fit: contain;
+  z-index: 1;
 }
 
 @media screen and (max-width: 1400px) {

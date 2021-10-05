@@ -20,6 +20,7 @@ import FavoritePlace from "./Component/FavoritePlace";
 import KakaoOAuth from "./Component/KakaoOAuth";
 import GoogleOAuth from "./Component/GoogleOAuth";
 import Chat from "./Component/Chat";
+import Couple from "./Component/Couple";
 
 require("dotenv").config();
 
@@ -28,16 +29,16 @@ function App() {
   const [isOn, setisOn] = useState(false);
 
   const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
-  // useEffect(() => {
-  //   scrollStop();
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 1000);
-  // }, []);
+  useEffect(() => {
+    scrollStop();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
-  // useEffect(() => {
-  //   scrollStop();
-  // }, [isLoading]);
+  useEffect(() => {
+    scrollStop();
+  }, [isLoading]);
 
   // useEffect(() => {
   //   getImage();
@@ -130,7 +131,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* {isLoading ? <Loading /> : null} */}
+      {isLoading ? <Loading /> : null}
       <Header
         isOn={isOn}
         toggleHandler={toggleHandler}
@@ -175,6 +176,9 @@ function App() {
             getPlace={getPlace}
             setPlaceList={setPlaceList}
           />
+        </Route>
+        <Route path="/couple">
+          <Couple getPlace={getPlace} placeList={placeList} />
         </Route>
         {/* <Route path="/planner">
           <Planner userInfo={userInfo} />
