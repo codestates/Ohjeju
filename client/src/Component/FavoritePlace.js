@@ -16,23 +16,25 @@ function FavoritePlace({ getPlace, placeList, setPlaceList }) {
   let count = useRef(0);
 
   // const [count, setCount] = useState(-100);
-  const [slide, setSlide] = useState({
+  const [imgSlide, setImgSlide] = useState({
     transform: "translate(0vw)",
   });
 
   const slideNextHandler = () => {
     count.current -= 100;
-    setSlide({
+    setImgSlide({
       transform: `translate(${count.current}vw)`,
     });
   };
 
   const slideBeforeHandler = () => {
     count.current += 100;
-    setSlide({
+    setImgSlide({
       transform: `translate(${count.current}vw)`,
     });
   };
+
+  console.log(imgSlide);
 
   return (
     <div className="favorite">
@@ -40,30 +42,24 @@ function FavoritePlace({ getPlace, placeList, setPlaceList }) {
       <div className="bigContainer">
         {placeList.map((item, index) => {
           return (
-            <div className="middleContainer">
+            <div className="middleContainer" key={item.id}>
               <div className="iconBefore">
                 <i
-                  class="fas fa-chevron-circle-left"
+                  className="fas fa-chevron-circle-left"
                   onClick={slideBeforeHandler}
                 ></i>
               </div>
               <div className="iconNext">
                 <i
-                  class="fas fa-chevron-circle-right"
+                  className="fas fa-chevron-circle-right"
                   onClick={slideNextHandler}
                 ></i>
               </div>
-              {/* 
-              <button className="slideBeforeBtn" onClick={slideBeforeHandler}>
-                before
-              </button> */}
-              <div className="container">
-                <img src={item.image} className="main-img" style={slide} />
+              {/* <div className="container"> */}
+              <div>
+                <img src={item.image} className="main-img" style={imgSlide} />
               </div>
-              {/* <button className="slideNextBtn" onClick={slideNextHandler}>
-                next
-              </button> */}
-              <div className="slideInfo" style={slide}>
+              <div className="slideInfo" style={imgSlide}>
                 {item.info}
               </div>
             </div>
