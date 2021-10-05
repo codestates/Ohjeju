@@ -89,7 +89,8 @@ module.exports = {
 
         return planner;
       }
-      const customedPlanner = customPlanner(planInThis);
+      // const customedPlanner = customPlanner(planInThis);
+      const customedPlanner = planInThis;
 
       if(!targetPlanner.group) { //1인 플래너일 경우
         return res.status(200).send({
