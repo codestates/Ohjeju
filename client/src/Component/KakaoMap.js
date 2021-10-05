@@ -345,8 +345,8 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination }) {
     el.innerHTML = itemStr;
     el.className = "item";
     el.addEventListener("click", function () {
-      setDestination(places.place_name);
-      handleDestination(destination);
+      const result = JSON.parse(JSON.stringify(places.place_name))
+      handleDestination(result);
     });
     return el;
   }

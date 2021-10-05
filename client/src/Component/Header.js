@@ -95,6 +95,7 @@ function Header({
           password:''
         })
         setshowSigninModal(false)
+        history.push('/')
       })
         .catch((err) => {
           console.log(err.message);
@@ -134,6 +135,7 @@ function Header({
               passwordConfirm:''
             })
             setshowSignupModal(false)
+            history.push('/')
         })
         .catch((err) => {
           if (err.message === "Request failed with status code 409") {
