@@ -6,7 +6,7 @@
 .favorite {
   position: relative;
   padding: 20px;
-  background-color: #eee;
+  background-color: rgb(245, 245, 245);
 }
 
 .favorite_in {
@@ -177,7 +177,7 @@
   width: 70%;
   margin: auto;
   height: 150px;
-  background-color: #eee;
+  background-color: rgb(245, 245, 245);
   transform: translate(0vw);
   transition: all 1s;
   text-align: center;
