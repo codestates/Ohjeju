@@ -14,29 +14,86 @@
   background: #fff;
 }
 
-#category {
+#category1 {
   display: flex;
-  padding: 10px;
+  position: absolute;
+  top: 1%;
+  left: 1%;
+  height: 60px;
+  bottom: 0;
+  width: 500px;
+  margin: 10px 0 30px 10px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  border-radius: 10px;
 }
 
-#category button {
+#category2 {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 9%;
+  left: 1%;
+  height: 284px;
+  bottom: 0;
+  width: 110px;
+  margin: 10px 0 0px 10px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  font-size: 12px;
+  border-radius: 10px;
+}
+
+#category1 button {
   margin: 3px;
   justify-content: center;
   cursor: pointer;
-  background: inherit;
   border: none;
   color: black;
   background: #b3c0c5;
-  width: 80px;
-  height: 30px;
+  width: 100px;
+  height: 40px;
   border-radius: 10px;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   outline: none;
   box-shadow: 1px 2px 0 rgb(0, 0, 0, 0.5);
-  opacity: 0.5;
+  /* margin-left: 20px; */
+}
+
+#category2 button {
+  margin: 10px;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  width: 80px;
+  height: 70px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 1px 2px 0 rgb(0, 0, 0, 0.5);
   align-items: center;
   /* margin-left: 20px; */
+}
+
+#CE7 {
+  background-color: #dbd93f;
+  color: #573514;
+}
+
+#AT4 {
+  background-color: #d48c2e;
+  color: #573514;
+}
+
+#FD6 {
+  background-color: #647fca;
+  color: #573514;
 }
 
 .placeinfo:nth-of-type(n) {
@@ -125,11 +182,11 @@
 }
 #menu_wrap {
   position: absolute;
-  top: 0;
-  left: 2.5%;
+  top: 9%;
+  left: 8%;
   height: 75%;
   bottom: 0;
-  width: 250px;
+  width: 370px;
   margin: 10px 0 30px 10px;
   padding: 5px;
   overflow-y: auto;
@@ -141,19 +198,35 @@
 
 #chat_wrap {
   position: absolute;
-  top: 0;
-  right: 3%;
-  height: 78%;
+  top: 1%;
+  right: 0.3%;
+  height: 95%;
   bottom: 0;
   width: 300px;
   margin: 10px 0 30px 10px;
   padding: 5px;
   overflow-y: auto;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(201, 197, 180, 0.7);
   z-index: 1;
   font-size: 12px;
   border-radius: 10px;
 }
+
+/* #chat_wrap_with_planner {
+  position: absolute;
+  top: 1%;
+  right: 24.5%;
+  height: 95%;
+  bottom: 0;
+  width: 300px;
+  margin: 10px 0 30px 10px;
+  padding: 5px;
+  overflow-y: auto;
+  background: rgba(202, 190, 136, 0.7);
+  z-index: 1;
+  font-size: 12px;
+  border-radius: 10px;
+} */
 
 #invite_wrap {
   position: absolute;
@@ -173,11 +246,11 @@
 
 #planner_wrap {
   position: absolute;
-  top: 0;
-  right: 3%;
-  height: 78%;
+  top: 1%;
+  right: 0.3%;
+  height: 95%;
   bottom: 0;
-  width: 500px;
+  width: 450px;
   margin: 10px 0 30px 10px;
   padding: 5px;
   overflow-y: auto;

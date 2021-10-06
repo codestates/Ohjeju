@@ -61,7 +61,7 @@
 }
 
 .planning_container {
-  height: 350px;
+  height: 370px;
   margin: 15px;
   text-align: center;
   background-color: rgb(205, 235, 247);
@@ -87,8 +87,8 @@
 }
 
 .planning_add_button {
-  width: 100px;
-  height: 35px;
+  width: 150px;
+  height: 40px;
   margin-top: 3px;
   background-color: #6371af;
   border: 1px solid #1d1d1c;

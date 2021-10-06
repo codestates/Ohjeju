@@ -9,8 +9,8 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
   console.log("kakaomap");
   const mapStyle = {
     //size는 알아서
-    width: "95%",
-    height: "80%",
+    width: "100%",
+    height: "100%",
     position: "relative",
     overflow: "hidden",
     margin: "auto",
@@ -23,6 +23,7 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
   const [overLayArray, setOverLay] = useState([]);
   const [hasKeyWord, setHasKeyWord] = useState("");
   const [destination, setDestination] = useState("목적지");
+ 
   const drawTool = () => {
     //사각형생성 -> +각종 와리가리기능
     removeArea();
@@ -360,17 +361,10 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
   return (
     <div id="map_container">
       {/* 카테고리는 추가가능 */}
-      <div id="category">
-        <button id="CE7" onClick={() => getCategory("CE7", 1)}>
-          카페
-        </button>
-        <button id="AT4" onClick={() => getCategory("AT4", 1)}>
-          관광명소
-        </button>
-        <button id="FD6" onClick={() => getCategory("FD6", 1)}>
-          음식점
-        </button>
-        <button onClick={drawTool}>사각형 그리기</button>
+      <div className="map_wrap">
+        <div id="map" style={mapStyle}></div>
+        <div id='category1'>
+        <button onClick={drawTool}>검색구간 설정</button>
         <button
           onClick={() => {
             const getMapMenu = document.getElementById("menu_wrap");
@@ -383,29 +377,50 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
           onClick={() => {
             const getChatMenu = document.getElementById("chat_wrap");
             getChatMenu.classList.toggle("open");
-          }}
+            const getInviteGroup = document.getElementById("invite_wrap");
+            getInviteGroup.classList.remove("open");
+            const getPlannerMenu = document.getElementById('planner_wrap')
+            getPlannerMenu.classList.remove('open')
+          }
+          }
         >
-          채팅창열기
+          채팅
         </button>
         <button
           onClick={() => {
             const getInviteGroup = document.getElementById("invite_wrap");
             getInviteGroup.classList.toggle("open");
+            const getPlannerMenu = document.getElementById('planner_wrap')
+            getPlannerMenu.classList.remove('open')
+            const getChatMenu = document.getElementById("chat_wrap");
+            getChatMenu.classList.remove("open");
           }}
         >
-          그룹초대(test)
+          초대하기
         </button>
         <button
           onClick={() => {
             const getPlannerMenu = document.getElementById('planner_wrap')
             getPlannerMenu.classList.toggle('open')
+            // const getChatMenu = document.getElementById("chat_wrap");
+            // getChatMenu.classList.remove('open')
+            const getInviteGroup = document.getElementById("invite_wrap");
+            getInviteGroup.classList.remove("open");
           }}>
             플래너열기
         </button>
       </div>
-
-      <div className="map_wrap">
-        <div id="map" style={mapStyle}></div>
+      <div id="category2">
+        <button id="CE7" onClick={() => getCategory("CE7", 1)}>
+          카페
+        </button>
+        <button id="AT4" onClick={() => getCategory("AT4", 1)}>
+          관광명소
+        </button>
+        <button id="FD6" onClick={() => getCategory("FD6", 1)}>
+          음식점
+        </button>
+        </div>
         <div id="menu_wrap" className="bg_white close">
           <div className="option">
             키워드 :{" "}
