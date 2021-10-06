@@ -28,13 +28,13 @@ module.exports = {
           })
           .then((res) => res.data.groupId)
 
-          const newPlannerId = await planner.create({
+          const newPlanner = await planner.create({
             name: req.body.name,
             groupId: newGroupId
           })
-          .then((planner) => planner.id)
+          .then((planner) => planner)
 
-          return res.status(201).send({ plannerId: newPlannerId });
+          return res.status(201).send(newPlanner);
         }
       }
     }
@@ -43,8 +43,8 @@ module.exports = {
   
   getPlanner: async (req, res) => {
     //* endpoint: https://www.Ohjeju.com/planner?plannerId=''
-
     try {
+      console.log('getPlanner')
       const targetPlanner = await planner.findOne({
         where: { id: req.query.plannerId },
         include: [ { model: group } ]
@@ -61,22 +61,24 @@ module.exports = {
         const planner = new Object();
 
         for(const plan of planArr) {
-          if(!planner[`day ${plan.day}`]) planner[`day ${plan.day}`] = new Array();
-          planner[`day ${plan.day}`].push({
+          if(!planner[plan.day]) planner[plan.day] = new Array();
+          planner[plan.day].push({
             id: plan.id,
             departureTime: plan.departureTime,
             destination: plan.destination,
             memo: plan.memo
           })
         }
-        //왜 시간순 정렬이 안되지?
         for(const day in planner) planner[day].sort((a, b) => a.departureTime - b.departureTime);
+
         return planner;
       }
-      const customedPlanner = customPlanner(planInThis);
+      // const customedPlanner = customPlanner(planInThis);
+      const customedPlanner = planInThis;
 
       if(!targetPlanner.group) { //1인 플래너일 경우
         return res.status(200).send({
+          id:targetPlanner.id,
           name: targetPlanner.name,
           group: null,
           plan: customedPlanner
@@ -87,6 +89,7 @@ module.exports = {
           .then((res) => res.data)
         
         return res.status(200).send({
+          id:targetPlanner.id,
           name: targetPlanner.name,
           group: groupInThis,
           plan: customedPlanner

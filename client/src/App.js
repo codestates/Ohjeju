@@ -20,6 +20,8 @@ import FavoritePlace from "./Component/FavoritePlace";
 import KakaoOAuth from "./Component/KakaoOAuth";
 import GoogleOAuth from "./Component/GoogleOAuth";
 import Chat from "./Component/Chat";
+import Couple from "./Component/Couple";
+import Review from "./Component/Review";
 
 require("dotenv").config();
 
@@ -28,20 +30,16 @@ function App() {
   const [isOn, setisOn] = useState(false);
 
   const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
-  // useEffect(() => {
-  //   scrollStop();
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 1000);
-  // }, []);
+  useEffect(() => {
+    scrollStop();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
-  // useEffect(() => {
-  //   scrollStop();
-  // }, [isLoading]);
-
-  // useEffect(() => {
-  //   getImage();
-  // }, []);
+  useEffect(() => {
+    scrollStop();
+  }, [isLoading]);
 
   const scrollStop = () => {
     if (isLoading) {
@@ -65,8 +63,9 @@ function App() {
 
   const getuserInfo = (res) => {
     //유저정보 받아오기
+    //`${process.env.REACT_APP_API_URL || "http://localhost:80"
     axios
-      .get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/info?userId=${res.data.id}`, {
+      .get(`http://localhost:80/user/info?userId=${res.data.id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -78,18 +77,19 @@ function App() {
   const handleLogout = () => {
     //로그아웃실행
     axios
-      .post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signout`, "NO_BODY_DATA", { withCredentials: true })
+      .post(
+        `${process.env.REACT_APP_API_URL || "http://localhost:80"}/signout`,
+        "NO_BODY_DATA",
+        { withCredentials: true }
+      )
       .then((res) => {
         setisLogin(false);
         setuserInfo({
           email: "default-email",
           userName: "default-userName",
         });
-        if (page === "mypage") {
-          //현재페이지가 마이페이지일경우 메인페이지로 이동
           window.location.replace("/");
-        }
-      });
+        });
   };
 
   const handleuserInfoDestroy = () => {
@@ -104,15 +104,20 @@ function App() {
   const [placeList, setPlaceList] = useState([]);
 
   const getPlace = () => {
-    axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/attractions`).then((res) => {
-      let arr = [...res.data];
-      let newarr = arr.slice(0, 27);
-      setPlaceList(newarr);
-    });
+    axios
+      .get(
+        `${process.env.REACT_APP_API_URL || "http://localhost:80"}/attractions`
+      )
+      .then((res) => {
+        let arr = [...res.data];
+        let newarr = arr.slice(0, 200);
+        setPlaceList(newarr);
+      });
   };
 
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  // console.log(`App ${userInfo}`);
 
   useEffect(() => {
     getPlace();
@@ -120,7 +125,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* {isLoading ? <Loading /> : null} */}
+      {isLoading ? <Loading /> : null}
       <Header
         isOn={isOn}
         toggleHandler={toggleHandler}
@@ -133,13 +138,21 @@ function App() {
       />
       <Switch>
         <Route path="/OAuth/kakao">
-          <KakaoOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
+          <KakaoOAuth
+            setuserInfo={setuserInfo}
+            setisLogin={setisLogin}
+            getuserInfo={getuserInfo}
+          />
         </Route>
         <Route path="/OAuth/google">
-          <GoogleOAuth setuserInfo={setuserInfo} setisLogin={setisLogin} getuserInfo={getuserInfo} />
+          <GoogleOAuth
+            setuserInfo={setuserInfo}
+            setisLogin={setisLogin}
+            getuserInfo={getuserInfo}
+          />
         </Route>
         <Route exact path="/">
-          <Main placeList={placeList} getPlace={getPlace} />
+          <Main placeList={placeList} getPlace={getPlace} isLogin={isLogin}/>
         </Route>
         <Route path="/mypage">
           <Mypage
@@ -149,21 +162,29 @@ function App() {
           />
         </Route>
         <Route path="/plannerSelect">
-          <PlannerSelect
-            userInfo={userInfo}
-            isLogin={isLogin} 
-          />
+          <PlannerSelect userInfo={userInfo} isLogin={isLogin} />
         </Route>
         <Route path="/favoritePlace">
-          <FavoritePlace placeList={placeList} getPlace={getPlace} />
+          <FavoritePlace
+            placeList={placeList}
+            getPlace={getPlace}
+            setPlaceList={setPlaceList}
+          />
         </Route>
-        <Route path="/planner">
-          <Planner />
+        <Route path="/couple">
+          <Couple getPlace={getPlace} placeList={placeList} />
         </Route>
+        <Route path="/review">
+          <Review />
+        </Route>
+        {/* <Route path="/planner">
+          <Planner userInfo={userInfo} />
+        </Route> */}
+        <Route path="/planner" component={Planner} />
         <Route path="/attraction" component={Attraction} />
         <Route path="/chat" component={Chat} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/KakaoMap.css";
 import Chat from "../Component/Chat";
+import InviteGroup from "../Component/InviteGroup";
 
 const axios = require("axios");
 
-function KakaoMap() {
+function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
+  console.log("kakaomap");
   const mapStyle = {
     //size는 알아서
     width: "100%",
     height: "100%",
     position: "relative",
     overflow: "hidden",
+    margin: "auto",
   };
   const [map, setMap] = useState("");
   const [ractangleDraw, setRactangleDraw] = useState("");
@@ -19,6 +22,8 @@ function KakaoMap() {
   const [markers, setMarkers] = useState([]);
   const [overLayArray, setOverLay] = useState([]);
   const [hasKeyWord, setHasKeyWord] = useState("");
+  const [destination, setDestination] = useState("목적지");
+ 
   const drawTool = () => {
     //사각형생성 -> +각종 와리가리기능
     removeArea();
@@ -340,6 +345,11 @@ function KakaoMap() {
     itemStr += '<span class="tel">' + places.phone + "</span>" + "</div>";
     el.innerHTML = itemStr;
     el.className = "item";
+    el.addEventListener("click", function () {
+      const result = JSON.parse(JSON.stringify(places.place_name))
+      handleDestination(result);
+      setDestination(result)
+    });
     return el;
   }
 
@@ -349,19 +359,12 @@ function KakaoMap() {
   }, []);
 
   return (
-    <div id="test">
+    <div id="map_container">
       {/* 카테고리는 추가가능 */}
-      <div id="category">
-        <button id="CE7" onClick={() => getCategory("CE7", 1)}>
-          카페
-        </button>
-        <button id="AT4" onClick={() => getCategory("AT4", 1)}>
-          관광명소
-        </button>
-        <button id="FD6" onClick={() => getCategory("FD6", 1)}>
-          음식점
-        </button>
-        <button onClick={drawTool}>사각형 그리기</button>
+      <div className="map_wrap">
+        <div id="map" style={mapStyle}></div>
+        <div id='category1'>
+        <button onClick={drawTool}>검색구간 설정</button>
         <button
           onClick={() => {
             const getMapMenu = document.getElementById("menu_wrap");
@@ -374,27 +377,71 @@ function KakaoMap() {
           onClick={() => {
             const getChatMenu = document.getElementById("chat_wrap");
             getChatMenu.classList.toggle("open");
+            const getInviteGroup = document.getElementById("invite_wrap");
+            getInviteGroup.classList.remove("open");
+            const getPlannerMenu = document.getElementById('planner_wrap')
+            getPlannerMenu.classList.remove('open')
+          }
+          }
+        >
+          채팅
+        </button>
+        <button
+          onClick={() => {
+            const getInviteGroup = document.getElementById("invite_wrap");
+            getInviteGroup.classList.toggle("open");
+            const getPlannerMenu = document.getElementById('planner_wrap')
+            getPlannerMenu.classList.remove('open')
+            const getChatMenu = document.getElementById("chat_wrap");
+            getChatMenu.classList.remove("open");
           }}
         >
-          채팅창열기
+          초대하기
+        </button>
+        <button
+          onClick={() => {
+            const getPlannerMenu = document.getElementById('planner_wrap')
+            getPlannerMenu.classList.toggle('open')
+            // const getChatMenu = document.getElementById("chat_wrap");
+            // getChatMenu.classList.remove('open')
+            const getInviteGroup = document.getElementById("invite_wrap");
+            getInviteGroup.classList.remove("open");
+          }}>
+            플래너열기
         </button>
       </div>
-
-      <div className="map_wrap">
-        <div id="map" style={mapStyle}></div>
+      <div id="category2">
+        <button id="CE7" onClick={() => getCategory("CE7", 1)}>
+          카페
+        </button>
+        <button id="AT4" onClick={() => getCategory("AT4", 1)}>
+          관광명소
+        </button>
+        <button id="FD6" onClick={() => getCategory("FD6", 1)}>
+          음식점
+        </button>
+        </div>
         <div id="menu_wrap" className="bg_white close">
           <div className="option">
             키워드 :{" "}
             <input id="keyword" size="15" type="text" onKeyUp={testKeydown} />
             <button onClick={getCategory}>검색</button>
+            <div>선택중: {destination}</div>
           </div>
           <hr></hr>
           <ul id="placesList"></ul>
         </div>
         <div id="chat_wrap" className="bg_white close">
-          <Chat />
+          <Chat plannerInfo={plannerInfo} userInfo={userInfo} />
           <hr></hr>
           <ul id="placesList"></ul>
+        </div>
+        <div id="invite_wrap" className="bg_white close">
+          그룹초대(test)
+          <InviteGroup userInfo={userInfo} plannerInfo={plannerInfo} />
+        </div>
+        <div id='planner_wrap' className='bg_white close'>
+          {planner1}
         </div>
       </div>
     </div>

@@ -23,9 +23,8 @@ module.exports = {
         if(!req.body.groupName) return res.status(400).send('Content is empty');
         else { //제대로 받아온 경우 그룹 생성
           const newGroupId = await group.create({
-            //group이라는 모델 자체가 스키마에 없네요?
             name: req.body.groupName,
-            leader: tokenUser.userName
+            leaderId: tokenUser.id
           })
           .then((group) => group.id)
           user_group.create({ userId: tokenUser.id, groupId: newGroupId })
@@ -64,15 +63,27 @@ module.exports = {
           }
         })
 
-        const findGroup = await group.findOne({
+        let leaderName,leaderId
+        const targetGroup = await group.findOne({
           where: { id: req.query.groupId }
+        })
+        const targetGroupLeader = await users.findOne({
+          where: { id: targetGroup.leaderId }
+        })
+        .then((user) => {
+          //return user.userName
+          leaderName = user.userName
+          leaderId = user.id
         })
 
         return res.status(200)
+        //leaderId가 필요해서 임시로 대충짭니다 
           .send({
-            groupId: findGroup.id,
-            groupName: findGroup.name,
-            leader: findGroup.leader,
+            groupId: targetGroup.id,
+            groupName: targetGroup.name,
+            //leader:targetGroupLeader
+            leader: leaderName,
+            leaderId:leaderId,
             user: userInGroup
           })
       }
@@ -86,6 +97,7 @@ module.exports = {
     //action 따라 진행
     try {
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
+      //여기가 null로잡힘 그래서 밑에 스위치문까지안감 -> 확인부탁
       if(!reqAccessToken) return res.status(401).send('Token expired');
       const tokenUser = await decodeToken(reqAccessToken);
       if(!tokenUser) return res.status(401).send('Invalid token');
@@ -93,7 +105,7 @@ module.exports = {
       //0. 현재 이 요청을 한 유저가 leader인지 먼저 확인
       //-> 리더가 아니라면 403 응답(리더만 수정 가능)
       const targetGroup = await group.findOne({ where: { id: req.query.groupId } });
-      if(tokenUser.userName !== targetGroup.leader) return res.status(403).send('Authority unavailable');
+      if(tokenUser.id !== targetGroup.leaderId) return res.status(403).send('Authority unavailable');
 
       //1. 요청의 action따라 동작
       //모든 액션을 하기 전에 req.body에 수정될 email이 있는지 검색
@@ -106,20 +118,37 @@ module.exports = {
       switch(req.body.action) {
         case 'add': //그룹에 멤버 추가
           if(targetGroupMember.includes(req.body.email)) {
+            //'T dhe user is already exist in group'
             return res.status(409).send('The user is already exist in group')
           }
           else {
             const addUserId = await users.findOne({ where: { email : req.body.email} })
-              .then((user) => user.id)
-            user_group.create({ userId: addUserId, groupId: targetGroup.id });
+              .then(async (user) => {
+                user_group.create({userId:user.id,groupId:targetGroup.id})
+                .then(()=>{
+                  axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                  .then(item => {
+                    console.log('@!##!@')
+                    console.log(item.data)
+                    return res.status(200)
+                    .cookie('accessToken', reqAccessToken)
+                    .cookie('refreshToken', reqRefreshToken)
+                    .send(item.data)
+                  })
+                  //밑에 delete와 마찬가지로 추가하고 바로 modifiedgroup이 최신화된 데이터가아닌 추가하기 전에데이터를 보내줘서수정햇습니다
+                }
+                )
+              })
 
-            const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
-              .then((res) => res.data)
+            // const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+            //   .then((res) => {
+            //     console.log(res.data)
+            //   })
 
-            return res.status(200)
-              .cookie('accessToken', reqAccessToken)
-              .cookie('refreshToken', reqRefreshToken)
-              .send(modifiedGroup)
+            // return res.status(200)
+            //   .cookie('accessToken', reqAccessToken)
+            //   .cookie('refreshToken', reqRefreshToken)
+            //   .send(modifiedGroup)
           }
           break;
 
@@ -128,39 +157,64 @@ module.exports = {
             return res.status(404).send('can\'t find the group or user')
           }
           else {
-            const deleteUserId = await users.findOne({ where: { email: req.body.email } })
-              .then((user) => user.id)
-            user_group.destroy({ where: { userId: deleteUserId } });
-
-            const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
-              .then((res) => res.data)
-
-            return res.status(200)
-              .cookie('accessToken', reqAccessToken)
-              .cookie('refreshToken', reqRefreshToken)
-              .send(modifiedGroup)
-          }
+              const deleteUserId = await users.findOne({ where: { email : req.body.email} })
+              .then(async (user) => {
+                user_group.destroy({where:{userId:user.id}})
+                .then(()=>{
+                  axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                  .then(item => {
+                    console.log('@!##!@')
+                    console.log(item.data)
+                    return res.status(200)
+                    .cookie('accessToken', reqAccessToken)
+                    .cookie('refreshToken', reqRefreshToken)
+                    .send(item.data)
+                  })
+                }
+                )
+              })
+            }
           break;
 
         case 'change leader': //그룹 리더 변경
+        console.log('change')
           if(!targetGroupMember.includes(req.body.email)) {
             return res.status(404).send('can\'t find the group or user')
           }
           else {
-            const newLeaderName = await users.findOne({ where: { email: req.body.email } })
-              .then((user) => user.userName)
-            if(targetGroup.leader === newLeaderName) return res.status(409).send('the user is already leader of this group')
-            else {
-              targetGroup.update({ leader: newLeaderName })
+            console.log('else')
+            const newLeaderId = await users.findOne({ where: { email: req.body.email } })
+              .then(async (user) => {
+                //리더변경 버튼을 리더가 아니면 나오게하지 않게짜서 일단 주석처리함
+                
+                // if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
+                // else{
+                  targetGroup.update({ leaderId: user.dataValues.id })
+                  .then(()=>{
+                    axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                    .then(item => {
+                      console.log('@!##!@')
+                      console.log(item.data)
+                      return res.status(200)
+                      .cookie('accessToken', reqAccessToken)
+                      .cookie('refreshToken', reqRefreshToken)
+                      .send(item.data)
+                  })
+                })
+              // }
+            })
+            // if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
+            // else {
+            //   targetGroup.update({ leaderId: newLeaderId })
 
-              const modifiedGroup = await axios.get(`http://localhost:90/group?groupId=${targetGroup.id}`)
-                .then((res) => res.data)
+            //   const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+            //     .then((res) => res.data)
 
-              return res.status(200)
-                .cookie('accessToken', reqAccessToken)
-                .cookie('refreshToken', reqRefreshToken)
-                .send(modifiedGroup)
-            }
+            //   return res.status(200)
+            //     .cookie('accessToken', reqAccessToken)
+            //     .cookie('refreshToken', reqRefreshToken)
+            //     .send(modifiedGroup)
+            // }
           }
           break;
 
@@ -184,7 +238,7 @@ module.exports = {
       //권한이 있으면 삭제
       const targetGroup = await group.findOne({ where: { id: req.query.groupId } })
       if(!targetGroup) return res.status(404).send('can\'t find the group');
-      if(targetGroup.leader !== tokenUser.userName) {
+      if(targetGroup.leaderId !== tokenUser.id) {
         return res.status(403).send('Authority unavailable')
       }
       else {
@@ -195,9 +249,9 @@ module.exports = {
         return res.status(200)
           .cookie('accessToken', reqAccessToken)
           .cookie('refreshToken', reqRefreshToken)
-          .send('ok');
+          .send('group successfully deleted');
       }
     }
-    catch(err) { res.status(500).send('server error') }
+    catch(err) { return res.status(500).send('server error') }
   }
 }

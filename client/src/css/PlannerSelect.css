@@ -19,7 +19,7 @@
   cursor: pointer;
   border: 5px solid rgb(136, 182, 182);
   transition: 1s;
- }
+}
 
 .planner_item:hover {
   box-shadow: 0 250px 0 0 rgba(9, 20, 85, 0.25) inset,
@@ -49,8 +49,9 @@
 }
 
 .planner_item_move {
-  height: 30%;
+  height: 40px;
   width: 50%;
+  margin: 50px;
   border-radius: 8px;
 }
 
@@ -84,4 +85,11 @@
 .planner_create_button:hover {
   box-shadow: 0 80px 0 0 rgba(9, 20, 85, 0.25) inset,
     0 -80px 0 0 rgba(17, 12, 85, 0.25) inset;
+}
+
+.close {
+  display: none;
+}
+.open {
+  display: block;
 }
