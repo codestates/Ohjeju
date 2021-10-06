@@ -47,10 +47,10 @@
   margin: 30px;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1600px) {
   .container {
     position: absolute;
-    top: 2200px;
+    top: 2000px;
   }
   .imgBox {
     display: grid;
