@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   background-color: white;
-  padding: 50px;
+  /* padding: 50px; */
 }
 
 .boxContainer {
@@ -37,4 +37,25 @@
   width: 100%;
   height: 100%;
   /* object-fit: contain; */
+}
+
+.coupleInfo {
+  font-family: "nanum";
+  text-align: center;
+  font-size: 28px;
+  /* padding: 20px; */
+  margin: 30px;
+}
+
+@media screen and (max-width: 1400px) {
+  .container {
+    position: absolute;
+    top: 2200px;
+  }
+  .imgBox {
+    display: grid;
+    grid-template-columns: 100px 100px 150px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    grid-gap: 7.5px;
+  }
 }
