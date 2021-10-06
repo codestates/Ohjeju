@@ -5,7 +5,7 @@ import InviteGroup from "../Component/InviteGroup";
 
 const axios = require("axios");
 
-function KakaoMap({ userInfo, plannerInfo, handleDestination }) {
+function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
   console.log("kakaomap");
   const mapStyle = {
     //size는 알아서
@@ -347,6 +347,7 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination }) {
     el.addEventListener("click", function () {
       const result = JSON.parse(JSON.stringify(places.place_name))
       handleDestination(result);
+      setDestination(result)
     });
     return el;
   }
@@ -357,7 +358,7 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination }) {
   }, []);
 
   return (
-    <div id="test">
+    <div id="map_container">
       {/* 카테고리는 추가가능 */}
       <div id="category">
         <button id="CE7" onClick={() => getCategory("CE7", 1)}>
@@ -394,6 +395,13 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination }) {
         >
           그룹초대(test)
         </button>
+        <button
+          onClick={() => {
+            const getPlannerMenu = document.getElementById('planner_wrap')
+            getPlannerMenu.classList.toggle('open')
+          }}>
+            플래너열기
+        </button>
       </div>
 
       <div className="map_wrap">
@@ -413,10 +421,13 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination }) {
           <hr></hr>
           <ul id="placesList"></ul>
         </div>
-      </div>
-      <div id="invite_wrap" className="bg_white close">
-        그룹초대(test)
-        <InviteGroup userInfo={userInfo} plannerInfo={plannerInfo} />
+        <div id="invite_wrap" className="bg_white close">
+          그룹초대(test)
+          <InviteGroup userInfo={userInfo} plannerInfo={plannerInfo} />
+        </div>
+        <div id='planner_wrap' className='bg_white close'>
+          {planner1}
+        </div>
       </div>
     </div>
   );

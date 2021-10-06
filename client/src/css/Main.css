@@ -79,15 +79,17 @@
     0 -100px 0 0 rgba(0, 0, 0, 0.25) inset;
 }
 
-.weblogin_button {
-  width: 70%;
+.main_to_plannerSelect {
+  width: 50%;
+  height: 100px;
   display: block;
   padding: 13px 0;
-  background-color: #e9a11d;
+  margin: 30px;
+  background-color: #6371af;
   border: 1px solid #1d1d1c;
   -webkit-border-radius: 2px;
-  border-radius: 2px;
-  font-size: 18px;
+  border-radius: 15px;
+  font-size: 30px;
   color: #fff;
   font-weight: 700;
   text-align: center;
@@ -97,11 +99,13 @@
   font-family: "nanum";
 }
 
-@media screen and (max-width: 1600px) {
-  #main_in {
-    display: block;
-  }
 
+.main_to_plannerSelect:hover {
+  box-shadow: 0 100px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -100px 0 0 rgba(0, 0, 0, 0.25) inset;
+}
+
+@media screen and (max-width: 1400px) {
   #main_text {
     position: absolute;
     top: 800px;
