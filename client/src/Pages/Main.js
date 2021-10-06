@@ -30,9 +30,15 @@ function Main({ placeList, getPlace, isLogin }) {
             <br />
             여행을 계획해보세요!
             <br />
-            <Link to="planner">
-              <button className="main_to_planner">Get own Planner!</button>
-            </Link>
+            {isLogin ? (
+                <Link to='plannerSelect'>
+                <button className='main_to_plannerSelect'>Get own Planner!</button>
+                </Link>
+              ):(
+                <Link to='planner'>
+                <button className='main_to_planner'>Get own Planner!</button>
+                </Link>
+              )}
           </div>
         </div>
         <div id="main_Banner_black_opacity" />
