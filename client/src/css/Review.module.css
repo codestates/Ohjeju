@@ -1,0 +1,23 @@
+.container {
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+.reviewContainer {
+  display: flex;
+  margin: auto;
+  width: 80%;
+  height: 500px;
+  margin-top: 90px;
+  /* background-color: red; */
+  display: grid;
+  grid-template-columns: 250px 250px 250px 250px 250px;
+  grid-template-rows: 400px 400px 400px 400px;
+  grid-gap: 50px;
+}
+
+.reviewDiv {
+  background-color: rgb(247, 247, 247);
+  box-shadow: 3px 3px 3px grey;
+}

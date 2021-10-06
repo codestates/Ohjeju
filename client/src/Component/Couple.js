@@ -18,6 +18,7 @@ const Couple = ({ getPlace, placeList }) => {
   return (
     <div className={style.container}>
       <div className={style.boxContainer}>
+        <div className={style.coupleInfo}>커플이 가기 좋은 명소</div>
         <div className={style.imgBox}>
           <div className={style.gridFirst}>
             <img src={couple1} className={style.coupleImg} />

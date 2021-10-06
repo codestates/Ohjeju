@@ -3,28 +3,31 @@ import React from "react";
 import FavoritePlace from "../Component/FavoritePlace";
 import "../App.css";
 import "../css/Main.css";
+import background3 from "../Imgs/background3.png";
 import background2 from "../Imgs/background2.png";
-import background1 from "../Imgs/background1.jpg";
 import Footer from "../Component/Footer";
 import Couple from "../Component/Couple";
+import Review from "../Component/Review";
 import { Link } from "react-router-dom";
 
 function Main({ placeList, getPlace, isLogin }) {
   return (
     <main>
       <div id="main_in">
+        <img id="main_Banner_img" src={background2} alt="" />
         <div id="main_text">
           <div id="main_title">
             가족, 친구, 애인 모두가 <br></br>함께 계획하는 여행플래너
           </div>
           <div id="main_story">
-            제주도로 여행가고 싶다. 하지만 혼자서 짜는 여행플래너는 외롭다.
+            우리 마음을 달래줄 힐링공간, 제주. 혼자 세우는 여행계획은 NO!
             <br />
-            이제는 여행플래너짜기도 여행의 일부인 시대. 함께 여행을 계획하면서
+            당신의 여행을 책임질 여행의 첫 발걸음, Oh! Jeju
             <br />
-            실시간채팅과 더불어 화면공유까지! 오! 제주가 지인들과의 즐거운 제주
+            함께 떠날 소중한 사람들과 화면공유와 실시간 채팅으로 편하고 쉽게
             <br />
-            여행플래너짜기를 도와드립니다.
+            여행을 계획해보세요!
+            <br />
               {isLogin ? (
                 <Link to='plannerSelect'>
                 <button className='main_to_plannerSelect'>Get own Planner!</button>
@@ -37,10 +40,10 @@ function Main({ placeList, getPlace, isLogin }) {
           </div>
         </div>
         <div id="main_Banner_black_opacity" />
-        <img id="main_Banner_img" src={background2} alt="" />
       </div>
       <FavoritePlace placeList={placeList} getPlace={getPlace} />
-      <Couple></Couple>
+      <Couple />
+      {/* <Review /> */}
     </main>
   );
 }

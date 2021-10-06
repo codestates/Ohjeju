@@ -38,7 +38,7 @@ function FavoritePlace({ getPlace, placeList, setPlaceList }) {
 
   return (
     <div className="favorite">
-      <div className="favorite_title">추천명소</div>
+      <div className="favorite_title">플레이스</div>
       <div className="bigContainer">
         {placeList.map((item, index) => {
           return (
@@ -60,7 +60,7 @@ function FavoritePlace({ getPlace, placeList, setPlaceList }) {
                 <img src={item.image} className="main-img" style={imgSlide} />
               </div>
               <div className="slideInfo" style={imgSlide}>
-                {item.info}
+                {item.name}
               </div>
             </div>
 
