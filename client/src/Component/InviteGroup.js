@@ -15,11 +15,10 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
     })
     const [groupInfo , setGroupInfo] = useState(plannerInfo.group)
 
-    const serverUrl = 'http://localhost:80'
     const getUserInfo = async(e) => {
         e.preventDefault();
         console.log('send to server')
-        const getUser = await axios.get(`${serverUrl}/user/info?userEmail=${emailInputValue}`)
+        const getUser = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/info?userEmail=${emailInputValue}`)
         const {id,userName,image} = getUser.data
         setUserEmail(emailInputValue)
         setFindUser({...findUser,id,userName,image})
@@ -29,7 +28,7 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
     const addToUser = () => {
         console.log('add')
         const groupId = plannerInfo.group.groupId
-        axios.patch(`http://localhost:80/group?groupId=${groupId}`,{
+        axios.patch(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/group?groupId=${groupId}`,{
             email:userEmail,
             action:'add'
         },{withCredentials: true})
@@ -49,12 +48,13 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
     const inputEmail = (e) => {
         setEmailInputValue(e.target.value)
     }
+
     const removeUserInGroup = (targetUser) => {
         console.log('제거')
         if(userInfo.email === targetUser.email) alert('본인은 제거안됨')
         else{
             const groupId = plannerInfo.group.groupId
-            axios.patch(`http://localhost:80/group?groupId=${groupId}`,{
+            axios.patch(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/group?groupId=${groupId}`,{
                 email:targetUser.email,
                 action:'delete'
             },{withCredentials: true})
@@ -71,27 +71,34 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
         if(findUser.id > 0){
             //서버랑 요청중에 톱니바퀴라던지 넣으면 더좋을듯
             return (
-                <div>
-                    <span>유저이름 : {findUser.userName}</span>
-                    <span>유저이미지 : <img src={findUser.image} alt='' width='70' /></span>
-                    <button onClick={fun}>Add</button>
+                <div className ='invite_group_useremail_search'>
+                    <div className='invite_group_useremail_search_name'>유저이름 : {findUser.userName}</div>
+                    {findUser.image ? (
+                      <div className='invite_group_useremail_search_image_container'>
+                        <div className='invite_group_useremail_search_image'>유저프로필</div>
+                        <img className='invite_group_useremail_search_image_image'src={findUser.image} alt=''/>
+                      </div>
+                    ):null}
+                    <button className='invite_group_useremail_search_button' onClick={fun}>Add</button>
                 </div>
             )
         }
     }
+
     const mouseEnterUser = (idx) => {
         const getUserButton = document.getElementsByClassName(`user${idx}`)
         if(getUserButton[0] !== undefined) getUserButton[0].classList.toggle('open')
     }
+
     const mouseLeaveUser = (idx) => {
         const getUserButton = document.getElementsByClassName(`user${idx}`)
         if(getUserButton[0] !== undefined) getUserButton[0].classList.remove('open')
     }
 
-    const chageLeader = (targetUser) => {
+    const changeLeader = (targetUser) => {
         console.log('change')
             const groupId = plannerInfo.group.groupId
-            axios.patch(`http://localhost:80/group?groupId=${groupId}`,{
+            axios.patch(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/group?groupId=${groupId}`,{
                 email:targetUser.email,
                 action:'change leader'
             },{withCredentials: true})
@@ -109,18 +116,18 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
         return ele.user.map((item,idx)=>{
             console.log('item')
             return (
-            <li onMouseEnter={()=>{mouseEnterUser(idx)}}
+            <div onMouseEnter={()=>{mouseEnterUser(idx)}}
                 onMouseLeave={()=>{mouseLeaveUser(idx)}}
                 //리더일때만 제거 수정버튼이나오고 리더가 아니면 안나와야됨 -> 리더한테는 제거/수정버튼 이나오면안됨
-                className={item.id === groupInfo.leaderId ? 'leader' : null}>{item.userName}
+                className={item.id === groupInfo.leaderId ? 'invite_group_user_leader' : 'invite_group_user'}>{item.userName}
             {(userInfo.id === groupInfo.leaderId) && (item.id !==groupInfo.leaderId) 
             ?
             <div className={item.id===groupInfo.leaderId ? null : `close user${idx}`}>
-                <button onClick={()=>{remove(item)}}>제거</button>
-                <button onClick={()=>{change(item)}}>리더변경</button>
+                <button className='invite_group_user_button' onClick={()=>{remove(item)}}>내보내기</button>
+                <button className='invite_group_user_button' onClick={()=>{change(item)}}>리더변경</button>
             </div>
             : null}
-            </li>
+            </div>
             )
         })
     }
@@ -137,21 +144,24 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
     },[groupInfo])
 
     return (
-        <div>
-            <ul>그룹내 유저목록
+        <div className='invite_group_container'>
+            <div className='invite_group_title'>그룹초대</div>
+            <div className='invite_group_userlist_container'>
+            <div className='invite_group_userlist_title'>유저목록</div>
+             <div className='invite_group_userlist'>
                 {/* {groupInfo.user.map((item,idx)=><li>{item.userName}<button onClick={()=>{removeUserInGroup(item)}}>제거</button></li>)} */}
-                {renderUser(groupInfo,removeUserInGroup,chageLeader)}
-            </ul>
+                {renderUser(groupInfo,removeUserInGroup,changeLeader)}
+            </div>
+            </div>
             {/* 이 초대 form도 리더만 나오게 해야될듯 */}
             {groupInfo.leaderId === userInfo.id
             ?
-            <div>
-                <form onSubmit={getUserInfo}>유저e-mail
-                    <input type="text" value={emailInputValue} name="userEmail" onChange={inputEmail}></input><button>검색</button>
+            <div className='invite_group_input_container'>
+                <form className ='invite_group_useremail' onSubmit={getUserInfo}>유저e-mail
+                    <input className ='invite_group_useremail_input' type="text" value={emailInputValue} name="userEmail" onChange={inputEmail} placeholder='초대하실 이메일을 입력하세요'></input>
+                    <button className ='invite_group_useremail_button'>검색</button>
                 </form>
-                <div>
-                    {userSearch(addToUser)}
-                </div>
+                {userSearch(addToUser)}
             </div>
             :
             null

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from "react";
+import React, { useState } from "react";
 import FavoritePlace from "../Component/FavoritePlace";
 import "../App.css";
 import "../css/Main.css";
@@ -7,10 +7,12 @@ import background3 from "../Imgs/background3.png";
 import background2 from "../Imgs/background2.png";
 import Footer from "../Component/Footer";
 import Couple from "../Component/Couple";
+import Guide from '../Component/Guide'
 import Review from "../Component/Review";
 import { Link } from "react-router-dom";
 
 function Main({ placeList, getPlace, isLogin }) {
+
   return (
     <main>
       <div id="main_in">
@@ -43,6 +45,7 @@ function Main({ placeList, getPlace, isLogin }) {
       </div>
       <FavoritePlace placeList={placeList} getPlace={getPlace} />
       <Couple />
+      <Guide /> {/* 가이드개발용 */}
       {/* <Review /> */}
     </main>
   );

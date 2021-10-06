@@ -45,12 +45,14 @@ function Chat({ userInfo, plannerInfo }) {
       </li>
     ));
   };
+  
   const removeNowChatUser = () => {
     const INDEX = nowChatUsers.indexOf(USERNAME);
     nowChatUsers.splice(INDEX, 1);
     const copyArray = JSON.parse(JSON.stringify(nowChatUsers));
     setNowChatUsers(copyArray);
   };
+  
   const renderNowChat = () => {
     if (nowChatUsers.length !== 0) {
       const string = nowChatUsers.join(",");
@@ -62,8 +64,9 @@ function Chat({ userInfo, plannerInfo }) {
       );
     }
   };
+  
   useEffect(() => {
-    socketRef.current = io("http://localhost:80");
+    socketRef.current = io(`${process.env.REACT_APP_API_URL || "http://localhost:80"}`);
     socketRef.current.emit("join rooms", { userName: USERNAME, groupNum });
     socketRef.current.on("broadcast", ({ userName, content }) => {
       console.log("broadcast");
@@ -99,7 +102,7 @@ function Chat({ userInfo, plannerInfo }) {
 
   return (
     <div id="chatContainer">
-      채팅방
+      <div className='chat_title'>채팅방</div>
       <ul id="messages">{renderChat()}</ul>
       {renderNowChat()}
       <div className="input">
