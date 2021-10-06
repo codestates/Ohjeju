@@ -165,7 +165,7 @@ const Planner = ({userInfo,plannerInfo,location}) => {
         {/* <div>작성중인 플랜플래너아이디(개발용): {planningInfo.plannerId}</div> */}
         <button className={style.planning_add_button} onClick={addPlan}>플랜추가</button>
       </div>
-    <div>------------------------------------------------------------------------------------------------------------------</div>
+    <div>------------------------------------------------------------------------------------------------------</div>
       <div className={style.plan_saved_container}>
       {planInfo.map((plan,idx)=>{
         return (
