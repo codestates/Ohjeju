@@ -1,23 +1,66 @@
-.container {
-  position: relative;
+Review .container {
+  background-color: #eee;
   width: 100%;
+  /* position: relative; */
+  margin-top: 50px;
+  display: flex;
+}
+.reviewContainer {
   margin: auto;
+  width: 100%;
 }
 
-.reviewContainer {
-  display: flex;
-  margin: auto;
-  width: 80%;
-  height: 500px;
-  margin-top: 90px;
-  /* background-color: red; */
-  display: grid;
-  grid-template-columns: 250px 250px 250px 250px 250px;
-  grid-template-rows: 400px 400px 400px 400px;
-  grid-gap: 50px;
+.reviewTitle {
+  color: black;
+  font-size: 30px;
+  font-weight: 600;
+  /* background-color: yellowgreen; */
+  text-align: center;
+  padding: 30px;
+  font-family: "nanum";
 }
 
 .reviewDiv {
-  background-color: rgb(247, 247, 247);
-  box-shadow: 3px 3px 3px grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.user {
+  position: relative;
+  border: 1px solid grey;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  width: 22%;
+  border-radius: 20px;
+  font-family: "nanum";
+  flex-wrap: wrap;
+}
+
+.reviewRight {
+  margin-left: 10px;
+}
+
+.reviewWrite {
+  position: absolute;
+  top: 80px;
+}
+
+@media screen and (max-width: 1400px) {
+  .reviewContainer {
+    position: absolute;
+    top: 2500px;
+  }
+
+  .user {
+    width: 44%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .user {
+    width: 100%;
+  }
 }
