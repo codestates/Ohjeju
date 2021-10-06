@@ -48,7 +48,7 @@
   height: 50%;
   font-size: 20px;
   margin: 0 35px 3px 35px;
-  border: solid blue;
+  border: solid rgb(154, 154, 206);
   border-radius: 5px;
 }
 
@@ -56,7 +56,7 @@
   height: 50%;
   font-size: 20px;
   margin: 3px 35px 0 35px;
-  border: solid blue;
+  border: solid rgb(154, 154, 206);
   border-radius: 5px;
 }
 
@@ -74,6 +74,9 @@
 .planning_inform {
   font-size: 20px;
   margin: 20px;
+  border: solid rgb(130, 130, 182);
+  border-width: 2px;
+  border-radius: 15px;
 }
 
 .planning_memo {
@@ -104,8 +107,8 @@
 }
 
 .planning_add_button:hover {
-  box-shadow: 0 35px 0 0 rgba(0, 0, 0, 0.25) inset,
-    0 -35px 0 0 rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0 40px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -40px 0 0 rgba(0, 0, 0, 0.25) inset;
 }
 
 .plan_saved_container {
@@ -119,7 +122,7 @@
   margin: 15px;
   text-align: center;
   background-color: rgb(205, 235, 247);
-  border: solid lightcoral;
+  border: solid rgb(170, 125, 125);
   border-width: 5px;
   border-style:double;
   border-radius: 5px;
@@ -128,6 +131,9 @@
 .plan_inform {
   font-size: 20px;
   margin: 25px;
+  border: solid rgb(130, 130, 182);
+  border-width: 2px;
+  border-radius: 15px;
 }
 
 .plan_inform_memo {

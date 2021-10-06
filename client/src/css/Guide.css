@@ -1,0 +1,59 @@
+.guide_popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(36, 33, 33, 0.5);
+    z-index: 99;
+  }
+  
+  .guide_popup_inner {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    height: 700px;
+    top: 15%;
+    bottom: 15%;
+    left: 15%;
+    right: 15%;
+    margin: auto;
+    border-radius: 5px;
+    border: 1px solid #ca4e06;
+    background: white;
+    padding: 25px;
+    z-index: 99;
+  }
+
+  .guide_title {
+    height: 15%;
+    text-align: center;
+    font-size: 40px;
+    /* border: solid red; */
+    font-family: "S-CoreDream-5Medium";
+    font-weight: 600;
+    color: #2274aa;
+    padding: .4rem 1.2rem;
+  }
+
+  .guide_content {
+    display: flex;
+    flex-direction: row;
+    height: 85%;
+    text-align: center;
+    /* border: solid blue; */
+  }
+
+  .move_to_next {
+    width: 10%;
+    margin: 250px 15px 250px 15px;
+  }
+
+  .guide_content_image {
+    width: 80%;
+    border-radius: 15px;
+  }
