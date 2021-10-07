@@ -1,13 +1,14 @@
 const {attractions,group,plan,planner,reviews,users,user_group} = require('../models')
 
 module.exports = {
-    getAllAttraction: async (req, res) => {
-        const findAttractions = await attractions.findAll({
+  getAllAttraction: async (req, res) => {
+      const findAttractions = await attractions.findAll({
 
-        })
-        console.log('att')
-        res.status(200).json(findAttractions)
+      })
+      console.log('att')
+      res.status(200).json(findAttractions)
   },
+  
   getThatAttraction: async(req,res) => {
     console.log(req.body.location)
     const findAttractions = await attractions.findOne({

@@ -7,10 +7,8 @@ const { verifyToken, decodeToken } = require('./VerifyToken');
 //유저 정보 관련 method
 module.exports = {
   getUserInfo: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/user/info?userId=''
+    //* endpoint: https://ohjeju.link/user/info?userId=''
 
-    console.log(req.query.userEmail)
-    //test
     try{
       if(req.query.userId === undefined){
         const findUser = await users.findOne({
@@ -19,10 +17,8 @@ module.exports = {
         console.log(findUser.dataValues)
         res.status(200).json(findUser.dataValues)
       }
-      //send 2번해서 임시로 if else분기 else안에 코드넣어준게 다임
 
       else{
-        //토큰인증후 -> 인증안되면 메세지추가하는 res넣으면 될듯
         const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
         if(!reqAccessToken) return res.status(403).send('can\'t access');
         const tokenUser = await decodeToken(reqAccessToken);
@@ -46,15 +42,12 @@ module.exports = {
         }
       }
     }
-    catch(err) {
-      console.log(err);
-      return res.status(500).send('server error');
-    }
+    catch(err) { return res.status(500).send('server error') }
   },
 
   getUserPlannerList: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/user/planner?userId=''
-    
+    //* endpoint: https://ohjeju.link/user/planner?userId=''
+
     console.log('hear')
 
     try {
@@ -91,7 +84,7 @@ module.exports = {
   },
 
   modifyUser: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/user/info?userId=''
+    //* endpoint: https://ohjeju.link/user/info?userId=''
 
     try {
       //현재 유저의 userName, password 갱신
@@ -124,14 +117,11 @@ module.exports = {
           });
       }
     }
-    catch(err) {
-      console.log(err);
-      return res.status(500).send('server error')
-    }
+    catch(err) { return res.status(500).send('server error') }
   },
 
   deleteUser: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/user/info?userId=''
+    //* endpoint: https://ohjeju.link/user/info?userId=''
 
     try{
       //토큰 인증 후 쿼리로 받은 아이디와 일치하는지 항상 확인

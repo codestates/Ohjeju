@@ -5,7 +5,7 @@ const axios = require('axios');
 //OAuth 인증 관련 method
 module.exports = {
   OAuthKakao: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/OAuth/kakao
+    //* endpoint: https://ohjeju.link/OAuth/kakao
 
     try {
       const redirect_uri = 'http://localhost:3000/OAuth/kakao';
@@ -57,7 +57,7 @@ module.exports = {
   },
 
   OAuthGoogle: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/OAuth/google
+    //* endpoint: https://ohjeju.link/OAuth/google
 
     try {
       const accessToken = req.body.hash.split('=')[1].split('&')[0];

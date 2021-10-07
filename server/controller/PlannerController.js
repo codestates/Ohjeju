@@ -4,7 +4,7 @@ const { group, plan, planner } = require('../models')
 //플래너 관련 method
 module.exports = {
   createPlanner: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/planner
+    //* endpoint: https://ohjeju.link/planner
     try{
       //body에서 넘겨준 isLogin 기준으로 1인/다인 구분. isLogin상태라면 token이 있는 것을 가정
       if(!req.body.name) return res.status(400).send('content is empty');
@@ -58,7 +58,7 @@ module.exports = {
   },
   
   getPlanner: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/planner?plannerId=''
+    //* endpoint: https://ohjeju.link/planner?plannerId=''
     try {
       console.log('getPlanner')
       const targetPlanner = await planner.findOne({
@@ -172,7 +172,7 @@ module.exports = {
   },
 
   modifyPlanner: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/planner?plannerId=''
+    //* endpoint: https://ohjeju.link/planner?plannerId=''
     try{
       const targetPlanner = await planner.findOne({ where: { id: req.query.plannerId } })
       if(!targetPlanner) return res.status(404).send('can\'t find the planner');
@@ -206,7 +206,7 @@ module.exports = {
   },
 
   deletePlanner: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/planner?plannerId=''
+    //* endpoint: https://ohjeju.link/planner?plannerId=''
 
     try{
       //그룹 리더일 경우에만 플래너 삭제 가능
