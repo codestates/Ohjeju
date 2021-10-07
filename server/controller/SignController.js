@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
 const COOKIE_OPTIONS = {
-  domain: 'https://oh-jeju.ml',
+  domain: 'oh-jeju.ml',
   path: '/',
   httpOnly: true,
   secure: true,
