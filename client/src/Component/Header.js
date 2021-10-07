@@ -161,8 +161,8 @@ const kakaoLogin = () => { //카카오로그인
 
 const googleLogin = () => { //구글로그인
   const clientId = process.env.GOOGLE_REST_KEY || '933835778992-s0h1t6030sssr4qqhi9tdu0kj95nnu5i.apps.googleusercontent.com'
-  const REDIRECT_URI =  "http://localhost:3000/OAuth/google"; 
-  // const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/google"; 배포시 변경해야함
+  // const REDIRECT_URI =  "http://localhost:3000/OAuth/google"; 
+  const REDIRECT_URI =  "http://oh-jeju.ml/OAuth/google";
   const GOOGLE_AUTH_URL = 
   `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
   window.location.assign(GOOGLE_AUTH_URL);
