@@ -54,9 +54,9 @@ io.on('connection', (socket) => {
       socket.on('nowchating-back',(item)=>{
           socket.to(`groupNum=${msg.groupNum}`).emit('nowchating-front',{userName:item.userName,content:item.content})
       })
-      socket.to(`groupNum=${msg.groupNum}`).emit('welcome',{userName:msg.userName,content:`님이 group${msg.groupNum}에 입장하셨습니다`})
+      socket.to(`groupNum=${msg.groupNum}`).emit('welcome',{userName:msg.userName,content:`님이 group${msg.groupNum}에 입장하셨습니다.`})
       socket.on('disconnecting',(reason) => {
-          socket.to(`groupNum=${msg.groupNum}`).emit('userout',{userName:msg.userName,content:`님이 떠났습니다`})
+          socket.to(`groupNum=${msg.groupNum}`).emit('userout',{userName:msg.userName,content:`님이 떠났습니다.`})
       })
       
       socket.on('chat',(msg) => {
