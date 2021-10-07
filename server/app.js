@@ -3,7 +3,7 @@ const express = require('express')
 const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const port = 80;
+const PORT = 80;
 const http = require('http');
 const server = http.createServer(app);
 const signRouter = require('./routes/sign');
@@ -64,4 +64,4 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(port,()=>console.log(`server running ${port}`))
+server.listen(PORT ,()=>console.log(`server running ${PORT}`))
