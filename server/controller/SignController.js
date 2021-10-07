@@ -13,7 +13,7 @@ const COOKIE_OPTIONS = {
 //유저 로그인 상태 관련 method
 module.exports = {
   signIn: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/signin
+    //* endpoint: https://ohjeju.link/signin
 
     try {
       const findUser = await Users.findOne({
@@ -37,11 +37,15 @@ module.exports = {
           .send({ "id" : id });
       }
     }
+<<<<<<< HEAD
     catch(err) { return res.status(500).send(err) }
+=======
+    catch(err) { return res.status(500).send('server error') }
+>>>>>>> dev
   },
   
   signUp: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/signup
+    //* endpoint: https://ohjeju.link/signup
 
     try {
       const findUser = await Users.findOne({
@@ -69,7 +73,11 @@ module.exports = {
   },
 
   signOut: async (req, res) => {
+<<<<<<< HEAD
     //* endpoint: https://www.Ohjeju.com/signout
+=======
+    //* endpoint: https://ohjeju.link/signout
+>>>>>>> dev
 
     //토큰 확인해서 해당 토큰이 유효할 경우에만 로그아웃
     try {

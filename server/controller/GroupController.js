@@ -1,15 +1,13 @@
 const { group, users, user_group } = require('../models')
-//! 지금 mysql에서 group 테이블 조회가 안돼서 테이블 이름 groups로 바꾸거나 해야될 거 같아요
-//! 명령어 충돌나서 조회 불가능
 const axios = require('axios')
-//필요한 모델 require 해와야 함
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:80';
 
 //그룹 관련 method
 module.exports = {
   createGroup: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/group
+    //* endpoint: https://ohjeju.link/group
     
     try{
       //그룹 만드는 유저는 leader로 설정. 따라서 현재 유저가 누구인지 정보가 필요함
@@ -29,7 +27,6 @@ module.exports = {
           .then((group) => group.id)
           user_group.create({ userId: tokenUser.id, groupId: newGroupId })
           
-          //create 요청이라 200번보단 201이 맞는거같아요. API문서 수정 부탁드려요.
           return res.status(201)
             .cookie('accessToken', reqAccessToken)
             .cookie('refreshToken', reqRefreshToken)
@@ -37,11 +34,11 @@ module.exports = {
         }
       }
     }
-    catch(err) { res.status(500).send('server error') }
+    catch(err) { return res.status(500).send('server error') }
   },
 
   getGroup: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/group?groupId=''
+    //* endpoint: https://ohjeju.link/group?groupId=''
 
     try{
       //조인테이블에서 groupId랑 일치하는 그룹+유저 찾아서 해당 그룹 안에 있는 유저 리턴
@@ -63,27 +60,22 @@ module.exports = {
           }
         })
 
-        let leaderName,leaderId
         const targetGroup = await group.findOne({
           where: { id: req.query.groupId }
         })
-        const targetGroupLeader = await users.findOne({
+        const [leaderId, leaderName] = await users.findOne({
           where: { id: targetGroup.leaderId }
         })
         .then((user) => {
-          //return user.userName
-          leaderName = user.userName
-          leaderId = user.id
+          return [user.id, user.userName]
         })
 
         return res.status(200)
-        //leaderId가 필요해서 임시로 대충짭니다 
           .send({
             groupId: targetGroup.id,
             groupName: targetGroup.name,
-            //leader:targetGroupLeader
             leader: leaderName,
-            leaderId:leaderId,
+            leaderId: leaderId,
             user: userInGroup
           })
       }
@@ -92,7 +84,7 @@ module.exports = {
   },
 
   modifyGroup: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/group?groupId=''
+    //* endpoint: https://ohjeju.link/group?groupId=''
     
     //action 따라 진행
     try {
@@ -111,7 +103,7 @@ module.exports = {
       //모든 액션을 하기 전에 req.body에 수정될 email이 있는지 검색
       //+ 일단 해당 그룹에 해당 유저가 있는지 검색
       if(!req.body.email) return res.status(400).send('Bad Request')
-      const targetGroupMember = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+      const targetGroupMember = await axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
         .then((res) => res.data)
         .then((group) => group.user.map((member) => member.email))
 
@@ -126,7 +118,7 @@ module.exports = {
               .then(async (user) => {
                 user_group.create({userId:user.id,groupId:targetGroup.id})
                 .then(()=>{
-                  axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                  axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
                   .then(item => {
                     console.log('@!##!@')
                     console.log(item.data)
@@ -161,7 +153,7 @@ module.exports = {
               .then(async (user) => {
                 user_group.destroy({where:{userId:user.id}})
                 .then(()=>{
-                  axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                  axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
                   .then(item => {
                     console.log('@!##!@')
                     console.log(item.data)
@@ -191,7 +183,7 @@ module.exports = {
                 // else{
                   targetGroup.update({ leaderId: user.dataValues.id })
                   .then(()=>{
-                    axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                    axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
                     .then(item => {
                       console.log('@!##!@')
                       console.log(item.data)
@@ -226,7 +218,7 @@ module.exports = {
   },
 
   deleteGroup: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/group?groupId=''
+    //* endpoint: https://ohjeju.link/group?groupId=''
 
     try{
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);

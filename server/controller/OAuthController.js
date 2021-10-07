@@ -5,9 +5,10 @@ const axios = require('axios');
 //OAuth 인증 관련 method
 module.exports = {
   OAuthKakao: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/OAuth/kakao
+    //* endpoint: https://ohjeju.link/OAuth/kakao
 
     try {
+      //redirect_uri 배포된 클라이언트 도메인으로 바꿔야되지 않나요?
       const redirect_uri = 'http://localhost:3000/OAuth/kakao';
       const client_id = process.env.KAKAO_REST_KEY;
       const client_secret = process.env.KAKAO_CLIENT_SECRET;
@@ -57,7 +58,7 @@ module.exports = {
   },
 
   OAuthGoogle: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/OAuth/google
+    //* endpoint: https://ohjeju.link/OAuth/google
 
     try {
       const accessToken = req.body.hash.split('=')[1].split('&')[0];
