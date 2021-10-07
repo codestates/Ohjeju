@@ -157,7 +157,7 @@ const kakaoLogin = () => { //카카오로그인
   // 배포시 변경해야함 카카오dev에서도 변경해야함
   const state = 'kakao'
   const KAKAO_AUTH_URL = 
-  `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_KEY}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
+  `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_KEY}&redirect_uri=https://oh-jeju.ml/OAuth/kakao&state=${state}&response_type=code`;
   window.location.assign(KAKAO_AUTH_URL)
 }
 
@@ -168,7 +168,7 @@ const googleLogin = () => { //구글로그인
   const REDIRECT_URI =  "https://oh-jeju.ml/OAuth/google";
   //  배포시 변경해야함
   const GOOGLE_AUTH_URL = 
-  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_REST_KEY}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
+  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_REST_KEY}&response_type=token&redirect_uri=https://oh-jeju.ml/OAuth/google&scope=https://www.googleapis.com/auth/userinfo.email`
   window.location.assign(GOOGLE_AUTH_URL);
 }
  
