@@ -15,7 +15,7 @@ const reviewRouter = require('./routes/review');
 const attractionsRouter = require('./routes/attractions');
 const io = require("socket.io")(server, {
   cors: {
-      origin: "http://localhost:3000",
+      origin: 'https://ohjeju.link',
       methods: ["GET", "POST"]
   }
 })
