@@ -20,7 +20,7 @@ module.exports = {
           return res.status(201).send({ plannerId: newPlannerId });
         }
         else { //로그인 상태일 경우 -> 다인 플래너로 생성
-          const newGroupId = await axios.post('http://localhost:80/group', { groupName: 'New Group' }, {
+          const newGroupId = await axios.post('https://ohjeju.link/group', { groupName: 'New Group' }, {
             headers: { //현재 갖고있는 쿠키로 쿠키 만들어서 보내줌
               cookie: `accessToken=${req.cookies.accessToken};refreshToken=${req.cookies.refreshToken}`
             },
@@ -101,7 +101,7 @@ module.exports = {
         });
       }
       else { //다인 플래너일 경우
-        const groupInThis = await axios.get(`http://localhost:80/group?groupId=${targetPlanner.groupId}`)
+        const groupInThis = await axios.get(`https://ohjeju.link/group?groupId=${targetPlanner.groupId}`)
           .then((res) => res.data)
         
         return res.status(200).send({
@@ -178,7 +178,7 @@ module.exports = {
       if(!targetPlanner) return res.status(404).send('can\'t find the planner');
       
       targetPlanner.update({ name: req.body.name })
-      const modifiedPlanner = await axios.get(`http://localhost:80/planner?plannerId=${targetPlanner.id}`)
+      const modifiedPlanner = await axios.get(`https://ohjeju.link/planner?plannerId=${targetPlanner.id}`)
         .then((res) => res.data)
 
       return res.status(200).send(modifiedPlanner)
@@ -224,7 +224,7 @@ module.exports = {
       }
       else { //다인 플래너일 경우 -> 그룹까지 삭제해야함
         console.log(targetPlanner.group.id)
-        axios.delete(`http://localhost:80/group?groupId=${targetPlanner.group.id}`, {
+        axios.delete(`https://ohjeju.link/group?groupId=${targetPlanner.group.id}`, {
           headers: {
             cookie: `accessToken=${req.cookies.accessToken};refreshToken=${req.cookies.refreshToken}`
           },

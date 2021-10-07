@@ -8,6 +8,7 @@ module.exports = {
     //* endpoint: https://ohjeju.link/OAuth/kakao
 
     try {
+      //redirect_uri 배포된 클라이언트 도메인으로 바꿔야되지 않나요?
       const redirect_uri = 'http://localhost:3000/OAuth/kakao';
       const client_id = process.env.KAKAO_REST_KEY;
       const client_secret = process.env.KAKAO_CLIENT_SECRET;

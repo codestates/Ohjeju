@@ -138,7 +138,7 @@ module.exports = {
       //모든 액션을 하기 전에 req.body에 수정될 email이 있는지 검색
       //+ 일단 해당 그룹에 해당 유저가 있는지 검색
       if(!req.body.email) return res.status(400).send('Bad Request')
-      const targetGroupMember = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+      const targetGroupMember = await axios.get(`https://ohjeju.link/group?groupId=${targetGroup.id}`)
         .then((res) => res.data)
         .then((group) => group.user.map((member) => member.email))
 
@@ -153,7 +153,7 @@ module.exports = {
               .then(async (user) => {
                 user_group.create({userId:user.id,groupId:targetGroup.id})
                 .then(()=>{
-                  axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                  axios.get(`https://ohjeju.link/group?groupId=${targetGroup.id}`)
                   .then(item => {
                     console.log('@!##!@')
                     console.log(item.data)
@@ -188,7 +188,7 @@ module.exports = {
               .then(async (user) => {
                 user_group.destroy({where:{userId:user.id}})
                 .then(()=>{
-                  axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                  axios.get(`https://ohjeju.link/group?groupId=${targetGroup.id}`)
                   .then(item => {
                     console.log('@!##!@')
                     console.log(item.data)
@@ -218,7 +218,7 @@ module.exports = {
                 // else{
                   targetGroup.update({ leaderId: user.dataValues.id })
                   .then(()=>{
-                    axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
+                    axios.get(`https://ohjeju.link/group?groupId=${targetGroup.id}`)
                     .then(item => {
                       console.log('@!##!@')
                       console.log(item.data)
