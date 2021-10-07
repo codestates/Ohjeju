@@ -376,11 +376,15 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
         <button
           onClick={() => {
             const getChatMenu = document.getElementById("chat_wrap");
+            if(getChatMenu.class='chat_')
             getChatMenu.classList.toggle("open");
             const getInviteGroup = document.getElementById("invite_wrap");
             getInviteGroup.classList.remove("open");
             const getPlannerMenu = document.getElementById('planner_wrap')
             getPlannerMenu.classList.remove('open')
+            if(getPlannerMenu.class='bg_white close open'){
+              getChatMenu.class='chat_wrap_with_planner'
+            }
           }
           }
         >
@@ -402,10 +406,11 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
           onClick={() => {
             const getPlannerMenu = document.getElementById('planner_wrap')
             getPlannerMenu.classList.toggle('open')
-            // const getChatMenu = document.getElementById("chat_wrap");
-            // getChatMenu.classList.remove('open')
+            const getChatMenu = document.getElementById("chat_wrap");
+            getChatMenu.classList.remove('open')
             const getInviteGroup = document.getElementById("invite_wrap");
             getInviteGroup.classList.remove("open");
+            
           }}>
             플래너열기
         </button>
@@ -437,7 +442,6 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
           <ul id="placesList"></ul>
         </div>
         <div id="invite_wrap" className="bg_white close">
-          그룹초대(test)
           <InviteGroup userInfo={userInfo} plannerInfo={plannerInfo} />
         </div>
         <div id='planner_wrap' className='bg_white close'>

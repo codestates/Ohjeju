@@ -200,7 +200,7 @@
   right: 150px;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1600px) {
   /* .product-container {
     flex-wrap: wrap;
   }
@@ -217,18 +217,21 @@
 
   .favorite {
     /* position: absolute; */
-    top: 500px;
+    top: 400px;
     padding: 20px;
     background-color: rgb(245, 245, 245);
   }
 
   .main-img {
     /* padding: 20px; */
+    /* position: absolute;
+    left: 50%;
+    right: 50%; */
     width: vw;
     height: 500px;
     object-fit: contain;
     transform: translate(-100vw);
-    transition: all 1s;
+    /* transition: all 1s; */
   }
   .iconBefore {
     position: absolute;
