@@ -13,9 +13,12 @@ const plannerRouter = require('./routes/planner');
 const groupRouter = require('./routes/group');
 const reviewRouter = require('./routes/review');
 const attractionsRouter = require('./routes/attractions');
+
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
+
 const io = require("socket.io")(server, {
   cors: {
-      origin: 'https://ohjeju.link',
+      origin: `${CLIENT_URL}`,
       methods: ["GET", "POST"]
   }
 })
@@ -25,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 //cors설정 개발단계->전부*
 app.use(cors({
-  origin: 'https://ohjeju.link',
+  origin: `${CLIENT_URL}`,
   credentials: true
 }));
 //req.cookie
@@ -54,7 +57,7 @@ io.on('connection', (socket) => {
       })
       socket.to(`groupNum=${msg.groupNum}`).emit('welcome',{userName:msg.userName,content:`님이 group${msg.groupNum}에 입장하셨습니다`})
       socket.on('disconnecting',(reason) => {
-          socket.to(`groupNum=${msg.groupNum}`).emit('userout',{userName:msg.userName,content:`님이 떠습니다`})
+          socket.to(`groupNum=${msg.groupNum}`).emit('userout',{userName:msg.userName,content:`님이 떠났습니다`})
       })
       
       socket.on('chat',(msg) => {
