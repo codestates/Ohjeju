@@ -224,6 +224,9 @@
 
   .main-img {
     /* padding: 20px; */
+    /* position: absolute;
+    left: 50%;
+    right: 50%; */
     width: vw;
     height: 500px;
     object-fit: contain;

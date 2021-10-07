@@ -1,4 +1,4 @@
-Review .container {
+.container {
   background-color: #eee;
   width: 100%;
   /* position: relative; */
@@ -48,10 +48,10 @@ Review .container {
   top: 80px;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1600px) {
   .reviewContainer {
     position: absolute;
-    top: 2500px;
+    top: 2600px;
   }
 
   .user {
@@ -62,5 +62,9 @@ Review .container {
 @media screen and (max-width: 768px) {
   .user {
     width: 100%;
+  }
+  .reviewContainer {
+    position: absolute;
+    top: 2500px;
   }
 }
