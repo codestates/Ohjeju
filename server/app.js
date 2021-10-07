@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 //cors설정 개발단계->전부*
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://ohjeju.link',
   credentials: true
 }));
 //req.cookie
@@ -52,9 +52,9 @@ io.on('connection', (socket) => {
       socket.on('nowchating-back',(item)=>{
           socket.to(`groupNum=${msg.groupNum}`).emit('nowchating-front',{userName:item.userName,content:item.content})
       })
-      socket.to(`groupNum=${msg.groupNum}`).emit('welcome',{userName:msg.userName,content:`님이 group${msg.groupNum}에 입장하셧습니다`})
+      socket.to(`groupNum=${msg.groupNum}`).emit('welcome',{userName:msg.userName,content:`님이 group${msg.groupNum}에 입장하셨습니다`})
       socket.on('disconnecting',(reason) => {
-          socket.to(`groupNum=${msg.groupNum}`).emit('userout',{userName:msg.userName,content:`님이 떠낫습니다`})
+          socket.to(`groupNum=${msg.groupNum}`).emit('userout',{userName:msg.userName,content:`님이 떠습니다`})
       })
       
       socket.on('chat',(msg) => {
