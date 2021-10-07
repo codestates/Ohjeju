@@ -37,11 +37,7 @@ module.exports = {
           .send({ "id" : id });
       }
     }
-<<<<<<< HEAD
-    catch(err) { return res.status(500).send(err) }
-=======
     catch(err) { return res.status(500).send('server error') }
->>>>>>> dev
   },
   
   signUp: async (req, res) => {
@@ -73,11 +69,7 @@ module.exports = {
   },
 
   signOut: async (req, res) => {
-<<<<<<< HEAD
-    //* endpoint: https://www.Ohjeju.com/signout
-=======
     //* endpoint: https://ohjeju.link/signout
->>>>>>> dev
 
     //토큰 확인해서 해당 토큰이 유효할 경우에만 로그아웃
     try {
