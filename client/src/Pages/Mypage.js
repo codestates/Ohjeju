@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import axios from "axios";
 import "../css/Mypage.css";
 import defaultImg from '../Imgs/hanra.jpg'
@@ -11,7 +12,10 @@ require("dotenv").config();
 const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
 
 function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
+
+  const history=useHistory();
   
+  console.log(`mypage ${userInfo}`)
   const [showuserInfoModifyModal, setshowuserInfoModifyModal] = useState(false) //유저정보수정모달
   const [showuserInfoDestroyModal, setshowuserInfoDestroyModal] = useState(false) //유저탈퇴모달
   const [userInfoModifyInput, setuserInfoModifyInput] = useState({  //유저정보수정입력구조
@@ -61,6 +65,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
     .then((res)=>{
       setshowuserInfoDestroyModal(false);
       handleuserInfoDestroy();
+      history.push('/')
     })
     .catch((err)=>{
       alert('소셜로그인은 해당기기에서 연결해제해주세요')
@@ -102,7 +107,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
                       <div className='user_info_modify_container'>
                         <div className='user_info_modify_input_container'>
                           <input className='user_info_modify_userName' placeholder='닉네임' onChange={handleModifyInputValue('userName')}></input>
-                          <input className='user_info_modify_password' placeholder='비밀번호' onChange={handleModifyInputValue('password')}></input>
+                          <input className='user_info_modify_password' type='password' placeholder='비밀번호' onChange={handleModifyInputValue('password')}></input>
                         </div>
                         <div className='error_message_container'>
                             {errorMessage!=='' ? (

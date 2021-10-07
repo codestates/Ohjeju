@@ -1,0 +1,70 @@
+.container {
+  background-color: #eee;
+  width: 100%;
+  /* position: relative; */
+  margin-top: 50px;
+  display: flex;
+}
+.reviewContainer {
+  margin: auto;
+  width: 100%;
+}
+
+.reviewTitle {
+  color: black;
+  font-size: 30px;
+  font-weight: 600;
+  /* background-color: yellowgreen; */
+  text-align: center;
+  padding: 30px;
+  font-family: "nanum";
+}
+
+.reviewDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.user {
+  position: relative;
+  border: 1px solid grey;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  width: 22%;
+  border-radius: 20px;
+  font-family: "nanum";
+  flex-wrap: wrap;
+}
+
+.reviewRight {
+  margin-left: 10px;
+}
+
+.reviewWrite {
+  position: absolute;
+  top: 80px;
+}
+
+@media screen and (max-width: 1600px) {
+  .reviewContainer {
+    position: absolute;
+    top: 2600px;
+  }
+
+  .user {
+    width: 44%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .user {
+    width: 100%;
+  }
+  .reviewContainer {
+    position: absolute;
+    top: 2500px;
+  }
+}
