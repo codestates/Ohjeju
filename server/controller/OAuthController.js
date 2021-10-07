@@ -2,6 +2,8 @@ const { users } = require('../models')
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
+
 //OAuth 인증 관련 method
 module.exports = {
   OAuthKakao: async (req, res) => {
@@ -9,7 +11,7 @@ module.exports = {
 
     try {
       //redirect_uri 배포된 클라이언트 도메인으로 바꿔야되지 않나요?
-      const redirect_uri = 'http://localhost:3000/OAuth/kakao';
+      const redirect_uri = `${CLIENT_URL}/OAuth/kakao`;
       const client_id = process.env.KAKAO_REST_KEY;
       const client_secret = process.env.KAKAO_CLIENT_SECRET;
   
