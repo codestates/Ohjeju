@@ -87,7 +87,7 @@ function Header({
         password: signinInfo.password,
       }
       //`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`
-      axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`, payload, { withCredentials: true })
+      axios.post(`${process.env.REACT_APP_API_URL}/signin`, payload, { withCredentials: true })
       .then((res)=>{
         getuserInfo(res)
         setSigninInfo({
