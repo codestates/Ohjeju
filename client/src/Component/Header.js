@@ -230,6 +230,7 @@ const googleLogin = () => { //구글로그인
                           ></input>
                           <input
                             className="password_input"
+                            type='password'
                             placeholder="패스워드입력"
                             onChange={handleInputInvalue("password")}
                           ></input>
@@ -296,11 +297,13 @@ const googleLogin = () => { //구글로그인
                           ></input>
                           <input
                             className="signup_password_input"
+                            type='password'
                             placeholder="비밀번호"
                             onChange={handleInputUpvalue("password")}
                           ></input>
                           <input
                             className="signup_password_confirm_input"
+                            type='password'
                             placeholder="비밀번호확인"
                             onChange={handleInputUpvalue("passwordConfirm")}
                           ></input>
