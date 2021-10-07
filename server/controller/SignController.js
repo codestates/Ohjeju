@@ -3,11 +3,13 @@ const Users = require('../models').users;
 const jwt = require('jsonwebtoken');
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
+//const COOKIE_OPTION <- 추가해야함
+//클라이언트 엔드포인트 수정되면 클라이언트 배포환경에서 테스트해보면서 추가할게요
 
 //유저 로그인 상태 관련 method
 module.exports = {
   signIn: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/signin
+    //* endpoint: https://ohjeju.link/signin
 
     try {
       const findUser = await Users.findOne({
@@ -32,11 +34,10 @@ module.exports = {
       }
     }
     catch(err) { return res.status(500).send('server error') }
-    //아이디 패스워드 불일치부분이 여기해당하는지 여쭙고 싶습니다(최용석)
   },
   
   signUp: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/signup
+    //* endpoint: https://ohjeju.link/signup
 
     try {
       const findUser = await Users.findOne({
@@ -64,8 +65,7 @@ module.exports = {
   },
 
   signOut: async (req, res) => {
-    //* endpoint: https://www.Ohjeju.com/signout
-    //signOut부분은 토큰 관리 함수 템플릿 만들고나서 다시 바꿔둘게요
+    //* endpoint: https://ohjeju.link/signout
 
     //토큰 확인해서 해당 토큰이 유효할 경우에만 로그아웃
     try {
