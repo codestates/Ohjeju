@@ -6,8 +6,9 @@ const { verifyToken, decodeToken } = require('./VerifyToken');
 const COOKIE_OPTIONS = {
   domain: 'http://oh-jeju.ml',
   path: '/',
-  sameSite: 'none',
-  httpOnly: true
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
 }
 
 //유저 로그인 상태 관련 method
