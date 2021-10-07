@@ -66,7 +66,7 @@ function App() {
     //유저정보 받아오기
     //`${process.env.REACT_APP_API_URL || "http://localhost:80"
     axios
-      .get(`http://localhost:80/user/info?userId=${res.data.id}`, {
+      .get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/info?userId=${res.data.id}`, {
         withCredentials: true,
       })
       .then((res) => {
