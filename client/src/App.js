@@ -22,6 +22,7 @@ import GoogleOAuth from "./Component/GoogleOAuth";
 import Chat from "./Component/Chat";
 import Couple from "./Component/Couple";
 import Review from "./Component/Review";
+import Test from "./Component/Test";
 
 require("dotenv").config();
 
@@ -88,8 +89,8 @@ function App() {
           email: "default-email",
           userName: "default-userName",
         });
-          window.location.replace("/");
-        });
+        window.location.replace("/");
+      });
   };
 
   const handleuserInfoDestroy = () => {
@@ -152,7 +153,7 @@ function App() {
           />
         </Route>
         <Route exact path="/">
-          <Main placeList={placeList} getPlace={getPlace} isLogin={isLogin}/>
+          <Main placeList={placeList} getPlace={getPlace} isLogin={isLogin} />
         </Route>
         <Route path="/mypage">
           <Mypage
@@ -177,6 +178,10 @@ function App() {
         <Route path="/review">
           <Review />
         </Route>
+        <Route path="/test">
+          <Test />
+        </Route>
+
         {/* <Route path="/planner">
           <Planner userInfo={userInfo} />
         </Route> */}

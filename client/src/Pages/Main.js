@@ -7,10 +7,10 @@ import background3 from "../Imgs/background3.png";
 import background2 from "../Imgs/background2.png";
 import Footer from "../Component/Footer";
 import Couple from "../Component/Couple";
-import Guide from '../Component/Guide'
+import Guide from "../Component/Guide";
 import Review from "../Component/Review";
 import { Link } from "react-router-dom";
-
+import Test from "../Component/Test";
 
 function Main({ placeList, getPlace, isLogin }) {
   return (
@@ -31,18 +31,21 @@ function Main({ placeList, getPlace, isLogin }) {
             여행을 계획해보세요!
             <br />
             {isLogin ? (
-                <Link to='plannerSelect'>
-                <button className='main_to_plannerSelect'>Get own Planner!</button>
-                </Link>
-              ):(
-                <Link to='planner'>
-                <button className='main_to_planner'>Get own Planner!</button>
-                </Link>
-              )}
+              <Link to="plannerSelect">
+                <button className="main_to_plannerSelect">
+                  Get own Planner!
+                </button>
+              </Link>
+            ) : (
+              <Link to="planner">
+                <button className="main_to_planner">Get own Planner!</button>
+              </Link>
+            )}
           </div>
         </div>
         <div id="main_Banner_black_opacity" />
       </div>
+      {/* <Test /> */}
       <FavoritePlace placeList={placeList} getPlace={getPlace} />
       <Couple />
       <Guide /> {/* 가이드개발용 */}
