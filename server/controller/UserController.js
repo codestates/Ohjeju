@@ -91,8 +91,8 @@ module.exports = {
           }))
 
         return res.status(200)
-        .cookie('accessToken', reqAccessToken)
-        .cookie('refreshToken', reqRefreshToken)
+        .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+        .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
         .send(targetPlanners)
       }
     }
