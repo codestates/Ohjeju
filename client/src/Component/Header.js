@@ -11,6 +11,8 @@ import { useHistory } from "react-router";
 require("dotenv").config();
 
 const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
+const KAKAO_REST_KEY = process.env.KAKAO_REST_KEY;
+const GOOGLE_REST_KEY = process.env.GOOGLE_REST_KEY;
 
 function Header({
   isOn,
@@ -149,26 +151,23 @@ function Header({
   //소셜로그인
 
 const kakaoLogin = () => { //카카오로그인
-  const CLIENT_ID = process.env.KAKAO_REST_KEY;  
   
-  //여기 process.env는 제대로 안받아와진다 서버는 되는데; 서버쪽에 client_secret이 있으니 상관없을까
   // const REDIRECT_URI =  "http://localhost:3000/OAuth/kakao";
   const REDIRECT_URI =  "https://oh-jeju.link/OAuth/kakao"; 
   // 배포시 변경해야함 카카오dev에서도 변경해야함
   const state = 'kakao'
   const KAKAO_AUTH_URL = 
-  `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_KEY}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
+  `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_KEY}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
   window.location.assign(KAKAO_AUTH_URL)
 }
 
 const googleLogin = () => { //구글로그인
-  const clientId = process.env.GOOGLE_REST_KEY;
   
   // const REDIRECT_URI =  "http://localhost:3000/OAuth/google"; 
   const REDIRECT_URI =  "https://oh-jeju.link/OAuth/google";
   //  배포시 변경해야함
   const GOOGLE_AUTH_URL = 
-  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_REST_KEY}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
+  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_REST_KEY}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
   window.location.assign(GOOGLE_AUTH_URL);
 }
  
