@@ -1,65 +1,126 @@
-.background {
-  position: relative;
-  bottom: 0;
-  background-color: #81c4ff;
+.container {
   width: 100%;
-  height: 20%;
-  /* display: flex; */
+  background-color: #535353;
+  position: relative;
 }
 
-.container {
-  position: absolute;
-  bottom: 0;
+.footerBox {
+  width: 100%;
+  margin-top: 200px;
+  padding: 20px;
   display: flex;
   align-items: center;
-  text-align: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
-.logo {
-  width: 200px;
-  padding: 30px;
-  font-size: 15px;
+.leftBox {
+  font-family: "nanum";
+  color: white;
 }
 
-.logoImg {
-  width: 300px;
-  padding: 10px;
+.contact {
+  font-family: "nanum";
+  font-size: 40px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.company {
+  font-family: "nanum";
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tele {
+  font-family: "nanum";
+  font-size: 16px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.middleBox {
+  font-family: "nanum";
+  color: white;
+  left: 50px;
+}
+
+.rightBox {
+  margin: 10px;
+  margin-top: 60px;
+  font-family: "nanum";
+  color: white;
+  right: 50px;
+}
+
+.developer {
+  font-family: "nanum";
   font-size: 20px;
+
+  margin-bottom: 40px;
 }
 
-.logo p,
-h2,
-span {
-  padding: 10px;
-}
-
-.logo1 {
-  /* width: 50%; */
-  /* display: flex; */
-  padding: 30px;
-  font-size: 20px;
-}
-
-.gitEmail {
+.nameEmail {
   display: flex;
 }
+input:focus {
+  outline: none;
+}
 
-@media screen and (max-width: 1400px) {
-  .gitEmail {
-    display: block;
+.formInput {
+  font-family: "nanum";
+  font-size: 1em;
+  outline: none;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 0px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.formSubject {
+  font-family: "nanum";
+  font-size: 1em;
+  outline: none;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 0px;
+  margin: 10px;
+  border-radius: 5px;
+  width: 95%;
+}
+
+.Btn {
+  cursor: pointer;
+  margin: 10px;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 1600px) {
+  .footerBox {
+    background-color: #535353;
+    position: absolute;
+    top: 200px;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .logo {
-    font-size: 15px;
+@media screen and (max-width: 860px) {
+  .footerBox {
+    display: block;
   }
-  .logo1 {
-    font-size: 15px;
+  .leftBox {
+    color: white;
+    margin-left: 20px;
   }
-
-  .gitIcon {
-    font-size: 12px;
+  .middleBox {
+    font-family: "nanum";
+    color: white;
+    margin-left: 20px;
   }
 }
