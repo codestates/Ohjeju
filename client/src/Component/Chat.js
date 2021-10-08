@@ -1,8 +1,15 @@
-import "../css/chat.css";
+import "../css/chat.css"
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+  Link,
+} from "react-router-dom";
 
-function Chat({ userInfo, plannerInfo }) {
+function Chat({ userInfo, plannerInfo,openShareVideo }) {
   const [USERNAME, setUserName] = useState(userInfo.userName || "");
   const [message, setMessage] = useState({
     userName: userInfo.userName || "",
@@ -102,7 +109,10 @@ function Chat({ userInfo, plannerInfo }) {
 
   return (
     <div id="chatContainer">
-      <div className='chat_title'>채팅방</div>
+      <div id="chatHeader">
+        <div className='chat_title'>채팅방</div>
+          <div onClick={openShareVideo}>화면공유</div>
+      </div>
       <ul id="messages">{renderChat()}</ul>
       {renderNowChat()}
       <div className="input">

@@ -10,6 +10,7 @@ import Couple from "../Component/Couple";
 import Guide from "../Component/Guide";
 import { Link } from "react-router-dom";
 import Test from "../Component/Test";
+import Review from "../Component/Review"
 
 function Main({ placeList, getPlace, isLogin }) {
   return (

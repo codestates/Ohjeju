@@ -2,6 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import "../css/KakaoMap.css";
 import Chat from "../Component/Chat";
 import InviteGroup from "../Component/InviteGroup";
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+  Link,
+} from "react-router-dom";
+import ChatAndShare from './ChatAndShare';
 
 const axios = require("axios");
 
@@ -290,6 +298,13 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
       overLayArray.pop();
     }
   }
+  function openShareVideo() {
+    // mapWrap.classList.toggle('close')
+    const mapWrap = document.getElementById('map_wrap')
+    mapWrap.classList.toggle('close')
+    // mapContainer.classList.toggle('close')
+  }
+
   function displayOverLay(overLay) {
     overLay.setMap(map);
     const closeBtn = document.getElementById("close");
@@ -360,8 +375,8 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
 
   return (
     <div id="map_container">
-      {/* 카테고리는 추가가능 */}
-      <div className="map_wrap">
+      <ChatAndShare userInfo={userInfo} plannerInfo={plannerInfo}/>
+      <div className="map_wrap" id="map_wrap">
         <div id="map" style={mapStyle}></div>
         <div id='category1'>
         <button onClick={drawTool}>검색구간 설정</button>
@@ -437,7 +452,7 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
           <ul id="placesList"></ul>
         </div>
         <div id="chat_wrap" className="bg_white close">
-          <Chat plannerInfo={plannerInfo} userInfo={userInfo} />
+          <Chat plannerInfo={plannerInfo} userInfo={userInfo} openShareVideo={openShareVideo} />
           {/* 추가 */}
           <hr></hr>
           <ul id="placesList"></ul>
@@ -449,6 +464,7 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
           {planner1}
         </div>
       </div>
+
     </div>
   );
 }

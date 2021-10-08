@@ -23,6 +23,7 @@ import Chat from "./Component/Chat";
 import Couple from "./Component/Couple";
 import Test from "./Component/Test";
 import Review from "./Component/Review";
+import ChatAndShare from"./Component/ChatAndShare";
 
 require("dotenv").config();
 
@@ -191,13 +192,10 @@ function App() {
         <Route path="/review">
           <Review review={review} />
         </Route>
-
-        {/* <Route path="/planner">
-          <Planner userInfo={userInfo} />
-        </Route> */}
         <Route path="/planner" component={Planner} />
         <Route path="/attraction" component={Attraction} />
         <Route path="/chat" component={Chat} />
+        <Route path="/chatAndShare" component={ChatAndShare} />
       </Switch>
       <Footer />
     </BrowserRouter>
