@@ -33,7 +33,7 @@ const Footer = () => {
               href="https://github.com/Lee-Sangkwon1"
               style={{ color: "white", marginLeft: "10px" }}
             >
-              Choi yongsuk
+              Choi yongseok
             </a>
           </div>
           <div style={{ marginTop: "20px" }}>
