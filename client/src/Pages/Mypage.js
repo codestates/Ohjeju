@@ -107,7 +107,7 @@ function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
                       <div className='user_info_modify_container'>
                         <div className='user_info_modify_input_container'>
                           <input className='user_info_modify_userName' placeholder='닉네임' onChange={handleModifyInputValue('userName')}></input>
-                          <input className='user_info_modify_password' placeholder='비밀번호' onChange={handleModifyInputValue('password')}></input>
+                          <input className='user_info_modify_password' type='password' placeholder='비밀번호' onChange={handleModifyInputValue('password')}></input>
                         </div>
                         <div className='error_message_container'>
                             {errorMessage!=='' ? (

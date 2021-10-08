@@ -45,15 +45,33 @@
     flex-direction: row;
     height: 85%;
     text-align: center;
-    /* border: solid blue; */
+    border: solid blue;
+  }
+
+  .move_to_before {
+    width: 10%;
   }
 
   .move_to_next {
     width: 10%;
-    margin: 250px 15px 250px 15px;
   }
 
   .guide_content_image {
-    width: 80%;
     border-radius: 15px;
+    width: 950px;
+    height: 540px;
+    /* height: 150px;
+    object-fit: contain;
+    transform: translate(-100vw);
+    transition: all 2s; */
   }
+
+  
+
+
+
+
+
+
+
+  

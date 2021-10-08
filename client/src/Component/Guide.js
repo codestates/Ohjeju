@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../css/Guide.css";
 import { Link } from "react-router-dom";
 import Toggle from "./Toggle";
@@ -7,7 +7,10 @@ import kakao from "../Imgs/kakao_login_large_wide.png";
 import google from "../Imgs/btn_google_signin_light_normal_web@2x.png";
 import xbutton from "../Imgs/xbutton.png";
 import { useHistory } from "react-router";
-import plannerBase from "../Imgs/plannerBase.png";
+import plannerBase from "../Imgs/PlannerBase.png";
+import plannerPlanner from "../Imgs/PlannerPlanner.jpg";
+import plannerGroup from "../Imgs/PlannerGroup.jpg";
+import plannerChat from "../Imgs/PlannerChat.jpg";
 
 require("dotenv").config();
 
@@ -22,6 +25,34 @@ function Guide() {
     }
   };
 
+  let count = useRef(0);
+
+  // const [count, setCount] = useState(-100);
+  const [imgSlide, setImgSlide] = useState({
+    transform: "translate(0vw)",
+  });
+
+  const slideNextHandler = () => {
+    count.current -= 10;
+    setImgSlide({
+      transform: `translate(${count.current}vw)`,
+    });
+  };
+
+  const slideBeforeHandler = () => {
+    count.current += 10;
+    setImgSlide({
+      transform: `translate(${count.current}vw)`,
+    });
+  };
+
+  const guideSlideImage = [plannerBase, plannerPlanner, plannerGroup, plannerChat]
+
+  
+
+
+
+
   return (
     <div>
       {showGuide ? (
@@ -30,10 +61,19 @@ function Guide() {
           <div className="guide_popup_inner">
             <div className="guide_title">오!제주 둘러보기</div>
             <div className="guide_content">
-              <button className="move_to_next">왼</button>
-              <img className="guide_content_image" src={plannerBase} />
-              <button className="move_to_next">오른</button>
+            
+        {guideSlideImage.map((image)=>{
+          return(
+            <div>
+            <img className='guide_content_image' src={image}/>
             </div>
+          );
+        })}
+       
+
+
+
+        </div>
           </div>
         </div>
       ) : null}

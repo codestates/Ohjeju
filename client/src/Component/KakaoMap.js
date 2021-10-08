@@ -111,7 +111,7 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
               (result, status) => {
                 if (status === window.kakao.maps.services.Status.OK) {
                   axios
-                    .post("http://localhost:80/attractions", {
+                    .post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/attractions`, {
                       location: result[0].address.address_name,
                     })
                     .then((ele) => {
@@ -438,6 +438,7 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
         </div>
         <div id="chat_wrap" className="bg_white close">
           <Chat plannerInfo={plannerInfo} userInfo={userInfo} />
+          {/* 추가 */}
           <hr></hr>
           <ul id="placesList"></ul>
         </div>

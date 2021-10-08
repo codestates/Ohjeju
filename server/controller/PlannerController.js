@@ -46,7 +46,6 @@ module.exports = {
   getPlanner: async (req, res) => {
     //* endpoint: https://ohjeju.link/planner?plannerId=''
     try {
-      console.log('getPlanner')
       const targetPlanner = await planner.findOne({
         where: { id: req.query.plannerId },
         include: [ { model: group } ]

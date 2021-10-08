@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const PORT = 80;
 const http = require('http');
 const server = http.createServer(app);
+
 const signRouter = require('./routes/sign');
 const userRouter = require('./routes/user');
 const planRouter = require('./routes/plan');
@@ -44,7 +45,6 @@ app.use('/review',reviewRouter)
 app.use('/attractions',attractionsRouter)
 
 
-
 app.get('/',(req,res) => {res.send('Hello World')})
 
 io.on('connection', (socket) => {
@@ -66,4 +66,4 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(PORT ,()=>console.log(`server running ${PORT}`))
+server.listen(PORT, ()=>console.log(`server running ${PORT}`))
