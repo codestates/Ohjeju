@@ -5,8 +5,6 @@
 
 .favorite {
   position: relative;
-  padding: 20px;
-  background-color: rgb(245, 245, 245);
 }
 
 .favorite_in {
@@ -177,7 +175,6 @@
   width: 70%;
   margin: auto;
   height: 150px;
-  background-color: rgb(245, 245, 245);
   transform: translate(0vw);
   transition: all 1s;
   text-align: center;
@@ -217,22 +214,9 @@
 
   .favorite {
     /* position: absolute; */
-    top: 400px;
-    padding: 20px;
-    background-color: rgb(245, 245, 245);
+    top: -300px;
   }
 
-  .main-img {
-    /* padding: 20px; */
-    /* position: absolute;
-    left: 50%;
-    right: 50%; */
-    width: vw;
-    height: 500px;
-    object-fit: contain;
-    transform: translate(-100vw);
-    /* transition: all 1s; */
-  }
   .iconBefore {
     position: absolute;
     font-size: 50px;
@@ -249,9 +233,16 @@
 }
 
 @media screen and (max-width: 768px) {
+  .favorite {
+    /* position: absolute; */
+    top: 50px;
+    padding: 20px;
+    background-color: rgb(245, 245, 245);
+  }
   .product-container {
     flex-wrap: wrap;
   }
+
   .product-item {
     width: 100%;
   }

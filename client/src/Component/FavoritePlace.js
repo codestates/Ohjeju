@@ -34,7 +34,7 @@ function FavoritePlace({ getPlace, placeList, setPlaceList }) {
     });
   };
 
-  console.log(imgSlide);
+  // console.log(imgSlide);
 
   return (
     <div className="favorite">
@@ -65,15 +65,7 @@ function FavoritePlace({ getPlace, placeList, setPlaceList }) {
             </div>
 
             // <div className="product-item">
-            //   <Link
-            //     to={{
-            //       pathname: `/attraction`,
-            //       state: {
-            //         info: item.info,
-            //         image: item.image,
-            //         name: item.name,
-            //       },
-            //     }}
+
             //   >
             //     <div className="product-all">
             //       <img src={item.image} alt="" key={index} />
