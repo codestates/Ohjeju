@@ -3,6 +3,22 @@ const axios = require('axios')
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
 const SERVER_URL = process.env.SERVER_URL || 'http://localhost:80';
+const ACCESS_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
+const REFRESH_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60 * 24 * 14,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
 
 //그룹 관련 method
 module.exports = {
@@ -28,8 +44,8 @@ module.exports = {
           user_group.create({ userId: tokenUser.id, groupId: newGroupId })
           
           return res.status(201)
-            .cookie('accessToken', reqAccessToken)
-            .cookie('refreshToken', reqRefreshToken)
+            .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+            .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
             .send({ groupId: newGroupId })
         }
       }
@@ -123,8 +139,8 @@ module.exports = {
                     console.log('@!##!@')
                     console.log(item.data)
                     return res.status(200)
-                    .cookie('accessToken', reqAccessToken)
-                    .cookie('refreshToken', reqRefreshToken)
+                    .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+                    .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
                     .send(item.data)
                   })
                   //밑에 delete와 마찬가지로 추가하고 바로 modifiedgroup이 최신화된 데이터가아닌 추가하기 전에데이터를 보내줘서수정햇습니다
@@ -158,8 +174,8 @@ module.exports = {
                     console.log('@!##!@')
                     console.log(item.data)
                     return res.status(200)
-                    .cookie('accessToken', reqAccessToken)
-                    .cookie('refreshToken', reqRefreshToken)
+                    .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+                    .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
                     .send(item.data)
                   })
                 }
@@ -188,8 +204,8 @@ module.exports = {
                       console.log('@!##!@')
                       console.log(item.data)
                       return res.status(200)
-                      .cookie('accessToken', reqAccessToken)
-                      .cookie('refreshToken', reqRefreshToken)
+                      .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+                      .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
                       .send(item.data)
                   })
                 })
@@ -239,8 +255,8 @@ module.exports = {
         .then(() => { targetGroup.destroy() })
 
         return res.status(200)
-          .cookie('accessToken', reqAccessToken)
-          .cookie('refreshToken', reqRefreshToken)
+          .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+          .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
           .send('group successfully deleted');
       }
     }

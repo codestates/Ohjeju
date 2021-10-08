@@ -3,6 +3,22 @@ const { group, planner, users, user_group} = require('../models')
 //const jwt = require('jsonwebtoken');
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
+const ACCESS_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
+const REFRESH_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60 * 24 * 14,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
 
 //유저 정보 관련 method
 module.exports = {
@@ -29,8 +45,8 @@ module.exports = {
         else if(tokenUser.id === Number(req.query.userId)){
           //일치하는 경우에만 유저 정보 반환
           return res.status(200)
-            .cookie('accessToken', reqAccessToken)
-            .cookie('refreshToken', reqRefreshToken)
+            .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+            .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
             .send({
               //넘겨주는 정보는 클라에서 필요한 정보에 따라 수정
               id: tokenUser.id,
@@ -106,8 +122,8 @@ module.exports = {
         }
 
         return res.status(200)
-          .cookie('accessToken', reqAccessToken)
-          .cookie('refreshToken', reqRefreshToken)
+          .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+          .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
           .send({
             id: curUser.id,
             email: curUser.email,

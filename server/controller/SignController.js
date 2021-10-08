@@ -3,7 +3,16 @@ const Users = require('../models').users;
 const jwt = require('jsonwebtoken');
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
-const COOKIE_OPTIONS = {
+const ACCESS_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
+const REFRESH_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60 * 24 * 14,
   domain: 'ohjeju.link',
   path: '/',
   httpOnly: true,
@@ -33,8 +42,8 @@ module.exports = {
         const refreshToken = jwt.sign(tokenPayload, process.env.REFRESH_SECRET, { expiresIn : '14d' });
 
         return res.status(200)
-          .cookie('accessToken', accessToken, COOKIE_OPTIONS)
-          .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
+          .cookie('accessToken', accessToken, ACCESS_COOKIE_OPTIONS)
+          .cookie('refreshToken', refreshToken, REFRESH_COOKIE_OPTIONS)
           .send({ "id" : id });
       }
     }
