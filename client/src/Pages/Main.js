@@ -51,7 +51,7 @@ function Main({ placeList, getPlace, isLogin }) {
       <FavoritePlace placeList={placeList} getPlace={getPlace} />
       <Couple />
       {/* <Guide />  */}
-      <Review />
+      {/* <Review /> */}
     </main>
   );
 }
