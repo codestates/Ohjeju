@@ -438,7 +438,6 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
         </div>
         <div id="chat_wrap" className="bg_white close">
           <Chat plannerInfo={plannerInfo} userInfo={userInfo} />
-          {/* 추가 */}
           <hr></hr>
           <ul id="placesList"></ul>
         </div>
