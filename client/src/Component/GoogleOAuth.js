@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import axios from 'axios';
 
 const SERVER_URL = process.env.SERVER_URL || 'http://localhost:80';
-const GOOGLE_LOGIN_PASSWORD = process.env.GOOGLE_LOGIN_PASSWORD;
+const GOOGLE_LOGIN_PASSWORD = process.env.GOOGLE_LOGIN_PASSWORD || 'Z29vZ2xlIGxvZ2luIHBhc3N3b3Jk'
 
 function GoogleOAuth({setuserInfo, setisLogin, getuserInfo}){
 
