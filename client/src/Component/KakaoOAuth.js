@@ -18,7 +18,7 @@ function KakaoOAuth({setuserInfo, setisLogin, getuserInfo}) {
         history.push('/');
         axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`, {
           email: res.data.email,
-          password: `${process.env.KAKAO_LOGIN_PASSWROD}`
+          password: `${KAKAO_LOGIN_PASSWORD}`
         }, { withCredentials: true })
         .then((res) => { getuserInfo(res) })
       })
