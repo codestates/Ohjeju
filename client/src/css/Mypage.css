@@ -19,12 +19,12 @@
 
 .user_container {
   display: flex;
-  width: 100%;
+  width: 100%; 
   height: 300px;
   justify-content: space-evenly;
   padding: 30px 15px 30px 15px;
   border: 0.2em inset #009688;
-  border-radius: 30px;
+  border-radius: 29px;
 }
 
 .user_info_container {
