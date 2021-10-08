@@ -12,10 +12,7 @@ const Attraction = ({ match, location, history }) => {
   // const history = useHistory();
   const [placeList, setPlaceList] = useState([]);
   const [starfill, setStarFill] = useState([1, 2, 3, 4, 5]);
-  console.log("!@#!@#@!@!#!@");
   console.log(location);
-
-  useEffect(() => {}, []);
 
   return (
     <div className={style.background}>

@@ -21,8 +21,8 @@ import KakaoOAuth from "./Component/KakaoOAuth";
 import GoogleOAuth from "./Component/GoogleOAuth";
 import Chat from "./Component/Chat";
 import Couple from "./Component/Couple";
-import Review from "./Component/Review";
 import Test from "./Component/Test";
+import Review from "./Component/Review";
 
 require("dotenv").config();
 
@@ -110,6 +110,7 @@ function App() {
         `${process.env.REACT_APP_API_URL || "http://localhost:80"}/attractions`
       )
       .then((res) => {
+        console.log(res);
         let arr = [...res.data];
         let newarr = arr.slice(0, 200);
         setPlaceList(newarr);
@@ -123,6 +124,13 @@ function App() {
   useEffect(() => {
     getPlace();
   }, []);
+
+  const [review, setReview] = useState({
+    userId: "",
+    content: "",
+  });
+
+  const addReviewHandler = () => {};
 
   return (
     <BrowserRouter>
@@ -175,11 +183,13 @@ function App() {
         <Route path="/couple">
           <Couple getPlace={getPlace} placeList={placeList} />
         </Route>
-        <Route path="/review">
-          <Review />
-        </Route>
+
         <Route path="/test">
           <Test />
+        </Route>
+
+        <Route path="/review">
+          <Review review={review} />
         </Route>
 
         {/* <Route path="/planner">
@@ -189,7 +199,7 @@ function App() {
         <Route path="/attraction" component={Attraction} />
         <Route path="/chat" component={Chat} />
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }
