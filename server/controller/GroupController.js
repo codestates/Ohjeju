@@ -242,8 +242,7 @@ module.exports = {
       const tokenUser = await decodeToken(reqAccessToken);
       if(!tokenUser) return res.status(401).send('Invalid token');
       
-      //해당 유저가 삭제 권한이 있는지 먼저 확인
-      //권한이 있으면 삭제
+      //해당 유저가 삭제 권한이 있는지 먼저 확인 -> 권한이 있으면 삭제
       const targetGroup = await group.findOne({ where: { id: req.query.groupId } })
       if(!targetGroup) return res.status(404).send('can\'t find the group');
       if(targetGroup.leaderId !== tokenUser.id) {
