@@ -177,7 +177,7 @@ const googleLogin = () => { //구글로그인
       <div id="header_in">
         <div id="header_front">
           <Link to="/">
-            <span id="header_logo">Oh Jeju</span>
+            <span id="header_logo">Oh! Jeju</span>
           </Link>
           {/* <span id="header_toggle">
             <div className="toggle-container">
