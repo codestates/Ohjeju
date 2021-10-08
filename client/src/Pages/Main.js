@@ -50,7 +50,8 @@ function Main({ placeList, getPlace, isLogin }) {
       {/* <Test /> */}
       <FavoritePlace placeList={placeList} getPlace={getPlace} />
       <Couple />
-      <Guide /> {/* 가이드개발용 */}
+      {/* <Guide />  */}
+      <Review />
     </main>
   );
 }

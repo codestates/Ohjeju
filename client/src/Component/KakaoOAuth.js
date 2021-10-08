@@ -3,7 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 
 const SERVER_URL = process.env.SERVER_URL || 'http://localhost:80';
-const KAKAO_LOGIN_PASSWORD = process.env.KAKAO_LOGIN_PASSWROD || 'a2FrYW9Mb2dpblBhc3N3b3Jk'
+const KAKAO_LOGIN_PASSWORD = process.env.KAKAO_LOGIN_PASSWROD;
 
 function KakaoOAuth({setuserInfo, setisLogin, getuserInfo}) {
 
@@ -18,7 +18,7 @@ function KakaoOAuth({setuserInfo, setisLogin, getuserInfo}) {
         history.push('/');
         axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`, {
           email: res.data.email,
-          password: KAKAO_LOGIN_PASSWORD
+          password: `${process.env.KAKAO_LOGIN_PASSWROD}`
         }, { withCredentials: true })
         .then((res) => { getuserInfo(res) })
       })
