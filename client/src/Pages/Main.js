@@ -8,7 +8,6 @@ import background2 from "../Imgs/background2.png";
 import Footer from "../Component/Footer";
 import Couple from "../Component/Couple";
 import Guide from "../Component/Guide";
-import Review from "../Component/Review";
 import { Link } from "react-router-dom";
 import Test from "../Component/Test";
 
@@ -16,7 +15,9 @@ function Main({ placeList, getPlace, isLogin }) {
   return (
     <main>
       <div id="main_in">
-        <img id="main_Banner_img" src={background2} alt="" />
+        {/* 메인 위 */}
+        <Test />
+        {/* <img id="main_Banner_img" src={background3} alt="" /> */}
         <div id="main_text">
           <div id="main_title">
             가족, 친구, 애인 모두가 <br></br>함께 계획하는 여행플래너
@@ -45,6 +46,7 @@ function Main({ placeList, getPlace, isLogin }) {
         </div>
         <div id="main_Banner_black_opacity" />
       </div>
+      {/* 메인 아래 */}
       {/* <Test /> */}
       <FavoritePlace placeList={placeList} getPlace={getPlace} />
       <Couple />
