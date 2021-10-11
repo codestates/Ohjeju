@@ -1,0 +1,36 @@
+.videoBox {
+  margin-top: 35px;
+  height: 700px;
+  width: 100%;
+  /* overflow: hidden; */
+  position: relative;
+  display: flex;
+}
+
+/* 메인 위 */
+.videoContainer {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* 메인 아래 */
+/* .videoContainer {
+  position: absolute;
+  width: 60%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+} */
+
+@media screen and (max-width: 1600px) {
+  .videoContainer {
+    top: 50%;
+    left: 50%;
+    width: 90%;
+  }
+}
