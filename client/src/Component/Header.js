@@ -9,8 +9,8 @@ import { useHistory } from "react-router";
 
 require("dotenv").config();
 
-const KAKAO_REST_KEY = process.env.KAKAO_REST_KEY || '0f8bff12e99bf62cf63de306e104978b'
-const GOOGLE_REST_KEY = process.env.GOOGLE_REST_KEY || '933835778992-s0h1t6030sssr4qqhi9tdu0kj95nnu5i.apps.googleusercontent.com'
+const KAKAO_REST_KEY = process.env.KAKAO_REST_KEY 
+const GOOGLE_REST_KEY = process.env.GOOGLE_REST_KEY
 
 function Header({
   isOn,

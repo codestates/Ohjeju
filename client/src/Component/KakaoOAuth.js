@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 
-const KAKAO_LOGIN_PASSWORD = process.env.KAKAO_LOGIN_PASSWROD || 'a2FrYW9Mb2dpblBhc3N3b3Jk'
+const KAKAO_LOGIN_PASSWORD = process.env.KAKAO_LOGIN_PASSWROD
 
 function KakaoOAuth({getuserInfo}) {
 
