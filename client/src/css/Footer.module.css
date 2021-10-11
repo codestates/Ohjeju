@@ -1,0 +1,126 @@
+.container {
+  width: 100%;
+  background-color: #535353;
+  position: relative;
+}
+
+.footerBox {
+  width: 100%;
+  margin-top: 200px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.leftBox {
+  font-family: "nanum";
+  color: white;
+}
+
+.contact {
+  font-family: "nanum";
+  font-size: 40px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.company {
+  font-family: "nanum";
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tele {
+  font-family: "nanum";
+  font-size: 16px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.middleBox {
+  font-family: "nanum";
+  color: white;
+  left: 50px;
+}
+
+.rightBox {
+  margin: 10px;
+  margin-top: 60px;
+  font-family: "nanum";
+  color: white;
+  right: 50px;
+}
+
+.developer {
+  font-family: "nanum";
+  font-size: 20px;
+
+  margin-bottom: 40px;
+}
+
+.nameEmail {
+  display: flex;
+}
+input:focus {
+  outline: none;
+}
+
+.formInput {
+  font-family: "nanum";
+  font-size: 1em;
+  outline: none;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 0px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.formSubject {
+  font-family: "nanum";
+  font-size: 1em;
+  outline: none;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 0px;
+  margin: 10px;
+  border-radius: 5px;
+  width: 95%;
+}
+
+.Btn {
+  cursor: pointer;
+  margin: 10px;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 1600px) {
+  .footerBox {
+    background-color: #535353;
+    position: absolute;
+    top: 200px;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .footerBox {
+    display: block;
+  }
+  .leftBox {
+    color: white;
+    margin-left: 20px;
+  }
+  .middleBox {
+    font-family: "nanum";
+    color: white;
+    margin-left: 20px;
+  }
+}
