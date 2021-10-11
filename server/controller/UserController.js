@@ -1,8 +1,22 @@
-const { group, planner, users, user_group} = require('../models')
-//const axios = require('axios');
-//const jwt = require('jsonwebtoken');
+const { planner, users, user_group } = require('../models')
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
+const ACCESS_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
+const REFRESH_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60 * 24 * 14,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
 
 //유저 정보 관련 method
 module.exports = {
@@ -14,7 +28,6 @@ module.exports = {
         const findUser = await users.findOne({
           where:{email:req.query.userEmail}
         })
-        console.log(findUser.dataValues)
         res.status(200).json(findUser.dataValues)
       }
 
@@ -29,8 +42,8 @@ module.exports = {
         else if(tokenUser.id === Number(req.query.userId)){
           //일치하는 경우에만 유저 정보 반환
           return res.status(200)
-            .cookie('accessToken', reqAccessToken)
-            .cookie('refreshToken', reqRefreshToken)
+            .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+            .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
             .send({
               //넘겨주는 정보는 클라에서 필요한 정보에 따라 수정
               id: tokenUser.id,
@@ -47,8 +60,6 @@ module.exports = {
 
   getUserPlannerList: async (req, res) => {
     //* endpoint: https://ohjeju.link/user/planner?userId=''
-
-    console.log('hear')
 
     try {
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
@@ -67,7 +78,6 @@ module.exports = {
 
         const targetPlanners = await Promise.all(targetGroups)
           .then((planners) => planners.map((planner) => {
-            console.log(planners)
             return {
               id: planner.id,
               name: planner.name
@@ -75,12 +85,12 @@ module.exports = {
           }))
 
         return res.status(200)
-        .cookie('accessToken', reqAccessToken)
-        .cookie('refreshToken', reqRefreshToken)
+        .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+        .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
         .send(targetPlanners)
       }
     }
-    catch(err) { console.log(err); return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send('server error') }
   },
 
   modifyUser: async (req, res) => {
@@ -106,8 +116,8 @@ module.exports = {
         }
 
         return res.status(200)
-          .cookie('accessToken', reqAccessToken)
-          .cookie('refreshToken', reqRefreshToken)
+          .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+          .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
           .send({
             id: curUser.id,
             email: curUser.email,
