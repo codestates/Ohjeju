@@ -8,12 +8,7 @@ import couple5 from "../Imgs/couple5.jpeg";
 import couple6 from "../Imgs/couple6.jpeg";
 import couple7 from "../Imgs/couple7.jpeg";
 
-const Couple = ({ getPlace, placeList }) => {
-  // console.log(placeList);
-
-  // let arr = [...placeList];
-  // let newarr = arr.slice(100, 200);
-  // console.log(newarr);
+const Couple = () => {
 
   return (
     <div className={style.container}>

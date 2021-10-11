@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../css/Header.css";
 import { Link } from "react-router-dom";
-import Toggle from "./Toggle";
 import axios from "axios";
 import kakao from "../Imgs/kakao_login_large_wide.png";
 import google from "../Imgs/btn_google_signin_light_normal_web@2x.png";
@@ -10,7 +9,6 @@ import { useHistory } from "react-router";
 
 require("dotenv").config();
 
-const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
 const KAKAO_REST_KEY = process.env.KAKAO_REST_KEY || '0f8bff12e99bf62cf63de306e104978b'
 const GOOGLE_REST_KEY = process.env.GOOGLE_REST_KEY || '933835778992-s0h1t6030sssr4qqhi9tdu0kj95nnu5i.apps.googleusercontent.com'
 
@@ -88,7 +86,6 @@ function Header({
         email: signinInfo.email,
         password: signinInfo.password,
       }
-      //`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`
       axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`, payload, { withCredentials: true })
       .then((res)=>{
         getuserInfo(res)
@@ -102,7 +99,6 @@ function Header({
         .catch((err) => {
           console.log(err.message);
           if (err.message === "Request failed with status code 400") {
-            //
             alert("이메일과 비밀번호를 확인하세요");
           }
           if (err.message === "Request failed with status code 500") {
@@ -141,8 +137,7 @@ function Header({
         })
         .catch((err) => {
           if (err.message === "Request failed with status code 409") {
-            //이게 정확
-            alert("이메일 중복");
+            alert("중복된 이메일입니다");
           }
         });
     }
@@ -151,10 +146,7 @@ function Header({
   //소셜로그인
 
 const kakaoLogin = () => { //카카오로그인
-  
-  // const REDIRECT_URI =  "http://localhost:3000/OAuth/kakao";
   const REDIRECT_URI =  "https://oh-jeju.link/OAuth/kakao"; 
-  // 배포시 변경해야함 카카오dev에서도 변경해야함
   const state = 'kakao'
   const KAKAO_AUTH_URL = 
   `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_KEY}&redirect_uri=${REDIRECT_URI}&state=${state}&response_type=code`;
@@ -162,10 +154,7 @@ const kakaoLogin = () => { //카카오로그인
 }
 
 const googleLogin = () => { //구글로그인
-  
-  // const REDIRECT_URI =  "http://localhost:3000/OAuth/google"; 
   const REDIRECT_URI =  "https://oh-jeju.link/OAuth/google";
-  //  배포시 변경해야함
   const GOOGLE_AUTH_URL = 
   `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_REST_KEY}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email`
   window.location.assign(GOOGLE_AUTH_URL);
@@ -178,11 +167,6 @@ const googleLogin = () => { //구글로그인
           <Link to="/">
             <span id="header_logo">Oh! Jeju</span>
           </Link>
-          {/* <span id="header_toggle">
-            <div className="toggle-container">
-              <Toggle isOn={isOn} toggleHandler={toggleHandler} />
-            </div>
-          </span> */}
         </div>
         <div id="header_back">
           {isLogin === true ? (
@@ -255,10 +239,6 @@ const googleLogin = () => { //구글로그인
                             회원가입하기
                           </button>
                         </div>
-                        {/* <div className='reCAPTCHA_container'>
-                       <div className='reCAPTCHA'>reCAPTCHA</div>
-                       <img className='reCAPTCHA' src={recap}></img>
-                      </div> */}
                       </div>
                       <div className="sociallogin_container">
                         <img

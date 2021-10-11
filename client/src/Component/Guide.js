@@ -1,12 +1,5 @@
 import React, { useState, useRef } from "react";
 import "../css/Guide.css";
-import { Link } from "react-router-dom";
-import Toggle from "./Toggle";
-import axios from "axios";
-import kakao from "../Imgs/kakao_login_large_wide.png";
-import google from "../Imgs/btn_google_signin_light_normal_web@2x.png";
-import xbutton from "../Imgs/xbutton.png";
-import { useHistory } from "react-router";
 import plannerBase from "../Imgs/PlannerBase.png";
 import plannerPlanner from "../Imgs/PlannerPlanner.jpg";
 import plannerGroup from "../Imgs/PlannerGroup.jpg";

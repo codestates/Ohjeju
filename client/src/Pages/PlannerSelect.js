@@ -1,26 +1,12 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter,
-  Redirect,
-  Route,
-  Switch,
-  Link,
-} from "react-router-dom";
-import { useHistory } from "react-router";
+import {Link} from "react-router-dom";
 import axios from "axios";
 import "../css/PlannerSelect.css";
-import Planner from "./Planner";
-
 
 require("dotenv").config();
 
-const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
-
 function PlannerSelect({userInfo, isLogin}){
-
-
-  const history = useHistory();
 
   //빈배열이라 에러뜨면 밑에 map부분 if로분기
   const [plannerList, setplannerList] = useState([])
@@ -47,7 +33,6 @@ function PlannerSelect({userInfo, isLogin}){
   }
  
   const getPlanner = () => {        //플래너 불러오기
-    //
     axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/planner?userId=${userInfo.id}`, {withCredentials:true})
     .then((res)=>{
       res.data.forEach(item => {
@@ -60,7 +45,6 @@ function PlannerSelect({userInfo, isLogin}){
 
   const getPlannerInfo = (idx) => {     //플래너정보 불러오기
     const plannerId=plannerList[idx].id
-    //sele
     axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner?plannerId=${plannerId}`)
     .then((res)=>{
       setplannerInfo(res.data)
@@ -76,7 +60,6 @@ function PlannerSelect({userInfo, isLogin}){
   }
 
   const createPlanner = () => {           //플래너생성
-    //
     axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/planner`, {isLogin:isLogin, name:plannerName}, {withCredentials:true})
     .then((res)=>{
       alert('생성완료')
@@ -108,9 +91,6 @@ function PlannerSelect({userInfo, isLogin}){
     getPlanner();
   }, []);
   
-  
-  
-
   return (
     <div className='planner_container'>
       {plannerList.map((planner, idx)=>{
@@ -147,7 +127,6 @@ function PlannerSelect({userInfo, isLogin}){
       </div>
     </div>
   )
-  
 };
 
 export default PlannerSelect;
