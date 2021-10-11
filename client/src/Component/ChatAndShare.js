@@ -44,7 +44,6 @@ function ChatAndShare({userInfo,plannerInfo}) {
     const sendMessage = (e) => {
         const {userName,content} = message
         e.preventDefault();
-        console.log('send')
         //useRef시에만 current
         socketRef.current.emit('chat',{userName,content,groupNum})
         setMessage({userName,content:''})
@@ -78,10 +77,11 @@ function ChatAndShare({userInfo,plannerInfo}) {
         }
     }
     const getMedia = async(fun) => {
-        console.log('first')
+        console.log('$@!$#@!#!@#!@')
+        console.log(myFace.current.srcObject)
         const stream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
         setMyStream(stream)
-        //myStream = stream
+        //myStream = stream 
         myFace.current.srcObject = stream;
         stream.getAudioTracks()[0].enabled = false
         stream.getVideoTracks()[0].enabled = false
@@ -90,7 +90,6 @@ function ChatAndShare({userInfo,plannerInfo}) {
     }
 
     const makeConnection = (stream,connection) =>  {
-        console.log('second')
         connection.addEventListener('icecandidate',handleIce)
         connection.addEventListener('addstream',handleAddStream)
         connection.addEventListener('connectionstatechange',(event) => {
@@ -118,7 +117,6 @@ function ChatAndShare({userInfo,plannerInfo}) {
             shareDisPlay.current.classList.toggle('open')
             socketRef.current.emit('shareDisplayOn',{groupNum})
             const videoSender = myPeerConnection.getSenders().find(sender => sender.track.kind === 'video');
-            console.log(myPeerConnection.getSenders())
             const newTrack = displayStream.getVideoTracks()[0]
             videoSender.replaceTrack(newTrack)
             
@@ -128,18 +126,17 @@ function ChatAndShare({userInfo,plannerInfo}) {
 
 
     const handleIce = (data)  => {
-        console.log('send ice candidate')
         setPeerIce(data)
         socketRef.current.emit('peer-ice',{ice:data.candidate,groupNum})
     }
 
     const handleAddStream= (data) => {
-        console.log('receive add stream event from peer')
-        if(data){
+        console.log('!@##!')
+        const userVideo = document.querySelector('#userVideo')
+        if(userVideo.childElementCount < 1){
             const joinUserVideo = document.createElement('video')
             joinUserVideo.autoplay = true
             joinUserVideo.playsInline = true
-            console.log('joinuser')
             joinUserVideo.srcObject =data.stream;
             shareDisPlay.current.srcObject = data.stream;
             document.getElementById('userVideo').appendChild(joinUserVideo)
@@ -185,70 +182,60 @@ function ChatAndShare({userInfo,plannerInfo}) {
         button.current.classList.remove('open')
     }
     const socketIo = () => {
-        console.log('third')
         socketRef.current =io(`${process.env.REACT_APP_API_URL || "http://localhost:80"}`)
-        socketRef.current.emit('join rooms', {userName:USERNAME ,groupNum})
+        socketRef.current.emit('join rooms2', {userName:USERNAME ,groupNum})
         socketRef.current.on('broadcast',({userName,content})=>{
             console.log('broadcast')
             messageInChat({userName:USERNAME,content})
             removeNowChatUser()
         })
-        socketRef.current.on('welcome', async({userName,content,groupName})=>{
-            console.log('somone login')
+        socketRef.current.on('welcome2', async({userName,content,groupName})=>{
             const offer = await myPeerConnection.createOffer();
             myPeerConnection.setLocalDescription(offer) //Local(내꺼에set)
-            console.log(myPeerConnection)
             socketRef.current.emit('peer-offer',{offer,groupName})
-            console.log('local set -> send offer')
             messageInChat({userName,content})
         })
 
         socketRef.current.on('peer-offer',async({offer,groupName})=> {
-            console.log('remote set -> receive offer -> send answer')
+            console.log('offeefefefefrer')
+            console.log(myPeerConnection.offer)
             myPeerConnection.setRemoteDescription(offer)
             const answer = await myPeerConnection.createAnswer();
             myPeerConnection.setLocalDescription(answer)
-            console.log(myPeerConnection)
 
             socketRef.current.emit('peer-answer',{answer,groupName})
         })
 
         socketRef.current.on('peer-answer',({answer,groupName})=>{
-            console.log('receive answer')
             myPeerConnection.setRemoteDescription(answer)
         })
 
         socketRef.current.on('peer-ice',({ice})=>{
             //받은 ice candidate를 set
-            console.log('receive ice candidate')
             myPeerConnection.addIceCandidate(ice)
         })
 
         socketRef.current.on('shareDisplayOn',()=> {
-            console.log('share-on')
             shareDisPlay.current.classList.toggle('open')
         })
 
         socketRef.current.on('shareDisplayOff',()=> {
-            console.log('share-off')
             const videoSender = myPeerConnection.getSenders().find(sender => sender.track.kind === 'video');
             if(!videoSender.track.enabled){
                 shareDisPlay.current.classList.remove('open')
+                shareDisPlay.current.classList.add('close')
                 videoSender.replaceTrack(myStream.getVideoTracks()[0])
             }
         })
 
         socketRef.current.on('mymsg',({userName,content})=>{
-            console.log('mymsg')
             messageInChat({userName,content})
         })
 
         socketRef.current.on('userout',({userName,content})=>{
-            console.log('userout')
             messageInChat({userName,content})
         })
         socketRef.current.on('nowchating-front',({userName,content})=>{
-            console.log('nowchating')
             if(nowChatUsers.includes(userName) === false){
                 nowChatUsers.push(userName)
                 const coppyArray = JSON.parse(JSON.stringify(nowChatUsers))
@@ -259,9 +246,6 @@ function ChatAndShare({userInfo,plannerInfo}) {
     }
     //2번씩 렌더되던데 왜그럴까..
     useEffect(() => {
-        console.log('change')
-        console.log(USERNAME)
-        console.log(groupNum)
         if(myStream === null){
             getMedia()
             setRenderSwitch(true)

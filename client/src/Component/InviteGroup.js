@@ -132,16 +132,7 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
         })
     }
 
-    useEffect(() =>{
-        console.log('useEffect')
-        console.log('plannerInfo')
-        console.log(plannerInfo)
-        console.log('userInfo')
-        console.log(userInfo)
-        console.log(userInfo.id===groupInfo.leaderId)
-        console.log('groupInfo')
-        console.log(groupInfo)
-    },[groupInfo])
+
 
     return (
         <div className='invite_group_container'>
