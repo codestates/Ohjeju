@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import KakaoMap from "../Component/KakaoMap";
 import Chat from "../Component/Chat";
@@ -8,7 +7,7 @@ import style from "../css/Planner.module.css";
 
 require("dotenv").config();
 
-const Planner = ({userInfo,plannerInfo,location}) => { 
+const Planner = ({location}) => { 
 
   if(location.state===undefined){  //메인페이지에서 비로그인으로 접근
     location.state={
@@ -42,10 +41,6 @@ const Planner = ({userInfo,plannerInfo,location}) => {
   const [userInfoId, setUserInfoId] = useState(location.state.userInfo.id || '게스트아이디');  //로그인 비로그인 구별용상태
 
   const plan = location.state.plannerInfo.plan
-  // group: {groupId: 74, groupName: 'New Group', leader: '최용석', user: Array(1)}
-  // id: 77
-  // name: "www"
-  // plan: {departureTime ,destination, memo, day, plannerId, id} 플랜이 여러개 들어갈수있다
 
   const [planInfo, setplanInfo] = useState(plan);  //받아온 플랜정보   여러개 들어갈수있다(배열)
 

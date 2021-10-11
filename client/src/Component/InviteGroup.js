@@ -4,8 +4,6 @@ import "../css/inviteGroup.css";
 const axios = require('axios')
 
 const InviteGroup = ({userInfo,plannerInfo}) => {
-    console.log(`invite ${userInfo}`)
-    // console.log(plannerInfo.group.user)
     const [emailInputValue,setEmailInputValue] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [findUser, setFindUser] = useState({
@@ -33,16 +31,13 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
             action:'add'
         },{withCredentials: true})
         .then(item => {
-            console.log('성공')
             const result  = JSON.parse(JSON.stringify(item.data))
             setGroupInfo(result)
             alert('추가되었습니다')
         })
         .catch(item => {
-            console.log('catch')
-            if(item.response.status === 409) alert('이미존재합니다')
+            if(item.response.status === 409) alert('이미 존재합니다')
         })
-        //여기까지함 -> add하면 그룹묶고 이 그룹을 또 챗컴포넌트에 연결을 하든 하고 채팅방확인해야함
     }
 
     const inputEmail = (e) => {
@@ -69,7 +64,6 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
 
     const userSearch = (fun) => {
         if(findUser.id > 0){
-            //서버랑 요청중에 톱니바퀴라던지 넣으면 더좋을듯
             return (
                 <div className ='invite_group_useremail_search'>
                     <div className='invite_group_useremail_search_name'>유저이름 : {findUser.userName}</div>
@@ -149,7 +143,6 @@ const InviteGroup = ({userInfo,plannerInfo}) => {
             <div className='invite_group_userlist_container'>
             <div className='invite_group_userlist_title'>유저목록</div>
              <div className='invite_group_userlist'>
-                {/* {groupInfo.user.map((item,idx)=><li>{item.userName}<button onClick={()=>{removeUserInGroup(item)}}>제거</button></li>)} */}
                 {renderUser(groupInfo,removeUserInGroup,changeLeader)}
             </div>
             </div>
