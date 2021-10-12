@@ -9,13 +9,10 @@ import xbutton from '../Imgs/xbutton.png'
 
 require("dotenv").config();
 
-const SERVER_URL =process.env.SERVER_URL || 'http://localhost:80';
-
 function Mypage({userInfo, getuserInfo, handleuserInfoDestroy}) {
 
   const history=useHistory();
-  
-  console.log(`mypage ${userInfo}`)
+
   const [showuserInfoModifyModal, setshowuserInfoModifyModal] = useState(false) //유저정보수정모달
   const [showuserInfoDestroyModal, setshowuserInfoDestroyModal] = useState(false) //유저탈퇴모달
   const [userInfoModifyInput, setuserInfoModifyInput] = useState({  //유저정보수정입력구조

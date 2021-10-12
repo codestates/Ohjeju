@@ -1,5 +1,4 @@
 const { users } = require('../models')
-const jwt = require('jsonwebtoken');
 const axios = require('axios');
 
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';

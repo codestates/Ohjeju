@@ -91,6 +91,6 @@ module.exports = {
         .clearCookie('refreshToken')
         .send('sign out successfully')
     }
-    catch(err) { return res.status(500).send(err) }
+    catch(err) { return res.status(500).send('server error') }
   }
 }

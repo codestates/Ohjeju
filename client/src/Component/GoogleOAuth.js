@@ -1,12 +1,11 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from "react-router";
 import axios from 'axios';
 
-const SERVER_URL = process.env.SERVER_URL || 'http://localhost:80';
-const GOOGLE_LOGIN_PASSWORD = process.env.GOOGLE_LOGIN_PASSWORD;
+const GOOGLE_LOGIN_PASSWORD = process.env.GOOGLE_LOGIN_PASSWORD
 
-function GoogleOAuth({setuserInfo, setisLogin, getuserInfo}){
+function GoogleOAuth({getuserInfo}){
 
     const history = useHistory();
     
@@ -18,7 +17,7 @@ function GoogleOAuth({setuserInfo, setisLogin, getuserInfo}){
         history.push('/');
         axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`, {
           email: res.data.email,
-          password: `${process.env.GOOGLE_LOGIN_PASSWORD}`
+          password: `${GOOGLE_LOGIN_PASSWORD}`
         }, { withCredentials: true })
         .then((res) => { getuserInfo(res) })
       })
@@ -26,7 +25,7 @@ function GoogleOAuth({setuserInfo, setisLogin, getuserInfo}){
     }, [])
 
   return (
-    <div>구글로그인 로딩창(로딩화면 필요)</div>
+    <div>구글로그인 로딩창</div>
   );
 }
 

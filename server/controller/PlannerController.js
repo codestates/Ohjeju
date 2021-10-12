@@ -18,7 +18,6 @@ module.exports = {
           })
           .then((planner) => planner.id)
           
-          //클라에서 어떻게 구현되냐에 따라 send 내용 생략할 수 있을 것 같아요. 일단은 필요할 것 같아서 plannerId 리턴했어요
           return res.status(201).send({ plannerId: newPlannerId });
         }
         else { //로그인 상태일 경우 -> 다인 플래너로 생성
@@ -58,31 +57,12 @@ module.exports = {
           return { id, day, departureTime, destination, memo };
         }))
 
-      const customPlanner = (planArr) => {
-        const planner = new Object();
-
-        for(const plan of planArr) {
-          if(!planner[plan.day]) planner[plan.day] = new Array();
-          planner[plan.day].push({
-            id: plan.id,
-            departureTime: plan.departureTime,
-            destination: plan.destination,
-            memo: plan.memo
-          })
-        }
-        for(const day in planner) planner[day].sort((a, b) => a.departureTime - b.departureTime);
-
-        return planner;
-      }
-      // const customedPlanner = customPlanner(planInThis);
-      const customedPlanner = planInThis;
-
       if(!targetPlanner.group) { //1인 플래너일 경우
         return res.status(200).send({
           id:targetPlanner.id,
           name: targetPlanner.name,
           group: null,
-          plan: customedPlanner
+          plan: planInThis
         });
       }
       else { //다인 플래너일 경우
@@ -130,7 +110,6 @@ module.exports = {
         return res.status(200).send('ok');
       }
       else { //다인 플래너일 경우 -> 그룹까지 삭제해야함
-        console.log(targetPlanner.group.id)
         axios.delete(`${SERVER_URL}/group?groupId=${targetPlanner.group.id}`, {
           headers: {
             cookie: `accessToken=${req.cookies.accessToken};refreshToken=${req.cookies.refreshToken}`

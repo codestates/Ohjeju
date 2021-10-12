@@ -1,6 +1,4 @@
-const { group, planner, users, user_group} = require('../models')
-//const axios = require('axios');
-//const jwt = require('jsonwebtoken');
+const { planner, users, user_group } = require('../models')
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
 const ACCESS_COOKIE_OPTIONS = {
@@ -30,7 +28,6 @@ module.exports = {
         const findUser = await users.findOne({
           where:{email:req.query.userEmail}
         })
-        console.log(findUser.dataValues)
         res.status(200).json(findUser.dataValues)
       }
 
@@ -64,8 +61,6 @@ module.exports = {
   getUserPlannerList: async (req, res) => {
     //* endpoint: https://ohjeju.link/user/planner?userId=''
 
-    console.log('hear')
-
     try {
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
       if(!reqAccessToken) return res.status(403).send('can\'t access');
@@ -83,7 +78,6 @@ module.exports = {
 
         const targetPlanners = await Promise.all(targetGroups)
           .then((planners) => planners.map((planner) => {
-            console.log(planners)
             return {
               id: planner.id,
               name: planner.name
@@ -96,7 +90,7 @@ module.exports = {
         .send(targetPlanners)
       }
     }
-    catch(err) { console.log(err); return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send('server error') }
   },
 
   modifyUser: async (req, res) => {

@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 
-const SERVER_URL = process.env.SERVER_URL || 'http://localhost:80';
-const KAKAO_LOGIN_PASSWORD = process.env.KAKAO_LOGIN_PASSWROD;
+const KAKAO_LOGIN_PASSWORD = process.env.KAKAO_LOGIN_PASSWROD
 
-function KakaoOAuth({setuserInfo, setisLogin, getuserInfo}) {
+function KakaoOAuth({getuserInfo}) {
 
     const history = useHistory();
 
@@ -18,7 +17,7 @@ function KakaoOAuth({setuserInfo, setisLogin, getuserInfo}) {
         history.push('/');
         axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/signin`, {
           email: res.data.email,
-          password: `${process.env.KAKAO_LOGIN_PASSWROD}`
+          password: `${KAKAO_LOGIN_PASSWORD}`
         }, { withCredentials: true })
         .then((res) => { getuserInfo(res) })
       })
@@ -26,7 +25,7 @@ function KakaoOAuth({setuserInfo, setisLogin, getuserInfo}) {
     }, [])
     
     return (
-        <div>카카오로그인 로딩창(로딩화면 필요)</div>
+        <div>카카오로그인 로딩창</div>
     );
    }
 

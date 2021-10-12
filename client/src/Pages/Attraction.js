@@ -1,14 +1,10 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
 import style from "../css/Attraction.module.css";
-import Footer from "../Component/Footer";
-import jeju1 from "../Imgs/jeju1.jpg";
 
 require("dotenv").config();
 
-const Attraction = ({ match, location, history }) => {
+const Attraction = ({location}) => {
   // const history = useHistory();
   const [placeList, setPlaceList] = useState([]);
   const [starfill, setStarFill] = useState([1, 2, 3, 4, 5]);

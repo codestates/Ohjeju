@@ -126,37 +126,21 @@ module.exports = {
       switch(req.body.action) {
         case 'add': //그룹에 멤버 추가
           if(targetGroupMember.includes(req.body.email)) {
-            //'T dhe user is already exist in group'
             return res.status(409).send('The user is already exist in group')
           }
           else {
-            const addUserId = await users.findOne({ where: { email : req.body.email} })
-              .then(async (user) => {
-                user_group.create({userId:user.id,groupId:targetGroup.id})
-                .then(()=>{
-                  axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
-                  .then(item => {
-                    console.log('@!##!@')
-                    console.log(item.data)
-                    return res.status(200)
-                    .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
-                    .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
-                    .send(item.data)
-                  })
-                  //밑에 delete와 마찬가지로 추가하고 바로 modifiedgroup이 최신화된 데이터가아닌 추가하기 전에데이터를 보내줘서수정햇습니다
-                }
-                )
-              })
+            users.findOne({ where: { email: req.body.email } })
+              .then(((user) => {
+                user_group.create({ userId: user.id, groupId: targetGroup.id })
+              }))
 
-            // const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
-            //   .then((res) => {
-            //     console.log(res.data)
-            //   })
+            const modifiedGroup = await axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
+              .then((res) => res.data)
 
-            // return res.status(200)
-            //   .cookie('accessToken', reqAccessToken)
-            //   .cookie('refreshToken', reqRefreshToken)
-            //   .send(modifiedGroup)
+            return res.status(200)
+              .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+              .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
+              .send(modifiedGroup)
           }
           break;
 
@@ -165,64 +149,40 @@ module.exports = {
             return res.status(404).send('can\'t find the group or user')
           }
           else {
-              const deleteUserId = await users.findOne({ where: { email : req.body.email} })
-              .then(async (user) => {
-                user_group.destroy({where:{userId:user.id}})
-                .then(()=>{
-                  axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
-                  .then(item => {
-                    console.log('@!##!@')
-                    console.log(item.data)
-                    return res.status(200)
-                    .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
-                    .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
-                    .send(item.data)
-                  })
-                }
-                )
+            const modifiedGroup = await users.findOne({ where: { email: req.body.email } })
+              .then((user) => {
+                user_group.destroy({ where: { userId: user.id } })
               })
+              .then(() => {
+                return axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
+                  .then((res) => res.data)
+              })
+
+            return res.status(200)
+              .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+              .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
+              .send(modifiedGroup)
             }
           break;
 
         case 'change leader': //그룹 리더 변경
-        console.log('change')
           if(!targetGroupMember.includes(req.body.email)) {
             return res.status(404).send('can\'t find the group or user')
           }
           else {
-            console.log('else')
             const newLeaderId = await users.findOne({ where: { email: req.body.email } })
-              .then(async (user) => {
-                //리더변경 버튼을 리더가 아니면 나오게하지 않게짜서 일단 주석처리함
-                
-                // if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
-                // else{
-                  targetGroup.update({ leaderId: user.dataValues.id })
-                  .then(()=>{
-                    axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
-                    .then(item => {
-                      console.log('@!##!@')
-                      console.log(item.data)
-                      return res.status(200)
-                      .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
-                      .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
-                      .send(item.data)
-                  })
-                })
-              // }
-            })
-            // if(targetGroup.leaderId === newLeaderId) return res.status(409).send('the user is already leader of this group')
-            // else {
-            //   targetGroup.update({ leaderId: newLeaderId })
+              .then((user) => user.id)
 
-            //   const modifiedGroup = await axios.get(`http://localhost:80/group?groupId=${targetGroup.id}`)
-            //     .then((res) => res.data)
+            const modifiedGroup = await targetGroup.update({ leaderId: newLeaderId })
+              .then(() => {
+                return axios.get(`${SERVER_URL}/group?groupId=${targetGroup.id}`)
+                  .then((res) => res.data)
+              })
 
-            //   return res.status(200)
-            //     .cookie('accessToken', reqAccessToken)
-            //     .cookie('refreshToken', reqRefreshToken)
-            //     .send(modifiedGroup)
-            // }
+            return res.status(200)
+              .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+              .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
+              .send(modifiedGroup)
           }
           break;
 
