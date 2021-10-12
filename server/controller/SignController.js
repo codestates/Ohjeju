@@ -75,7 +75,7 @@ module.exports = {
         }
       }
     }
-    catch(err) { return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send(err) }
   },
 
   signOut: async (req, res) => {

@@ -102,7 +102,6 @@ module.exports = {
   modifyGroup: async (req, res) => {
     //* endpoint: https://ohjeju.link/group?groupId=''
     
-    //postman으로 수정data 받아오는거 전부 확인 + 복잡할수있어서 try catch안묶음 -> try catch문으로 변경
     //action 따라 진행
     try {
       const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
@@ -203,8 +202,7 @@ module.exports = {
       const tokenUser = await decodeToken(reqAccessToken);
       if(!tokenUser) return res.status(401).send('Invalid token');
       
-      //해당 유저가 삭제 권한이 있는지 먼저 확인
-      //권한이 있으면 삭제
+      //해당 유저가 삭제 권한이 있는지 먼저 확인 -> 권한이 있으면 삭제
       const targetGroup = await group.findOne({ where: { id: req.query.groupId } })
       if(!targetGroup) return res.status(404).send('can\'t find the group');
       if(targetGroup.leaderId !== tokenUser.id) {
@@ -212,12 +210,12 @@ module.exports = {
       }
       else {
         //삭제할 때 user_group부터 삭제
-        user_group.destroy({ where: { groupId: targetGroup.id } }) //req.query.groupId로 삭제해도 무방
+        user_group.destroy({ where: { groupId: targetGroup.id } })
         .then(() => { targetGroup.destroy() })
 
         return res.status(200)
-          .cookie('accessToken', reqAccessToken)
-          .cookie('refreshToken', reqRefreshToken)
+          .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+          .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
           .send('group successfully deleted');
       }
     }

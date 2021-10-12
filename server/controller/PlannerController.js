@@ -99,8 +99,6 @@ module.exports = {
     //* endpoint: https://ohjeju.link/planner?plannerId=''
 
     try{
-      //그룹 리더일 경우에만 플래너 삭제 가능
-      //1인플래너는? -> 그냥 삭제? / 토큰이 없기때문에 나중에 다시 와서 삭제하는 기능은 구현불가능
       const targetPlanner = await planner.findOne({
         where: { id: req.query.plannerId },
         include: [{ model: group }]

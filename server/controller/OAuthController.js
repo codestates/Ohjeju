@@ -1,7 +1,7 @@
 const { users } = require('../models')
 const axios = require('axios');
 
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000'
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 
 //OAuth 인증 관련 method
 module.exports = {
