@@ -83,7 +83,7 @@ function PlannerSelect({userInfo, isLogin}){
       setplannerList(result)
     })
     .catch((err)=>{
-      alert(`플레너삭제에러:${err.message}`)
+      alert(`리더 외의 멤버는 삭제할 수 없습니다.`)
     })
   }
 
