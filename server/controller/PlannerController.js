@@ -1,7 +1,24 @@
-const { group, plan, planner } = require('../models')
+const { group, plan, planner } = require('../models');
 const axios  = require('axios');
 
+const { verifyToken, decodeToken } = require('./VerifyToken');
 const SERVER_URL = process.env.SERVER_URL || 'http://localhost:80';
+const ACCESS_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
+const REFRESH_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60 * 24 * 14,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
 
 //플래너 관련 method
 module.exports = {
@@ -110,6 +127,13 @@ module.exports = {
         return res.status(200).send('ok');
       }
       else { //다인 플래너일 경우 -> 그룹까지 삭제해야함
+        const [reqAccessToken, reqRefreshToken] = await verifyToken(req);
+        if(!reqAccessToken) return res.status(403).send('can\'t access');
+        const tokenUser = await decodeToken(reqAccessToken);
+        if(!tokenUser) return res.status(403).send('can\'t access');
+
+        //그룹 리더랑 현재 유저랑 같은지 먼저 확인
+        if(tokenUser.id !== targetPlanner.group.leaderId) return res.status(403).send('Only leader can delete planner');
         axios.delete(`${SERVER_URL}/group?groupId=${targetPlanner.group.id}`, {
           headers: {
             cookie: `accessToken=${req.cookies.accessToken};refreshToken=${req.cookies.refreshToken}`
@@ -120,7 +144,10 @@ module.exports = {
             targetPlanner.destroy()
           })
 
-        return res.status(200).send('ok');
+        return res.status(200)
+          .cookie('accessToken', reqAccessToken, ACCESS_COOKIE_OPTIONS)
+          .cookie('refreshToken', reqRefreshToken, REFRESH_COOKIE_OPTIONS)
+          .send('ok');
       }
     }
     catch(err) { return res.status(500).send('server error') }
