@@ -73,7 +73,7 @@ module.exports = {
           id:targetPlanner.id,
           name: targetPlanner.name,
           group: groupInThis,
-          plan: customedPlanner
+          plan: planInThis
         })
       }
     }
