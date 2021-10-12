@@ -77,7 +77,7 @@ module.exports = {
         })
       }
     }
-    catch(err) { return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send(err) }
   },
 
   modifyPlanner: async (req, res) => {
