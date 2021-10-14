@@ -2,12 +2,9 @@
 import React from "react";
 import style from "../css/Footer.module.css";
 import "../App.css";
-import logo1 from "../Imgs/logo1.png";
-import logo2 from "../Imgs/logo2.png";
-import logo3 from "../Imgs/logo3.png";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
+  
   return (
     <div className={style.container}>
       <div className={style.footerBox}>
@@ -33,7 +30,7 @@ const Footer = () => {
               href="https://github.com/Lee-Sangkwon1"
               style={{ color: "white", marginLeft: "10px" }}
             >
-              Choi yongsuk
+              Choi yongseok
             </a>
           </div>
           <div style={{ marginTop: "20px" }}>

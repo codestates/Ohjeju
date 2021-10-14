@@ -27,10 +27,10 @@ import Review from "./Component/Review";
 require("dotenv").config();
 
 function App() {
+  
   const [isLoading, setIsLoading] = useState(true);
   const [isOn, setisOn] = useState(false);
 
-  const SERVER_URL = process.env.SERVER_URL || "http://localhost:80";
   useEffect(() => {
     scrollStop();
     setTimeout(() => {
@@ -57,16 +57,14 @@ function App() {
   const [page, setPage] = useState(""); //페이지상태관리
   const [isLogin, setisLogin] = useState(false); //로그인상태관리
   const [userInfo, setuserInfo] = useState({
-    //회원탈퇴하든 뭘하든 기본email username값이 존재해야 마이페이지유저정보 렌더링표시 에러가 안남
     email: "default-email",
     userName: "default-userName",
   });
 
   const getuserInfo = (res) => {
     //유저정보 받아오기
-    //`${process.env.REACT_APP_API_URL || "http://localhost:80"
     axios
-      .get(`http://localhost:80/user/info?userId=${res.data.id}`, {
+      .get(`${process.env.REACT_APP_API_URL || "http://localhost:80"}/user/info?userId=${res.data.id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -119,7 +117,6 @@ function App() {
 
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
-  // console.log(`App ${userInfo}`);
 
   useEffect(() => {
     getPlace();
@@ -183,18 +180,12 @@ function App() {
         <Route path="/couple">
           <Couple getPlace={getPlace} placeList={placeList} />
         </Route>
-
         <Route path="/test">
           <Test />
         </Route>
-
         <Route path="/review">
           <Review review={review} />
         </Route>
-
-        {/* <Route path="/planner">
-          <Planner userInfo={userInfo} />
-        </Route> */}
         <Route path="/planner" component={Planner} />
         <Route path="/attraction" component={Attraction} />
         <Route path="/chat" component={Chat} />

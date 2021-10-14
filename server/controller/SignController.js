@@ -3,8 +3,22 @@ const Users = require('../models').users;
 const jwt = require('jsonwebtoken');
 
 const { verifyToken, decodeToken } = require('./VerifyToken');
-//const COOKIE_OPTION <- 추가해야함
-//클라이언트 엔드포인트 수정되면 클라이언트 배포환경에서 테스트해보면서 추가할게요
+const ACCESS_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
+const REFRESH_COOKIE_OPTIONS = {
+  MaxAge: 1000 * 60 * 60 * 24 * 14,
+  domain: 'ohjeju.link',
+  path: '/',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}
 
 //유저 로그인 상태 관련 method
 module.exports = {
@@ -28,8 +42,8 @@ module.exports = {
         const refreshToken = jwt.sign(tokenPayload, process.env.REFRESH_SECRET, { expiresIn : '14d' });
 
         return res.status(200)
-          .cookie('accessToken', accessToken)
-          .cookie('refreshToken', refreshToken)
+          .cookie('accessToken', accessToken, ACCESS_COOKIE_OPTIONS)
+          .cookie('refreshToken', refreshToken, REFRESH_COOKIE_OPTIONS)
           .send({ "id" : id });
       }
     }
@@ -61,7 +75,7 @@ module.exports = {
         }
       }
     }
-    catch(err) { return res.status(500).send('server error') }
+    catch(err) { return res.status(500).send(err) }
   },
 
   signOut: async (req, res) => {
@@ -77,7 +91,6 @@ module.exports = {
         .clearCookie('refreshToken')
         .send('sign out successfully')
     }
-    //catch에서 토큰이 유효하지 않은 경우도 잡히는데 API에 401같은거 있어야될거같아요 invalid token으로
     catch(err) { return res.status(500).send('server error') }
   }
 }

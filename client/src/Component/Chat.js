@@ -29,8 +29,6 @@ function Chat({ userInfo, plannerInfo }) {
   };
 
   const keyTestFun = (e) => {
-    console.log("!@##@!##@!");
-    console.log(message);
     setMessage({ ...message, [e.target.name]: e.target.value });
     socketRef.current.emit("nowchating-back", {
       userName: USERNAME,

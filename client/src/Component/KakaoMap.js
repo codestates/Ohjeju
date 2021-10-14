@@ -79,8 +79,6 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
     const places = new window.kakao.maps.services.Places({ map }); //지도정함
     //위치범위세팅
     if (area.length !== 0) {
-      //영역선택안하고 카테고리눌르면 에러나니까
-      //평상시에는 안보여야겟지?
       const getMapMenu = document.getElementById("menu_wrap");
       getMapMenu.classList.add("open");
 
@@ -438,7 +436,6 @@ function KakaoMap({ userInfo, plannerInfo, handleDestination, planner1}) {
         </div>
         <div id="chat_wrap" className="bg_white close">
           <Chat plannerInfo={plannerInfo} userInfo={userInfo} />
-          {/* 추가 */}
           <hr></hr>
           <ul id="placesList"></ul>
         </div>

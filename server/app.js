@@ -14,12 +14,11 @@ const plannerRouter = require('./routes/planner');
 const groupRouter = require('./routes/group');
 const reviewRouter = require('./routes/review');
 const attractionsRouter = require('./routes/attractions');
-
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000'
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 
 const io = require("socket.io")(server, {
   cors: {
-      origin: CLIENT_URL,
+      origin: `${CLIENT_URL}`,
       methods: ["GET", "POST"]
   }
 })
@@ -29,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 //cors설정 개발단계->전부*
 app.use(cors({
-  origin: CLIENT_URL,
+  origin: `${CLIENT_URL}`,
   credentials: true
 }));
 //req.cookie
@@ -67,4 +66,4 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(PORT,()=>console.log(`server running ${PORT}`))
+server.listen(PORT, ()=>console.log(`server running ${PORT}`))

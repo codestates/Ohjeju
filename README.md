@@ -18,7 +18,10 @@
 
 ![JSLogo](https://img.shields.io/badge/FRONT-JAVASCRIPT-yellow?style=for-the-badge&logo=javascript)
 ![ReactLogo](https://img.shields.io/badge/FRONT-REACT-9cf?style=for-the-badge&logo=react)
+![ReactLogo](https://img.shields.io/badge/FRONT-REACTHOOKS-9cf?style=for-the-badge&logo=react)
 ![React-RouterLogo](https://img.shields.io/badge/FRONT-REACT--ROUTER-critical?style=for-the-badge&logo=react-router)
+![CSSLogo](https://img.shields.io/badge/FRONT-CSS-red?style=for-the-badge&logo=CSS3)
+![HTML5Logo](https://img.shields.io/badge/FRONT-HTML5-9cf?style=for-the-badge&logo=HTML5)
 
 ## BACK-END
 
